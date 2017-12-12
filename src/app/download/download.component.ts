@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MainService} from '../core/services/main.service';
+import { FooterComponent } from '../footer/footer.component';
+
 @Component({
   selector: 'app-download',
   templateUrl: './download.component.html',
