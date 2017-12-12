@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { MainService} from '../core/services/main.service';
-
+import {CheckboxModel} from '../core/models/checkbox.model'
 
 import { FormControl } from '@angular/forms';
 import { } from 'googlemaps';
@@ -16,10 +16,13 @@ import { MapsAPILoader } from '@agm/core';
 
 export class BuildComponent implements OnInit {
 
+  Categoty: CheckboxModel[] = [];
+
   constructor(private service:MainService,  private mapsAPILoader: MapsAPILoader, 
     private ngZone: NgZone ) {
       this.service.onPageChange$.next(false);
      }
+
   @ViewChild('searchFrom') public searchElementFrom: ElementRef;
   @ViewChild('searchTo') public searchElementTo: ElementRef;
   
@@ -27,6 +30,8 @@ export class BuildComponent implements OnInit {
       
      this.CreateAutocompleteFrom();
       this.CreateAutocompleteTo();
+
+      this.Categoty = this.service.SetCheckedCB(this.service.GetAllCategory(),[]);
     }
 
   CreateAutocompleteFrom(){
@@ -91,6 +96,12 @@ export class BuildComponent implements OnInit {
            );
 
 
+}
+
+
+search(){
+
+ console.log( this.service.GetValuesOfCheckedCB(this.Categoty));
 }
 
 }
