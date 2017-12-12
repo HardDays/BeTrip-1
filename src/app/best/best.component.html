@@ -4,29 +4,29 @@
           <div class="one-block">
               <div class="new-wrapp-for-shadow">
                   <div class="for-before-wr">
-                      <div class="img" style="background-image: url(img/post_326.jpg)"></div>
+                      <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
                   </div>
-                  <div class="ava" style="background-image: url(img/ava.jpg)"></div>
+                  <div class="ava" style="background-image: url(../assets/img/ava.jpg)"></div>
                   <div class="padd-descript">
-                      <p class="name">Milan - Paris</p>
+                      <p class="name" (click)="OpenSliderCart()">Milan - Paris</p>
                       <p class="desc"><strong>Distance </strong>1345 km</p>
                       <p class="desc"><strong>Time </strong>13h 45min</p>
                       <div class="button-wr">
                           <div class="one">
                               <div class="bg">
-                                  <img src="img/like.png" class="img-responsive" alt="">
+                                  <img src="../assets/img/like.png" class="img-responsive" alt="">
                                   <span>11500</span>
                               </div>
                           </div>
                           <div class="one">
                               <div class="bg">
-                                  <img src="img/share.png" class="img-responsive" alt="">
+                                  <img src="../assets/img/share.png" class="img-responsive" alt="">
                                   <span>500</span>
                               </div>
                           </div>
                           <div class="one">
                               <div class="bg">
-                                  <img src="img/save.png" class="img-responsive" alt="">
+                                  <img src="../assets/img/save.png" class="img-responsive" alt="">
                                   <span>20</span>
                               </div>
                           </div>
@@ -37,29 +37,29 @@
          <div class="one-block">
               <div class="new-wrapp-for-shadow">
                   <div class="for-before-wr">
-                      <div class="img" style="background-image: url(img/post_326.jpg)"></div>
+                      <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
                   </div>
-                  <div class="ava" style="background-image: url(img/ava.jpg)"></div>
+                  <div class="ava" style="background-image: url(../assets/img/ava.jpg)"></div>
                   <div class="padd-descript">
-                      <p class="name">Milan - Paris</p>
+                      <p class="name" (click)="OpenSliderCart()">Milan - Paris</p>
                       <p class="desc"><strong>Distance </strong>1345 km</p>
                       <p class="desc"><strong>Time </strong>13h 45min</p>
                       <div class="button-wr">
                           <div class="one">
                               <div class="bg">
-                                  <img src="img/like.png" class="img-responsive" alt="">
+                                  <img src="../assets/img/like.png" class="img-responsive" alt="">
                                   <span>11500</span>
                               </div>
                           </div>
                           <div class="one">
                               <div class="bg">
-                                  <img src="img/share.png" class="img-responsive" alt="">
+                                  <img src="../assets/img/share.png" class="img-responsive" alt="">
                                   <span>500</span>
                               </div>
                           </div>
                           <div class="one">
                               <div class="bg">
-                                  <img src="img/save.png" class="img-responsive" alt="">
+                                  <img src="../assets/img/save.png" class="img-responsive" alt="">
                                   <span>20</span>
                               </div>
                           </div>
@@ -70,29 +70,29 @@
           <div class="one-block">
               <div class="new-wrapp-for-shadow">
                   <div class="for-before-wr">
-                      <div class="img" style="background-image: url(img/post_326.jpg)"></div>
+                      <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
                   </div>
-                  <div class="ava" style="background-image: url(img/ava.jpg)"></div>
+                  <div class="ava" style="background-image: url(../assets/img/ava.jpg)"></div>
                   <div class="padd-descript">
-                      <p class="name">Milan - Paris</p>
+                      <p class="name" (click)="OpenSliderCart()">Milan - Paris</p>
                       <p class="desc"><strong>Distance </strong>1345 km</p>
                       <p class="desc"><strong>Time </strong>13h 45min</p>
                       <div class="button-wr">
                           <div class="one">
                               <div class="bg">
-                                  <img src="img/like.png" class="img-responsive" alt="">
+                                  <img src="../assets/img/like.png" class="img-responsive" alt="">
                                   <span>11500</span>
                               </div>
                           </div>
                           <div class="one">
                               <div class="bg">
-                                  <img src="img/share.png" class="img-responsive" alt="">
+                                  <img src="../assets/img/share.png" class="img-responsive" alt="">
                                   <span>500</span>
                               </div>
                           </div>
                           <div class="one">
                               <div class="bg">
-                                  <img src="img/save.png" class="img-responsive" alt="">
+                                  <img src="../assets/img/save.png" class="img-responsive" alt="">
                                   <span>20</span>
                               </div>
                           </div>
@@ -107,59 +107,59 @@
      
       
       <!--Сюда карту-->
-      
-      <agm-map [latitude]="lat" [longitude]="lng" style="height: 100%;">
+    <div class="for-position-map">
+      <agm-map [latitude]="lat" [longitude]="lng" style="height:100%;">
         <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
       </agm-map>
-      
-      <div class="fixed-sights">
+    </div>
+      <div class="fixed-sights" [ngClass]="{ visible : !this.flagForOpenSlider }">
           <div class="flex-sights">
               
               <div class="one-sight">
                   <div class="for-before-wr">
-                      <div class="img" style="background-image: url(img/post_326.jpg)"></div>
+                      <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
                   </div>
                   <p><span>1</span>Holywood</p>
               </div>
               <div class="one-sight">
                   <div class="for-before-wr">
-                      <div class="img" style="background-image: url(img/post_326.jpg)"></div>
+                      <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
                   </div>
                   <p><span>2</span>Holywood</p>
               </div>
               <div class="one-sight">
                   <div class="for-before-wr">
-                      <div class="img" style="background-image: url(img/post_326.jpg)"></div>
+                      <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
                   </div>
                   <p><span>3</span>Holywood</p>
               </div>
               <div class="one-sight">
                   <div class="for-before-wr">
-                      <div class="img" style="background-image: url(img/post_326.jpg)"></div>
+                      <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
                   </div>
                   <p><span>4</span>Holywood</p>
               </div>
               <div class="one-sight">
                   <div class="for-before-wr">
-                      <div class="img" style="background-image: url(img/post_326.jpg)"></div>
+                      <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
                   </div>
                   <p><span>5</span>Holywood</p>
               </div>
               <div class="one-sight">
                   <div class="for-before-wr">
-                      <div class="img" style="background-image: url(img/post_326.jpg)"></div>
+                      <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
                   </div>
                   <p><span>6</span>Holywood</p>
               </div>
               <div class="one-sight">
                   <div class="for-before-wr">
-                      <div class="img" style="background-image: url(img/post_326.jpg)"></div>
+                      <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
                   </div>
                   <p><span>7</span>Holywood</p>
               </div>
               <div class="one-sight">
                   <div class="for-before-wr">
-                      <div class="img" style="background-image: url(img/post_326.jpg)"></div>
+                      <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
                   </div>
                   <p><span>8</span>Holywood</p>
               </div>
