@@ -20,6 +20,4 @@ export class MainService{
         this.onPageChange$.next(true);
     }
 
-    
-
 }
