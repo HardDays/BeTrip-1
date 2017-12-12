@@ -545,7 +545,7 @@ app-build {
 .for-position-map {
   position: fixed;
   height: 100%;
-  width: 100%;
+  width: 55%;
   left: 45%; }
 
 .best-wr .fixed-map .fixed-sights {
@@ -663,7 +663,8 @@ app-build {
   right: -20px; }
 
 .modal {
-  background: rgba(255, 255, 255, 0.8); }
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 6000; }
 
 .sights-slider .modal-body {
   padding: 0; }
