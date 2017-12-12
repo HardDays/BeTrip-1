@@ -17,6 +17,7 @@ import { ViewAfterBuildComponent } from './view-after-build/view-after-build.com
 import { AgmCoreModule } from '@agm/core';
 import { MainService } from './core/services/main.service';
 import { HttpService } from './core/services/http.service';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { HttpService } from './core/services/http.service';
     FaqComponent,
     FunctionalityComponent,
     TripsComponent,
-    ViewAfterBuildComponent
+    ViewAfterBuildComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
