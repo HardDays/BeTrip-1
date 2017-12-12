@@ -613,11 +613,14 @@ app-build{
     &.page-view-after-build{
         width: 100%;
         left: 0;
-       
+       .for-position-map{
+           width: 100%;
+           left: 0;
+       }
         .fixed-sights{
             max-width: 1000px;
             margin: 0 auto;
-            
+            visibility: visible;
         }
     }
     
