@@ -15,13 +15,15 @@ export class BestComponent implements OnInit {
   constructor(private service:MainService) { }
   lat: number = 51.678418;
   lng: number = 7.809007;
+  MapStyle = this.getMapStyle();
   flagForOpenSlider:boolean = true;
   
   isInfoWinOpen:boolean[] = [];
 
      ngOnInit() {
       this.service.onPageChange$.next(false);
-
+     
+      
       $('#sights-slider').on('hidden.bs.modal', function () {
         $('.slider-init').slick('unslick');
     });
@@ -84,5 +86,10 @@ export class BestComponent implements OnInit {
         });
     }
 
+    getMapStyle(){
+      return this.service.GetMapStyle();
+    }
+
+  
 
 }

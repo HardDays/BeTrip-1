@@ -99,9 +99,9 @@ export class BuildComponent implements OnInit {
 }
 
 
-search(){
+ChangeCategory(i:number){
 
- console.log( this.service.GetValuesOfCheckedCB(this.Categoty));
+ console.log(`change = `,i);
 }
 
 }

@@ -109,7 +109,7 @@
       <!--Сюда карту-->
       
     <div class="for-position-map">
-        <agm-map #gm [latitude]="lat" [longitude]="lng" style="height: 100%;" (mapClick)="mapClick()">
+        <agm-map #gm [latitude]="lat" [longitude]="lng" style="height: 100%;" (mapClick)="mapClick()" [styles]="MapStyle">
 
             <agm-marker [latitude]="lat" [longitude]="lng" (markerClick)="markerClick(0)">
                 <agm-info-window [isOpen]="isInfoWinOpen[0]">
@@ -123,7 +123,7 @@
                 </agm-info-window>
             </agm-marker>
 
-            <agm-polyline  [strokeColor]="'#2196f3'">
+            <agm-polyline >
                 <ng-container>
                     <agm-polyline-point [latitude]="lat" [longitude]="lng"></agm-polyline-point>
                     <agm-polyline-point [latitude]="lat+1" [longitude]="lng+1"></agm-polyline-point>
