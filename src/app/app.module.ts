@@ -16,6 +16,8 @@ import { TripsComponent } from './trips/trips.component';
 import { ViewAfterBuildComponent } from './view-after-build/view-after-build.component';
 
 
+import { MainService } from './core/services/main.service';
+import { HttpService } from './core/services/http.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,7 @@ import { ViewAfterBuildComponent } from './view-after-build/view-after-build.com
     RouterModule,
     AppRoutingModule 
   ],
-  providers: [],
+  providers: [MainService, HttpModule, HttpService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
