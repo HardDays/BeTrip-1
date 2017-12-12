@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { MainService} from '../core/services/main.service';
 @Component({
   selector: 'app-download',
   templateUrl: './download.component.html',
@@ -7,9 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DownloadComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit() {
-  }
+  constructor(private service:MainService) { }
+  
+    ngOnInit() {
+      this.service.onPageChange$.next(false);
+    }
 
 }
