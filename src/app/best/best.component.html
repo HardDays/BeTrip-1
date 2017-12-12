@@ -108,35 +108,31 @@
       
       <!--Сюда карту-->
       
-      
-      
-
-      
     <div class="for-position-map">
         <agm-map #gm [latitude]="lat" [longitude]="lng" style="height: 100%;" (mapClick)="mapClick()">
+
             <agm-marker [latitude]="lat" [longitude]="lng" (markerClick)="markerClick(0)">
-    
                 <agm-info-window [isOpen]="isInfoWinOpen[0]">
-                   
                         <!-- тут диз карточки-->
-    
                 </agm-info-window>
             </agm-marker>
-    
-            <agm-marker [latitude]="lat" [longitude]="lng+1" (markerClick)="markerClick(1)">
-                
-                            <agm-info-window [isOpen]="isInfoWinOpen[1]">
-                               
-                                    <!-- тут диз карточки-->
-                
-                            </agm-info-window>
-                        </agm-marker>
             
-          </agm-map>
-          
-    </div>
+            <agm-marker [latitude]="lat" [longitude]="lng+1" (markerClick)="markerClick(1)">
+                <agm-info-window [isOpen]="isInfoWinOpen[1]">     
+                        <!-- тут диз карточки-->
+                </agm-info-window>
+            </agm-marker>
 
-    
+            <agm-polyline  [strokeColor]="'#2196f3'">
+                <ng-container>
+                    <agm-polyline-point [latitude]="lat" [longitude]="lng"></agm-polyline-point>
+                    <agm-polyline-point [latitude]="lat+1" [longitude]="lng+1"></agm-polyline-point>
+                    <agm-polyline-point [latitude]="lat" [longitude]="lng+1"></agm-polyline-point>
+                </ng-container>
+            </agm-polyline>
+
+        </agm-map>
+    </div>
       <div class="fixed-sights" [ngClass]="{ visible : !this.flagForOpenSlider }">
           <div class="flex-sights">
               
