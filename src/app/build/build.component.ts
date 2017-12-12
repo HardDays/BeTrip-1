@@ -20,16 +20,16 @@ export class BuildComponent implements OnInit {
     private ngZone: NgZone ) {
       this.service.onPageChange$.next(false);
      }
- // @ViewChild('searchFrom') public searchElementFrom: ElementRef;
-//  @ViewChild('searchTo') public searchElementTo: ElementRef;
+  @ViewChild('searchFrom') public searchElementFrom: ElementRef;
+  @ViewChild('searchTo') public searchElementTo: ElementRef;
   
     ngOnInit() {
       
-    //  this.CreateAutocompleteFrom();
-    //  this.CreateAutocompleteTo();
+     this.CreateAutocompleteFrom();
+      this.CreateAutocompleteTo();
     }
 
-  /*  CreateAutocompleteFrom(){
+  CreateAutocompleteFrom(){
       this.mapsAPILoader.load().then(
           () => {
              
@@ -91,6 +91,6 @@ export class BuildComponent implements OnInit {
            );
 
 
-}*/
+}
 
 }
