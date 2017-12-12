@@ -60,12 +60,7 @@ ul {
     background-image: url(../img/bg-build.jpg);
     background-size: cover;
     background-position: center;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
     flex-direction: column;
 }
 
@@ -92,13 +87,19 @@ ul {
     height: 100%;
     background: rgba(0, 0, 0, 0.4);
 }
-
+a{
+    cursor: pointer;
+}
 .content .head {
     position: relative;
-    z-index: 300;
-
+    z-index: 5000;
+    flex: 0 1 auto;
 }
-
+app-build{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
 .content .head .flex-nav-wr {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -529,6 +530,10 @@ ul {
 .best-wr .left-side .all-best-blocks .one-block p.name {
     font-size: 24px;
     font-weight: bold;
+    cursor: pointer;
+    &.hover{
+        color: $color;
+    }
 }
 
 .best-wr .left-side .all-best-blocks .one-block p.desc {
@@ -600,7 +605,7 @@ ul {
 
 .best-wr .fixed-map {
     width: 55%;
-    border: 1px solid red;
+   
     position: fixed;
     height: 100%;
     left: 45%;
@@ -617,7 +622,12 @@ ul {
     }
     
 }
-
+.for-position-map{
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    left: 45%;
+}
 .best-wr .fixed-map .fixed-sights {
     position: relative;
     z-index: 5000;
@@ -625,7 +635,10 @@ ul {
     padding: 10px 20px;
     -webkit-transition: 1s;
     transition: 1s;
-    
+    visibility: hidden;
+    &.visible{
+        visibility: visible;
+    }
 }
 
 .best-wr .fixed-map .fixed-sights.transformed {

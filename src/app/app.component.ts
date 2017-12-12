@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { MainService} from './core/services/main.service';
+
+declare var jquery:any;
+declare var $ :any;
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -25,4 +29,13 @@ export class AppComponent {
       }
     );
   }
+  OpenModalSignIn(){
+    $("#login-modal").modal('show');
+  }
+  OpenModalSignUp(){
+    $("#regist-modal").modal('show');
+  }
+
+ 
+
 }
