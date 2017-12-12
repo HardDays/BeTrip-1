@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { Router, ActivatedRoute, Params } from "@angular/router";
 import { MainService} from '../core/services/main.service';
 import {CheckboxModel} from '../core/models/checkbox.model'
 
@@ -16,10 +17,13 @@ import { MapsAPILoader } from '@agm/core';
 
 export class BuildComponent implements OnInit {
 
-  Categoty: CheckboxModel[] = [];
+  Category: CheckboxModel[] = [];
+  placeFrom: string='';
+  placeTo: string='';
 
   constructor(private service:MainService,  private mapsAPILoader: MapsAPILoader, 
-    private ngZone: NgZone ) {
+    private ngZone: NgZone,private router: Router,
+    private params: ActivatedRoute, ) {
       this.service.onPageChange$.next(false);
      }
 
@@ -31,7 +35,7 @@ export class BuildComponent implements OnInit {
      this.CreateAutocompleteFrom();
       this.CreateAutocompleteTo();
 
-      this.Categoty = this.service.SetCheckedCB(this.service.GetAllCategory(),[]);
+      this.Category = this.service.GetAllCategory();
     }
 
   CreateAutocompleteFrom(){
@@ -48,8 +52,8 @@ export class BuildComponent implements OnInit {
               return;
              }
              else {
-              //this.Params.address = autocomplete.getPlace().formatted_address;
-             
+              console.log(autocomplete.getPlace().formatted_address);
+             this.placeFrom = autocomplete.getPlace().formatted_address;
              // this.Params.public_lat=autocomplete.getPlace().geometry.location.toJSON().lat;
              // this.Params.public_lng=autocomplete.getPlace().geometry.location.toJSON().lng;
              // this.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
@@ -81,7 +85,7 @@ export class BuildComponent implements OnInit {
            }
            else {
             //this.Params.address = autocomplete.getPlace().formatted_address;
-           
+            this.placeTo = autocomplete.getPlace().formatted_address;
            // this.Params.public_lat=autocomplete.getPlace().geometry.location.toJSON().lat;
            // this.Params.public_lng=autocomplete.getPlace().geometry.location.toJSON().lng;
            // this.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
@@ -101,7 +105,23 @@ export class BuildComponent implements OnInit {
 
 ChangeCategory(i:number){
 
- console.log(`change = `,i);
+ console.log(`change = `,i,this.Category);
+  this.Category[i].checked = !this.Category[i].checked;
+}
+
+BuildMap(){
+  let params ={
+    from: this.placeFrom,
+    to: this.placeTo
+   // category: this.Category
+  }
+  this.router.navigate(['/routs',params]);
+  /*console.log(`build map`, this.placeFrom, this.placeTo, this.Category);
+  this.service.RoutesCreate(this.placeFrom,this.placeTo).subscribe(
+    (res)=>{
+      console.log('ok',res);
+    }
+  );*/
 }
 
 }

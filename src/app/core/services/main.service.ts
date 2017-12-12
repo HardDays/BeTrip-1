@@ -22,6 +22,36 @@ export class MainService{
         this.onPageChange$.next(true);
     }
 
+    ParamsToUrlSearchParams(params:any):string{
+      let options = new URLSearchParams();
+
+      for(let key in params){
+          let prop:any = params[key];
+          if(prop){
+              if( prop instanceof Array){
+                  for(let i in prop){
+                      if(prop[i])
+                          options.append(key+"[]",prop[i]);
+                  }
+              }
+              else
+                  options.set(key,params[key]);
+          }
+      }
+      return options.toString();
+  }
+
+
+  RoutesCreate(from_place:string,to_place:string){
+    const data = {
+        from: from_place,
+        to: to_place
+    }
+    console.log(`POST ROUTES CREATE`,data);
+    return this.http.PostData('/routes/create',JSON.stringify(data));
+}
+
+
 
 
     public GetAllCategory(){
@@ -35,27 +65,6 @@ export class MainService{
         ];
     }
 
-
-    public SetCheckedCB(cb:CheckboxModel[], catg:CategoryModel[]){
-        if(catg){
-            for(let item of catg){
-                let index = cb.findIndex(x=>x.value == item.name);
-                if(cb[index]){
-                    cb[index].checked = true;
-                }
-            }
-        }
-        return cb;
-    }
-
-    public GetValuesOfCheckedCB(input:CheckboxModel[]){
-        let result:CategoryModel[] = [];
-        for(let i of input){
-            if(i.checked)
-                result.push(new CategoryModel(i.value));
-        }
-        return result;
-    }
 
     public GetMapStyle(){
         return [

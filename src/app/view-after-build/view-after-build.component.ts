@@ -1,5 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { MainService} from '../core/services/main.service';
+import { Router, ActivatedRoute, Params } from "@angular/router";
+
 declare var jquery:any;
 declare var $ :any;
 
@@ -10,7 +12,10 @@ declare var $ :any;
 })
 export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
 
-  constructor(private service:MainService) { }
+  constructor(private router: Router,
+    private route: ActivatedRoute,
+    private service: MainService,
+    private params: ActivatedRoute,) { }
   lat: number = 51.678418;
   lng: number = 7.809007;
 
@@ -19,8 +24,28 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
     ngOnInit() {
       this.service.onPageChange$.next(false);
 
-      
+      let from:string='',to:string='';
+      let sub:any = this.route.params.subscribe(params => {
+        //this.Params.limit = +params['limit']; // (+) converts string 'id' to a number
+        if(params['from'])
+           from = params['from'];
+           if(params['to'])
+           to = params['to'];
+        
+        });
+      this.BuildMap(from,to);
     }
+
+
+    BuildMap(from:string,to:string){
+     
+      this.service.RoutesCreate(from,to).subscribe(
+        (res)=>{
+          console.log('ok',res);
+        }
+      );
+    }
+
     ngAfterViewInit() {
       $('.flex-sights').slick({
         slidesToShow: 6,

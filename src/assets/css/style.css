@@ -409,6 +409,10 @@ app-build {
   margin-left: 10px;
   color: #fff; }
 
+  .content .check-boxes-wr .for-flex-check .active{
+    background: rgba(255, 255, 255, 0.253); 
+  }
+
 .best-wr .left-side {
   width: 45%;
   padding: 30px; }

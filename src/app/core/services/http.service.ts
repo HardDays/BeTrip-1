@@ -11,7 +11,7 @@ import { TokenModel } from '../models/token.model';
 export class HttpService
 {
     GoogleMapUrl: string = "https://maps.googleapis.com/maps/api/geocode/json?address=";
-    serverUrl: string = "https://d4w-api.herokuapp.com";
+    serverUrl: string = "https://betripapi.herokuapp.com";
     public headers:Headers = new Headers([]);
     public token: TokenModel = new TokenModel('');
     constructor(private http: Http){
