@@ -21,6 +21,18 @@ export class BestComponent implements OnInit {
 
      ngOnInit() {
       this.service.onPageChange$.next(false);
+
+      $('#sights-slider').on('hidden.bs.modal', function () {
+        $('.slider-init').slick('unslick');
+    });
+
+
+      if($(window).scrollTop() > 70){
+          $(".fixed-sights").addClass("transformed");
+      }
+      else{
+          $(".fixed-sights").removeClass("transformed");
+      }
       $(window).scroll(function(){
         if($(window).scrollTop() > 70){
             $(".fixed-sights").addClass("transformed");
@@ -60,4 +72,17 @@ export class BestComponent implements OnInit {
           infinite:false
       });
     }
+
+    OpenModalSights(){
+        $("#sights-slider").modal("show");
+        $('.slider-init').slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: true,
+            dots: false,
+            infinite:false
+        });
+    }
+
+
 }
