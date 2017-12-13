@@ -41,7 +41,7 @@
               <ul class="for-flex-check">
                   <li *ngFor="let cb of Category; let i = index" (click)="ChangeCategory(i)" [class.active] ="cb.checked">
                       <div class="image">
-                          <img src="../assets/img/dinner.png" class="img-responsive" alt="">
+                          <img [src]="'../assets/img/icons/'+ cb.image" class="img-responsive max-width-icon-new" alt="">
                       </div>
                       <span>{{cb.name}}</span>
                   </li>

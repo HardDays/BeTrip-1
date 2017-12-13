@@ -5,7 +5,7 @@
             <div class="col-md-12">
                 <div class="flex-nav-wr">
                     
-                    <div class="for-center">
+                    <div class="for-center" (click)="Navigate()">
                         <img class="img-responsive width-logo" src="../assets/img/Logo_icon.png" alt="">
                          <div class="logo-title">
                             <p>BeTrip</p>
@@ -21,7 +21,7 @@
                                 <a routerLinkActive="active" routerLink="/best">Best</a>
                             </li>
                             <li>
-                                <a routerLinkActive="active" routerLink="/trips">trips</a>
+                                <!--<a routerLinkActive="active" routerLink="/trips">trips</a>-->
                             </li>
                             <li class="for-drop-down-first-drop">
                                 <a href="#">about</a>
@@ -29,7 +29,7 @@
                                     <li class="menu-item">
                                         <a routerLink="/functionality" class="op-modal-sign-in">Functionality</a>
                                         <a routerLink="/download" class="op-modal-sign-up">Download</a>
-                                        <a routerLink="/faq">Faq</a>
+                                        <a routerLink="/faq">FAQ</a>
                                     </li>
                                 </ul>
                             </li>
@@ -71,10 +71,9 @@
                   <button class="butt-orange" type="submit" type="submit">Login</button>
                   <p class="name-inp sign-up-with">Sign up with</p>
                   <div class="sign-up-w-wrapp">
-                      <input type="image" src="../assets/img/fb.png" (click)="signIn('facebook')" class="img-responsive" alt="">
-                      <input type="image" src="../assets/img/google.png" (click)="signIn('google')" class="img-responsive" alt="">
-                      <img src="../assets/img/tw.png" (click)="signIn('twitter')" class="img-responsive" alt="">
-                      
+                      <img src="../assets/img/fb.png" (click)="signIn('facebook')" class="img-responsive" alt="">
+                      <img src="../assets/img/vk.png" (click)="signIn('google')" class="img-responsive" alt="">
+                      <img src="../assets/img/tw.png" class="img-responsive" alt="">
                   </div>
               </form>
           </div>

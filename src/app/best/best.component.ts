@@ -18,12 +18,13 @@ export class BestComponent implements OnInit {
   MapStyle = this.getMapStyle();
   flagForOpenSlider:boolean = true;
   newFlagForVisible:boolean = false;
-
-
   Params = {
     limit:10,
     offset:0
   }
+
+  step = parseInt(''+new Date().getTime() / 100000) % 1000;
+
 
   allBestRouts:any = [];
   allBestRoutsImages:any = [];
@@ -36,12 +37,14 @@ export class BestComponent implements OnInit {
      ngOnInit() {
       this.service.onPageChange$.next(false);
      
-      
+     
+     console.log(this.step);
+
       $('#sights-slider').on('hidden.bs.modal', function () {
         $('.slider-init').slick('unslick');
       });
 
-      console.log('ok');
+
       this.service.getBestRoutes(this.Params).subscribe(
         (res)=>{
           this.allBestRouts = res;
@@ -116,7 +119,21 @@ export class BestComponent implements OnInit {
             slidesToScroll: 1,
             arrows: true,
             dots: false,
-            infinite:false
+            infinite:false,
+            responsive: [
+              {
+                breakpoint: 1601,
+                settings: {
+                  slidesToShow: 4
+                }
+              },
+              {
+                breakpoint: 1301,
+                settings: {
+                  slidesToShow: 3
+                }
+              }
+            ]
         });
       },200);
       

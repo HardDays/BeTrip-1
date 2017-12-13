@@ -73,7 +73,6 @@ export class MainService{
 
 
   RoutesCreate(from_place:string,to_place:string){
-
     let from_addr={
       "address":from_place
     }
@@ -89,6 +88,10 @@ export class MainService{
     return this.http.PostData('/routes/create',JSON.stringify(data));
 }
 
+GetPolyById(id:number){
+  return this.http.GetData('/routes/get_poly/'+id,'');
+}
+
 
   GetImage(id:string){
     
@@ -99,12 +102,12 @@ export class MainService{
 
     public GetAllCategory(){
         return [
-            new CheckboxModel("Water","water"),
-            new CheckboxModel("Mountains","mountains"),
-            new CheckboxModel("Architecture","architecture"),
-            new CheckboxModel("Сhurch","rel_building"),
-            new CheckboxModel("Nature","nature"),
-            new CheckboxModel("Monument","monument")
+            new CheckboxModel("Water","water","1.png"),
+            new CheckboxModel("Mountains","mountains","2.png"),
+            new CheckboxModel("Architecture","architecture","3.png"),
+            new CheckboxModel("Churches","rel_building","4.png"),
+            new CheckboxModel("Nature","nature","5.png"),
+            new CheckboxModel("Monuments","monument","6.png")
         ];
     }
 

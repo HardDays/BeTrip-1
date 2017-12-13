@@ -106,6 +106,7 @@ signIn(provider){
     (data) => {
       console.log(data);this.user=data;}
   )
+  
 }
 
 logout(){
