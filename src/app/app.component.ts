@@ -18,6 +18,7 @@ export class AppComponent {
   page:string = 'none';
   isBuildPage:boolean = true;
   isLoginErr = false;
+  isLogined:boolean = false;
   public LoginParams = {
     email:'',
     password: ''
@@ -53,7 +54,7 @@ export class AppComponent {
     this.service.UserLogin(this.LoginParams.email, this.LoginParams.password)
     .subscribe((res:boolean)=>{
       $("#login-modal").modal('hide');
-      
+      this.isLogined = true;
         },
         (err)=>{
             console.log(err);
@@ -68,6 +69,7 @@ Registration(){
   this.service.UserRegistration(this.RegisterParams.email, this.RegisterParams.password)
   .subscribe((res:boolean)=>{
     $("#regist-modal").modal('hide');
+    this.isLogined = true;
   },
       (err)=>{
           console.log(err);
