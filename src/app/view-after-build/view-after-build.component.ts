@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { MainService} from '../core/services/main.service';
 import { Router, ActivatedRoute, Params } from "@angular/router";
 
+import { CoordsModel } from "../core/models/coords.model";
 declare var jquery:any;
 declare var $ :any;
 
@@ -21,6 +22,7 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
 
   activeRoute:number = 0;
   isInfoWinOpen:boolean[] = [];
+  StepsCoord:CoordsModel[] = [];
   MapStyle = this.getMapStyle();
 
   flagForDropdown:boolean = false;
@@ -46,7 +48,7 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
     }
 
     BuildMap(from:string,to:string){
-     
+      this.StepsCoord= [];
       this.service.RoutesCreate(from,to).subscribe(
         (res)=>{
           console.log('ok',res);
@@ -54,7 +56,12 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
           subscribe((poly)=>{
 
             console.log('poly',poly);
-            console.log('steps',poly);
+            for(let i=0;i<poly.routes[0].legs[0].steps.length;i++){
+            this.StepsCoord.push(poly.routes[0].legs[0].steps[i].start_location);
+           // this.StepsCoord.push(poly.routes[0].legs[0].steps[i].end_location);
+           
+            }
+            console.log('steps',this.StepsCoord);
           });
         }
       );

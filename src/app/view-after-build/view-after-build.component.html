@@ -18,6 +18,14 @@
                             </div>
                     </agm-info-window>
                 </agm-marker>
+
+                <agm-polyline >
+                        <ng-container>
+                            <agm-polyline-point *ngFor="let i of StepsCoords" [latitude]="i.lat" [longitude]="i.lng"></agm-polyline-point>
+                          <!--  <agm-polyline-point [latitude]="lat+1" [longitude]="lng+1"></agm-polyline-point>
+                            <agm-polyline-point [latitude]="lat" [longitude]="lng+1"></agm-polyline-point> -->
+                        </ng-container>
+                </agm-polyline>
                
     
             </agm-map>
