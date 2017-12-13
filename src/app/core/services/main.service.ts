@@ -51,9 +51,17 @@ export class MainService{
 
 
   RoutesCreate(from_place:string,to_place:string){
-    const data = {
-        from: from_place,
-        to: to_place
+
+    let from_addr={
+      "address":from_place
+    }
+    let data = {
+        from: {
+          "address":from_place
+        },
+        to: {
+          "address":to_place
+        }
     }
     console.log(`POST ROUTES CREATE`,data);
     return this.http.PostData('/routes/create',JSON.stringify(data));

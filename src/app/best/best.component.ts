@@ -120,7 +120,6 @@ export class BestComponent implements OnInit {
         });
       },200);
       
-    
       
       for(let i in this.allSightByRoute){
         this.service.GetImage(this.allSightByRoute[i].cover_id).subscribe(
