@@ -61,17 +61,17 @@
   <div class="modal-dialog">
       <div class="modal-contant">
           <div class="modal-body">
-              <form class="sign">
+              <form (ngSubmit)="Login()" class="sign">
                   <img src="../assets/img/Logo_icon.png" class="img-responsive" alt="">
                   <h2>Sign In</h2>
-                  <p class="name-inp">Email</p>
-                  <input type="text">
-                  <p class="name-inp">Password</p>
-                  <input type="password">
-                  <button class="butt-orange" type="submit">Login</button>
+                  <p class="name-inp" >Email</p>
+                  <input type="text" [(ngModel)]="LoginParams.email" name="email" (ngModelChange)="LoginParams.email = $event">
+                  <p class="name-inp" >Password</p>
+                  <input [(ngModel)]="LoginParams.password" name="loginPassword" (ngModelChange)="LoginParams.password = $event"type="password">
+                  <button class="butt-orange" type="submit" type="submit">Login</button>
                   <p class="name-inp sign-up-with">Sign up with</p>
                   <div class="sign-up-w-wrapp">
-                      <img src="../assets/img/fb.png" class="img-responsive" alt="">
+                      <img src="../assets/img/fb.png" (click)="signIn('facebook')" class="img-responsive" alt="">
                       <img src="../assets/img/vk.png" class="img-responsive" alt="">
                       <img src="../assets/img/tw.png" class="img-responsive" alt="">
                   </div>
@@ -84,13 +84,13 @@
   <div class="modal-dialog">
       <div class="modal-contant">
           <div class="modal-body">
-              <form class="sign">
+              <form (ngSubmit)="Registration()" class="sign">
                   <img src="../assets/img/Logo_icon.png" class="img-responsive" alt="">
                   <h2>Sign Up</h2>
-                  <p class="name-inp">Email</p>
-                  <input type="text">
-                  <p class="name-inp">Password</p>
-                  <input type="password">
+                  <p class="name-inp" >Email</p>
+                  <input [ngModel]="RegisterParams.email" name="registerEmail" type="text" (ngModelChange)="RegisterParams.email = $event">
+                  <p class="name-inp" >Password</p>
+                  <input type="password" [(ngModel)]="RegisterParams.password" name="registerPassword" (ngModelChange)="RegisterParams.password = $event">
                   <button class="butt-orange" type="submit">Register</button>
               </form>
           </div>

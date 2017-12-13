@@ -18,7 +18,19 @@ import { AgmCoreModule } from '@agm/core';
 import { MainService } from './core/services/main.service';
 import { HttpService } from './core/services/http.service';
 import { FooterComponent } from './footer/footer.component';
+import { Angular2SocialLoginModule } from "angular2-social-login";
 
+import { AuthModule } from 'angular2-auth';
+
+let providers = {
+  "google": {
+    "clientId": "GOOGLE_CLIENT_ID"
+  },
+  "facebook": {
+    "clientId": "FACEBOOK_CLIENT_ID",
+    "apiVersion": "<version>" //like v2.4 
+  }
+};
 @NgModule({
   declarations: [
     AppComponent,
