@@ -95,12 +95,12 @@ GetPolyById(id:number){
 
     public GetAllCategory(){
         return [
-            new CheckboxModel("Water","water"),
-            new CheckboxModel("Mountains","mountains"),
-            new CheckboxModel("Architecture","architecture"),
-            new CheckboxModel("Сhurch","rel_building"),
-            new CheckboxModel("Nature","nature"),
-            new CheckboxModel("Monument","monument")
+            new CheckboxModel("Water","water","1.png"),
+            new CheckboxModel("Mountains","mountains","2.png"),
+            new CheckboxModel("Architecture","architecture","3.png"),
+            new CheckboxModel("Churches","rel_building","4.png"),
+            new CheckboxModel("Nature","nature","5.png"),
+            new CheckboxModel("Monuments","monument","6.png")
         ];
     }
 

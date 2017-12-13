@@ -2,6 +2,7 @@ export class CheckboxModel{
     constructor(
         public name?:string,
         public value?:string,
+        public image?:string,
         public checked?:boolean
     ){
         if(!value)

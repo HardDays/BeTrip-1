@@ -531,7 +531,8 @@ app-build{
 }
 
 .best-wr .left-side .all-best-blocks .one-block p.name {
-    font-size: 24px;
+    font-size: 23px;
+    min-height: 68px;
     font-weight: bold;
     cursor: pointer;
     &.hover{
@@ -707,6 +708,14 @@ app-build{
     background: #fff;
     -webkit-transition: 0.3s;
     transition: 0.3s;
+    min-width: 0;
+    strong{
+        display:block;
+        flex-grow: 1;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
 }
 
 .best-wr .fixed-map .fixed-sights .flex-sights .one-sight p span {
@@ -1861,5 +1870,12 @@ footer #mc-form input:-ms-input-placeholder {
         text-align: center;
     }
 }
+
+
+.max-width-icon-new{
+    max-width: 45px;
+}
+
+
 
 /*# sourceMappingURL=style.css.map */
