@@ -116,7 +116,21 @@ export class BestComponent implements OnInit {
             slidesToScroll: 1,
             arrows: true,
             dots: false,
-            infinite:false
+            infinite:false,
+            responsive: [
+              {
+                breakpoint: 1601,
+                settings: {
+                  slidesToShow: 4
+                }
+              },
+              {
+                breakpoint: 1301,
+                settings: {
+                  slidesToShow: 3
+                }
+              }
+            ]
         });
       },200);
       
