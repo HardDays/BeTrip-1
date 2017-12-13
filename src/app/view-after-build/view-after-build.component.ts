@@ -22,13 +22,15 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
 
   activeRoute:number = 0;
   isInfoWinOpen:boolean[] = [];
+  allRoutsImages:any = [];
   StepsCoord:CoordsModel[] = [];
+  Places:any[] = [];
   MapStyle = this.getMapStyle();
 
   flagForDropdown:boolean = false;
     ngOnInit() {
       this.service.onPageChange$.next(false);
-
+      this.StepsCoord.push(new CoordsModel(this.lat,this.lng));
       let from:string='',to:string='';
       let sub:any = this.route.params.subscribe(params => {
         //this.Params.limit = +params['limit']; // (+) converts string 'id' to a number
@@ -38,8 +40,8 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
            to = params['to'];
         
         });
-        this.StepsCoord.push(new CoordsModel(this.lat,this.lng));
-        this.StepsCoord.push(new CoordsModel(this.lat+1,this.lng));
+       
+        //this.StepsCoord.push(new CoordsModel(this.lat+1,this.lng));
       this.BuildMap(from,to);
 
       this.clearInfoWin();
@@ -51,22 +53,40 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
 
     BuildMap(from:string,to:string){
       this.StepsCoord= [];
+      this.Places = [];
+      this.allRoutsImages = [];
       this.service.RoutesCreate(from,to).subscribe(
         (res)=>{
+
           console.log('ok',res);
+          this.Places = res[this.activeRoute].places;
+
+          
+          for(let i of this.Places){
+            this.service.GetImage(i.cover_id).subscribe(
+              (res)=>{
+                //console.log(res);
+                this.allRoutsImages.push(res.url);
+              });
+              
+            }
+              console.log(this.Places,this.allRoutsImages);
+              
           this.service.GetPolyById(res[this.activeRoute].id).
           subscribe((poly)=>{
 
             console.log('poly',poly);
             for(let i=0;i<poly.routes[0].legs[0].steps.length;i++){
-            this.StepsCoord.push(poly.routes[0].legs[0].steps[i].start_location);
-            this.StepsCoord.push(poly.routes[0].legs[0].steps[i].end_location);
-              
+              this.StepsCoord.push(poly.routes[0].legs[0].steps[i].start_location);
+              this.StepsCoord.push(poly.routes[0].legs[0].steps[i].end_location);
+            
             }
             console.log('steps',this.StepsCoord,this.StepsCoord[0].lat);
+
+           
           });
-        }
-      );
+        
+        });
     }
 
     clearInfoWin(){
