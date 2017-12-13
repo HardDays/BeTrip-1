@@ -1581,4 +1581,21 @@ footer #mc-form input:-ms-input-placeholder {
 .max-width-icon-new {
   max-width: 45px; }
 
+.new-flex-footer-my {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center; }
+  .new-flex-footer-my img {
+    -ms-flex-negative: 0;
+        flex-shrink: 0; }
+  .new-flex-footer-my p {
+    padding-left: 10px;
+    color: #fff;
+    font-family: SignPainter;
+    font-size: 4rem;
+    margin-bottom: 40px !important; }
+
 /*# sourceMappingURL=style.css.map */

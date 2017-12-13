@@ -2,7 +2,12 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4">
+                <div class="new-flex-footer-my">
                 <img src="../assets/img/Logo.png" class="max-w img-responsive" alt="">
+                <div class="logo-title">
+                        <p>BeTrip</p>
+                </div>
+                </div>
                 <p>Russian Federation Tatarstan Republic, Innopolis Universitetskaya street 1, 420500 social@betrip.io</p>
             </div>
             <div class="col-md-2">
@@ -10,7 +15,7 @@
                 <ul>
                     <li><a routerLinkActive="active" routerLink="/build">Build</a></li>
                     <li> <a routerLinkActive="active" routerLink="/best">Best</a></li>
-                    <li><a routerLinkActive="active" routerLink="/trips">Trips</a></li>
+             
                    
                 </ul>
             </div>
@@ -27,7 +32,7 @@
                 <p class="head-tt">Subscribe</p>
                 <p>Keep yourself updated. Subscribe to our newsletter.</p>
                 <form id="mc-form" class="group" novalidate="true" (ngSubmit)="SubscribeEmail(submitFormSubscribe)" #submitFormSubscribe="ngForm">
-                    <input type="text" email value="" #email="ngModel" name="email" class="email" placeholder="type email &amp; hit enter" required=""> 
+                    <input type="text" name="email" class="email" placeholder="type email &amp; hit enter" [ngModel]="" email required> 
                     <button type="submit" name="subscribe" ></button>
                     <label for="mc-email" class="subscribe-message"></label>
                 </form>

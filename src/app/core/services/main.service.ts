@@ -33,6 +33,13 @@ export class MainService{
         return this.http.PostData('/auth/login',JSON.stringify(params));
     }
 
+    SendEmail(email:string){
+      let params = {
+          email: email,
+      };
+      return this.http.PostData('/subscribe',JSON.stringify(params));
+    }
+
     UserRegistration(email:string, password:string){
         let params = {
             email: email,

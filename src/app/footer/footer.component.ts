@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MainService} from '../core/services/main.service';
+
 import {NgForm} from '@angular/forms';
 import { Router } from "@angular/router";
+import { MainService } from '../core/services/main.service';
 
 
 @Component({
@@ -11,13 +12,20 @@ import { Router } from "@angular/router";
 })
 export class FooterComponent implements OnInit {
 
-  constructor() { }
+  constructor(private service:MainService) { }
 
   ngOnInit() {
   }
-  @ViewChild('submitFormCwrc') form: NgForm
-  SubscribeEmail(){
-    console.log(this.form);
+  @ViewChild('submitFormSubscribe') form: NgForm
+  SubscribeEmail(form){
+    console.log(form);
+
+    this.service.SendEmail(form.control.controls.email.value).subscribe(
+      (res)=>{
+       
+      }
+    );
+
   }
 
 }

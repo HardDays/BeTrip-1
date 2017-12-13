@@ -1876,6 +1876,18 @@ footer #mc-form input:-ms-input-placeholder {
     max-width: 45px;
 }
 
+.new-flex-footer-my{
+    display: flex;
+    align-items: center;
+    img{
+        flex-shrink: 0;
+    }
+    p{
+        padding-left: 10px;
+        color: #fff;
+        font-family: SignPainter;
+        font-size: 4rem;
+        margin-bottom: 40px!important;
 
-
-/*# sourceMappingURL=style.css.map */
+    }
+}
