@@ -393,6 +393,8 @@ app-build {
   -webkit-transition: 0.3s;
   transition: 0.3s;
   cursor: pointer; }
+  .content .check-boxes-wr .for-flex-check li.active {
+    background: rgba(255, 255, 255, 0.35) !important; }
 
 .content .check-boxes-wr .for-flex-check li:hover {
   background: rgba(255, 255, 255, 0.15); }
@@ -557,8 +559,10 @@ app-build {
   z-index: 5000;
   top: 70px;
   padding: 10px 20px;
-  -webkit-transition: 1s;
-  transition: 1s;
+  -webkit-transition: -webkit-transform 1s;
+  transition: -webkit-transform 1s;
+  transition: transform 1s;
+  transition: transform 1s, -webkit-transform 1s;
   visibility: hidden; }
   .best-wr .fixed-map .fixed-sights.visible {
     visibility: visible; }
