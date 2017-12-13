@@ -53,9 +53,12 @@ let providers = {
       apiKey: 'AIzaSyBaq3qTokKJ_b2VP0h5h_eeYliQ80ME74M',
       libraries: ["places"]
     }),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    Angular2SocialLoginModule
   ],
   providers: [MainService, HttpModule, HttpService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+Angular2SocialLoginModule.loadProvidersScripts(providers);
