@@ -1,12 +1,12 @@
-<section class="content all-pages">
+<section class="content" [class.all-pages] = "!isBuildPage">
   <div class="head">
     <div class="container-fluid">
         <div class="row for-b">
             <div class="col-md-12">
                 <div class="flex-nav-wr">
                     
-                    <div class="for-center">
-                        <img class="img-responsive width-logo" src="img/Logo_icon.png" alt="">
+                    <div class="for-center" (click)="Navigate()">
+                        <img class="img-responsive width-logo" src="../assets/img/Logo_icon.png" alt="">
                          <div class="logo-title">
                             <p>BeTrip</p>
                         </div>
@@ -21,7 +21,7 @@
                                 <a routerLinkActive="active" routerLink="/best">Best</a>
                             </li>
                             <li>
-                                <a routerLinkActive="active" routerLink="/trips">trips</a>
+                                <!--<a routerLinkActive="active" routerLink="/trips">trips</a>-->
                             </li>
                             <li class="for-drop-down-first-drop">
                                 <a href="#">about</a>
@@ -29,17 +29,17 @@
                                     <li class="menu-item">
                                         <a routerLink="/functionality" class="op-modal-sign-in">Functionality</a>
                                         <a routerLink="/download" class="op-modal-sign-up">Download</a>
-                                        <a routerLink="/faq">Faq</a>
+                                        <a routerLink="/faq">FAQ</a>
                                     </li>
                                 </ul>
                             </li>
                             <li class="for-drop-down">
-                                <img src="img/man.svg" class="img-responsive" alt="">
+                                <img src="../assets/img/man.svg" class="img-responsive" alt="">
                                 <ul class="sub-menu">
                                     <li class="menu-item">
-                                        <a href="#" class="op-modal-sign-in">Sign In</a>
-                                        <a href="#" class="op-modal-sign-up">Sign Up</a>
-                                        <a href="#">Sign Out</a>
+                                        <a class="op-modal-sign-in" *ngIf="!isLogined" (click)="OpenModalSignIn()">Sign In</a>
+                                        <a class="op-modal-sign-up" *ngIf="!isLogined" (click)="OpenModalSignUp()">Sign Up</a>
+                                        <a *ngIf="isLogined">Sign Out</a>
                                     </li>
                                 </ul>
                             </li>
@@ -52,14 +52,7 @@
 </div>
 
 
-
 <router-outlet></router-outlet>
-
-
-
-
-
-
 
 
 </section>
@@ -68,19 +61,19 @@
   <div class="modal-dialog">
       <div class="modal-contant">
           <div class="modal-body">
-              <form class="sign">
-                  <img src="img/Logo_icon.png" class="img-responsive" alt="">
+              <form (ngSubmit)="Login()" class="sign">
+                  <img src="../assets/img/Logo_icon.png" class="img-responsive" alt="">
                   <h2>Sign In</h2>
-                  <p class="name-inp">Email</p>
-                  <input type="text">
-                  <p class="name-inp">Password</p>
-                  <input type="password">
-                  <button class="butt-orange" type="submit">Login</button>
+                  <p class="name-inp" >Email</p>
+                  <input type="text" [(ngModel)]="LoginParams.email" name="email" (ngModelChange)="LoginParams.email = $event">
+                  <p class="name-inp" >Password</p>
+                  <input [(ngModel)]="LoginParams.password" name="loginPassword" (ngModelChange)="LoginParams.password = $event"type="password">
+                  <button class="butt-orange" type="submit" type="submit">Login</button>
                   <p class="name-inp sign-up-with">Sign up with</p>
                   <div class="sign-up-w-wrapp">
-                      <img src="img/fb.png" class="img-responsive" alt="">
-                      <img src="img/vk.png" class="img-responsive" alt="">
-                      <img src="img/tw.png" class="img-responsive" alt="">
+                      <img src="../assets/img/fb.png" (click)="signIn('facebook')" class="img-responsive" alt="">
+                      <img src="../assets/img/vk.png" class="img-responsive" alt="">
+                      <img src="../assets/img/tw.png" class="img-responsive" alt="">
                   </div>
               </form>
           </div>
@@ -91,13 +84,13 @@
   <div class="modal-dialog">
       <div class="modal-contant">
           <div class="modal-body">
-              <form class="sign">
-                  <img src="img/Logo_icon.png" class="img-responsive" alt="">
+              <form (ngSubmit)="Registration()" class="sign">
+                  <img src="../assets/img/Logo_icon.png" class="img-responsive" alt="">
                   <h2>Sign Up</h2>
-                  <p class="name-inp">Email</p>
-                  <input type="text">
-                  <p class="name-inp">Password</p>
-                  <input type="password">
+                  <p class="name-inp" >Email</p>
+                  <input [ngModel]="RegisterParams.email" name="registerEmail" type="text" (ngModelChange)="RegisterParams.email = $event">
+                  <p class="name-inp" >Password</p>
+                  <input type="password" [(ngModel)]="RegisterParams.password" name="registerPassword" (ngModelChange)="RegisterParams.password = $event">
                   <button class="butt-orange" type="submit">Register</button>
               </form>
           </div>

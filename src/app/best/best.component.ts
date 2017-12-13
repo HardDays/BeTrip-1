@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, NgZone } from '@angular/core';
+import { MainService} from '../core/services/main.service';
+import { AgmCoreModule } from '@agm/core';
+
+declare var jquery:any;
+declare var $ :any;
 
 @Component({
   selector: 'app-best',
@@ -6,10 +11,166 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./best.component.css']
 })
 export class BestComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
+  
+  constructor(private service:MainService) { }
+  lat: number = 51.678418;
+  lng: number = 7.809007;
+  MapStyle = this.getMapStyle();
+  flagForOpenSlider:boolean = true;
+  newFlagForVisible:boolean = false;
+  Params = {
+    limit:10,
+    offset:0
   }
+
+  step = parseInt(''+new Date().getTime() / 100000) % 1000;
+
+
+  allBestRouts:any = [];
+  allBestRoutsImages:any = [];
+  allSightByRoute:any = [];
+  imagesSightsRoute:any = [];
+
+
+  isInfoWinOpen:boolean[] = [];
+
+     ngOnInit() {
+      this.service.onPageChange$.next(false);
+     
+     
+     console.log(this.step);
+
+      $('#sights-slider').on('hidden.bs.modal', function () {
+        $('.slider-init').slick('unslick');
+      });
+
+
+      this.service.getBestRoutes(this.Params).subscribe(
+        (res)=>{
+          this.allBestRouts = res;
+          console.log(this.allBestRouts);
+          for(let i in res){
+            this.service.GetImage(this.allBestRouts[i].places[0].cover_id).subscribe(
+              (res)=>{
+                //console.log(res);
+                this.allBestRoutsImages[i] = res.url;
+              },
+              (err)=>{
+                console.log(err);
+              }
+            );
+        }
+        },
+        (err)=>{
+          console.log(err);
+        }
+      );
+
+
+
+
+      if($(window).scrollTop() > 70){
+          $(".fixed-sights").addClass("transformed");
+      }
+      else{
+          $(".fixed-sights").removeClass("transformed");
+      }
+      $(window).scroll(function(){
+        if($(window).scrollTop() > 70){
+            $(".fixed-sights").addClass("transformed");
+        }
+        else{
+            $(".fixed-sights").removeClass("transformed");
+        }
+    });
+      this.clearInfoWin();
+    }
+
+    clearInfoWin(){
+      this.isInfoWinOpen = [];
+      for(let i=0;i<2;i++)this.isInfoWinOpen.push(false);
+    }
+    mapClick(){
+      this.clearInfoWin();
+    }
+    markerClick(i:number){
+      this.isInfoWinOpen[i]= !this.isInfoWinOpen[i];
+    }
+   
+ 
+
+    OpenSliderCart(index:number){
+      this.newFlagForVisible = false;
+      this.allSightByRoute = this.allBestRouts[index].places;
+      console.log(this.allSightByRoute);
+
+      if(!this.flagForOpenSlider){
+        $('.flex-sights').slick('unslick');
+      }
+      
+      this.flagForOpenSlider = false;
+     
+      setTimeout(()=>{
+
+        this.newFlagForVisible = true;
+
+        $('.flex-sights').slick({
+            slidesToShow: 6,
+            slidesToScroll: 1,
+            arrows: true,
+            dots: false,
+            infinite:false,
+            responsive: [
+              {
+                breakpoint: 1601,
+                settings: {
+                  slidesToShow: 4
+                }
+              },
+              {
+                breakpoint: 1301,
+                settings: {
+                  slidesToShow: 3
+                }
+              }
+            ]
+        });
+      },200);
+      
+      
+      for(let i in this.allSightByRoute){
+        this.service.GetImage(this.allSightByRoute[i].cover_id).subscribe(
+          (res)=>{
+            this.imagesSightsRoute[i] = res.url;
+          },
+          (err)=>{
+            console.log(err);
+          }
+        );
+      }
+  
+
+
+      
+    }
+
+    OpenModalSights(index){
+        $("#sights-slider").modal("show");
+        console.log(index);
+        $('.slider-init').slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: true,
+            dots: false,
+            infinite:false
+        });
+        $('.slider-init').slick('slickGoTo',index,true);
+    }
+
+    getMapStyle(){
+      return this.service.GetMapStyle();
+    }
+
+  
 
 }

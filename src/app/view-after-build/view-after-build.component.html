@@ -5,7 +5,29 @@
       
       <!--Сюда карту-->
       
-      
+      <div class="for-position-map">
+            <agm-map #gm [latitude]="StepsCoord[0].lat" [longitude]="StepsCoord[0].lng" style="height: 100%;" (mapClick)="mapClick()" [styles]="MapStyle">
+
+                <agm-marker [iconUrl]="'../assets/img/marker3.png'" [latitude]="StepsCoord[0].lat" [longitude]="StepsCoord[0].lng" (markerClick)="markerClick(0)">
+                    <agm-info-window [isOpen]="isInfoWinOpen[0]">
+                            <!-- тут диз карточки-->
+                            <div class="cart-sight-wrapp">
+                                <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
+                                <div class="ava" style="background-image: url(../assets/img/ava.jpg)"></div>
+                                <p class="name-sight">Holywood</p>
+                            </div>
+                    </agm-info-window>
+                </agm-marker>
+
+                <agm-polyline >
+                        <ng-container>
+                            <agm-polyline-point *ngFor="let coord of StepsCoord; let i = index" [latitude]="coord.lat" [longitude]="coord.lng"></agm-polyline-point>
+                        </ng-container>
+                </agm-polyline>
+               
+    
+            </agm-map>
+        </div>
       
       
       <div class="fixed-sights ">
@@ -13,49 +35,49 @@
               
               <div class="one-sight">
                   <div class="for-before-wr">
-                      <div class="img" style="background-image: url(img/post_326.jpg)"></div>
+                      <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
                   </div>
                   <p><span>1</span>Holywood</p>
               </div>
               <div class="one-sight">
                   <div class="for-before-wr">
-                      <div class="img" style="background-image: url(img/post_326.jpg)"></div>
+                      <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
                   </div>
                   <p><span>2</span>Holywood</p>
               </div>
               <div class="one-sight">
                   <div class="for-before-wr">
-                      <div class="img" style="background-image: url(img/post_326.jpg)"></div>
+                      <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
                   </div>
                   <p><span>3</span>Holywood</p>
               </div>
               <div class="one-sight">
                   <div class="for-before-wr">
-                      <div class="img" style="background-image: url(img/post_326.jpg)"></div>
+                      <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
                   </div>
                   <p><span>4</span>Holywood</p>
               </div>
               <div class="one-sight">
                   <div class="for-before-wr">
-                      <div class="img" style="background-image: url(img/post_326.jpg)"></div>
+                      <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
                   </div>
                   <p><span>5</span>Holywood</p>
               </div>
               <div class="one-sight">
                   <div class="for-before-wr">
-                      <div class="img" style="background-image: url(img/post_326.jpg)"></div>
+                      <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
                   </div>
                   <p><span>6</span>Holywood</p>
               </div>
               <div class="one-sight">
                   <div class="for-before-wr">
-                      <div class="img" style="background-image: url(img/post_326.jpg)"></div>
+                      <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
                   </div>
                   <p><span>7</span>Holywood</p>
               </div>
               <div class="one-sight">
                   <div class="for-before-wr">
-                      <div class="img" style="background-image: url(img/post_326.jpg)"></div>
+                      <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
                   </div>
                   <p><span>8</span>Holywood</p>
               </div>
@@ -63,7 +85,7 @@
       </div>
       
       <div class="routs-count">
-          <div class="picked-route">
+          <div class="picked-route" (click)="OpenRoute()">
               <div class="click">
                   <div class="one-route">
                       <span>1</span>
@@ -92,7 +114,7 @@
               </div>
           </div>
       </div>
-      <div class="save-route"></div>
+      <!--<div class="save-route"></div>-->
       
   </div>
 </div>

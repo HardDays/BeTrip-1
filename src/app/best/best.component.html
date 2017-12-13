@@ -1,105 +1,42 @@
 <div class="best-wr">
   <div class="left-side">
       <div class="all-best-blocks">
+          <ng-container *ngFor="let item of allBestRouts; let i = index">
           <div class="one-block">
               <div class="new-wrapp-for-shadow">
                   <div class="for-before-wr">
-                      <div class="img" style="background-image: url(img/post_326.jpg)"></div>
+                      <div class="img" style="background-image: url(../assets/img/post_326.jpg)" [ngStyle]="{'background-image':'url(' + allBestRoutsImages[i] + ')' }"></div>
                   </div>
-                  <div class="ava" style="background-image: url(img/ava.jpg)"></div>
+                  <div class="ava" style="background-image: url(../assets/img/ava.jpg)"></div>
                   <div class="padd-descript">
-                      <p class="name">Milan - Paris</p>
-                      <p class="desc"><strong>Distance </strong>1345 km</p>
-                      <p class="desc"><strong>Time </strong>13h 45min</p>
+                      <p class="name" (click)="OpenSliderCart(i)">{{item.name}}</p>
+                      <p class="desc"><strong>Distance </strong>{{(item.distance - item.distance % 1000) / 1000}} km</p>
+                      <p class="desc"><strong>Time </strong>{{(item.travel_time - (item.travel_time % 3600))/3600}}h {{ (item.travel_time - item.travel_time % 60)/60 - ((item.travel_time - (item.travel_time % 3600))/3600)*60 }}min</p>
                       <div class="button-wr">
                           <div class="one">
                               <div class="bg">
-                                  <img src="img/like.png" class="img-responsive" alt="">
-                                  <span>11500</span>
+                                  <img src="../assets/img/like.png" class="img-responsive" alt="">
+                                  <span>{{item.id + step}}</span>
                               </div>
                           </div>
                           <div class="one">
                               <div class="bg">
-                                  <img src="img/share.png" class="img-responsive" alt="">
-                                  <span>500</span>
+                                  <img src="../assets/img/share.png" class="img-responsive" alt="">
+                                  <span>{{(item.id - 466) + step}}</span>
                               </div>
                           </div>
                           <div class="one">
                               <div class="bg">
-                                  <img src="img/save.png" class="img-responsive" alt="">
-                                  <span>20</span>
+                                  <img src="../assets/img/save.png" class="img-responsive" alt="">
+                                  <span>{{(item.id + step)-1536}}</span>
                               </div>
                           </div>
                       </div>
                   </div>
               </div>
           </div>
-         <div class="one-block">
-              <div class="new-wrapp-for-shadow">
-                  <div class="for-before-wr">
-                      <div class="img" style="background-image: url(img/post_326.jpg)"></div>
-                  </div>
-                  <div class="ava" style="background-image: url(img/ava.jpg)"></div>
-                  <div class="padd-descript">
-                      <p class="name">Milan - Paris</p>
-                      <p class="desc"><strong>Distance </strong>1345 km</p>
-                      <p class="desc"><strong>Time </strong>13h 45min</p>
-                      <div class="button-wr">
-                          <div class="one">
-                              <div class="bg">
-                                  <img src="img/like.png" class="img-responsive" alt="">
-                                  <span>11500</span>
-                              </div>
-                          </div>
-                          <div class="one">
-                              <div class="bg">
-                                  <img src="img/share.png" class="img-responsive" alt="">
-                                  <span>500</span>
-                              </div>
-                          </div>
-                          <div class="one">
-                              <div class="bg">
-                                  <img src="img/save.png" class="img-responsive" alt="">
-                                  <span>20</span>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <div class="one-block">
-              <div class="new-wrapp-for-shadow">
-                  <div class="for-before-wr">
-                      <div class="img" style="background-image: url(img/post_326.jpg)"></div>
-                  </div>
-                  <div class="ava" style="background-image: url(img/ava.jpg)"></div>
-                  <div class="padd-descript">
-                      <p class="name">Milan - Paris</p>
-                      <p class="desc"><strong>Distance </strong>1345 km</p>
-                      <p class="desc"><strong>Time </strong>13h 45min</p>
-                      <div class="button-wr">
-                          <div class="one">
-                              <div class="bg">
-                                  <img src="img/like.png" class="img-responsive" alt="">
-                                  <span>11500</span>
-                              </div>
-                          </div>
-                          <div class="one">
-                              <div class="bg">
-                                  <img src="img/share.png" class="img-responsive" alt="">
-                                  <span>500</span>
-                              </div>
-                          </div>
-                          <div class="one">
-                              <div class="bg">
-                                  <img src="img/save.png" class="img-responsive" alt="">
-                                  <span>20</span>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
+        </ng-container>
+        
           
       </div>
   </div>
@@ -108,61 +45,84 @@
       
       <!--Сюда карту-->
       
-      
-      
-      
-      <div class="fixed-sights">
+    <div class="for-position-map">
+        <agm-map #gm [latitude]="lat" [longitude]="lng" style="height: 100%;" (mapClick)="mapClick()" [styles]="MapStyle">
+
+            <agm-marker [iconUrl]="'../assets/img/marker3.png'" [latitude]="lat" [longitude]="lng" (markerClick)="markerClick(0)">
+                <agm-info-window [isOpen]="isInfoWinOpen[0]">
+                        <!-- тут диз карточки-->
+                        <div class="cart-sight-wrapp">
+                            <div class="for-abs-cost">
+                                <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
+                                <div class="ava" style="background-image: url(../assets/img/ava.jpg)"></div>
+                                <p class="name-sight">Holywood</p>
+                            </div>
+                        </div>
+                </agm-info-window>
+            </agm-marker>
+            
+            <agm-marker [latitude]="lat" [longitude]="lng+1" (markerClick)="markerClick(1)">
+                <agm-info-window [isOpen]="isInfoWinOpen[1]">     
+                        <!-- тут диз карточки-->
+                </agm-info-window>
+            </agm-marker>
+
+            <agm-polyline >
+                <ng-container>
+                    <agm-polyline-point [latitude]="lat" [longitude]="lng"></agm-polyline-point>
+                    <agm-polyline-point [latitude]="lat+1" [longitude]="lng+1"></agm-polyline-point>
+                    <agm-polyline-point [latitude]="lat" [longitude]="lng+1"></agm-polyline-point>
+                </ng-container>
+            </agm-polyline>
+
+        </agm-map>
+    </div>
+      <div class="fixed-sights" [ngClass]="{'visible':!flagForOpenSlider && newFlagForVisible}">
           <div class="flex-sights">
-              
-              <div class="one-sight">
-                  <div class="for-before-wr">
-                      <div class="img" style="background-image: url(img/post_326.jpg)"></div>
-                  </div>
-                  <p><span>1</span>Holywood</p>
-              </div>
-              <div class="one-sight">
-                  <div class="for-before-wr">
-                      <div class="img" style="background-image: url(img/post_326.jpg)"></div>
-                  </div>
-                  <p><span>2</span>Holywood</p>
-              </div>
-              <div class="one-sight">
-                  <div class="for-before-wr">
-                      <div class="img" style="background-image: url(img/post_326.jpg)"></div>
-                  </div>
-                  <p><span>3</span>Holywood</p>
-              </div>
-              <div class="one-sight">
-                  <div class="for-before-wr">
-                      <div class="img" style="background-image: url(img/post_326.jpg)"></div>
-                  </div>
-                  <p><span>4</span>Holywood</p>
-              </div>
-              <div class="one-sight">
-                  <div class="for-before-wr">
-                      <div class="img" style="background-image: url(img/post_326.jpg)"></div>
-                  </div>
-                  <p><span>5</span>Holywood</p>
-              </div>
-              <div class="one-sight">
-                  <div class="for-before-wr">
-                      <div class="img" style="background-image: url(img/post_326.jpg)"></div>
-                  </div>
-                  <p><span>6</span>Holywood</p>
-              </div>
-              <div class="one-sight">
-                  <div class="for-before-wr">
-                      <div class="img" style="background-image: url(img/post_326.jpg)"></div>
-                  </div>
-                  <p><span>7</span>Holywood</p>
-              </div>
-              <div class="one-sight">
-                  <div class="for-before-wr">
-                      <div class="img" style="background-image: url(img/post_326.jpg)"></div>
-                  </div>
-                  <p><span>8</span>Holywood</p>
-              </div>
+                <div *ngFor="let item of allSightByRoute; let i = index" class="one-sight" (click)="OpenModalSights(i)">
+                    <div class="for-before-wr">
+                        <div class="img" [ngStyle]="{'background-image':'url(' + imagesSightsRoute[i] + ')'}"></div>
+                    </div>
+                    <p><span>{{i + 1}}</span><strong>{{item.name}}</strong></p>
+                </div>
           </div>
       </div>
   </div>
+</div>
+
+
+
+
+<div class="modal sights-slider" id="sights-slider">
+    <div class="modal-dialog">
+        <div class="modal-contant">
+            <div class="modal-body">
+                <div class="slider-init">
+                    <div class="slide" *ngFor="let item of allSightByRoute; let i = index">
+                        <div class="after-slide">
+                            <div class="for-before-wr">
+                                <div class="img" [ngStyle]="{'background-image':'url(' + imagesSightsRoute[i] + ')' }"></div>
+                            </div>
+                            <div class="content-sights">
+                                <p class="name">{{item.name}}</p>
+                                <p>{{item.address}}</p>
+
+                                <div class="for-flex-buttons">
+                                    <div class="find-more">
+                                        <p>Find more...</p>
+                                    </div>
+                                    <div class="one">
+                                        <div class="bg">
+                                            <img src="../assets/img/like.png" class="img-responsive" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
