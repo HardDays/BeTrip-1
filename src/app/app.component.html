@@ -37,9 +37,9 @@
                                 <img src="../assets/img/man.svg" class="img-responsive" alt="">
                                 <ul class="sub-menu">
                                     <li class="menu-item">
-                                        <a class="op-modal-sign-in" (click)="OpenModalSignIn()">Sign In</a>
-                                        <a class="op-modal-sign-up" (click)="OpenModalSignUp()">Sign Up</a>
-                                        <a>Sign Out</a>
+                                        <a class="op-modal-sign-in" *ngIf="!isLogined" (click)="OpenModalSignIn()">Sign In</a>
+                                        <a class="op-modal-sign-up" *ngIf="!isLogined" (click)="OpenModalSignUp()">Sign Up</a>
+                                        <a *ngIf="isLogined">Sign Out</a>
                                     </li>
                                 </ul>
                             </li>
