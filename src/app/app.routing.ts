@@ -20,7 +20,6 @@ const routes: Routes = [
     { path: 'functionality',component: FunctionalityComponent },
     { path: 'trips',component: TripsComponent },
     { path: 'routs',component: ViewAfterBuildComponent }
-
     
 ];
 
