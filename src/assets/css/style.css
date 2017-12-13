@@ -139,7 +139,8 @@ app-build {
   display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
-          align-items: center; }
+          align-items: center;
+  cursor: pointer; }
 
 .content .head .flex-nav-wr .for-center .width-logo {
   width: 55px;
@@ -414,7 +415,6 @@ app-build {
 .best-wr .left-side {
   width: 45%;
   padding: 30px; }
-
 
 .best-wr .left-side .all-best-blocks {
   display: -webkit-box;

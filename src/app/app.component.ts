@@ -48,6 +48,10 @@ export class AppComponent {
   OpenModalSignUp(){
     $("#regist-modal").modal('show');
   }
+  Navigate(){
+    this.router.navigate(['/build'])
+  }
+
 
   Login(){
     this.isLoginErr = false;
