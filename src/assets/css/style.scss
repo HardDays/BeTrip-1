@@ -613,11 +613,14 @@ app-build{
     &.page-view-after-build{
         width: 100%;
         left: 0;
-       
+       .for-position-map{
+           width: 100%;
+           left: 0;
+       }
         .fixed-sights{
             max-width: 1000px;
             margin: 0 auto;
-            
+            visibility: visible;
         }
     }
     
@@ -625,7 +628,7 @@ app-build{
 .for-position-map{
     position: fixed;
     height: 100%;
-    width: 100%;
+    width: 55%;
     left: 45%;
 }
 .best-wr .fixed-map .fixed-sights {
@@ -759,6 +762,7 @@ app-build{
 
 .modal {
     background: rgba(255, 255, 255, 0.8);
+    z-index: 6000;
 }
 
 .sights-slider .modal-body {
@@ -767,7 +771,7 @@ app-build{
 
 .sights-slider .modal-dialog {
     max-width: 975px;
-    margin: 50px auto;
+    margin: 70px auto;
 }
 
 .sights-slider .modal-dialog .slider-init .slide {
@@ -1644,7 +1648,6 @@ button.round,
 
 .faq-content {
     margin-top: 5.4rem;
-    max-width: 1020px;
 }
 
 .faq-content .bgrid {

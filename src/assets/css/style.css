@@ -409,6 +409,10 @@ app-build {
   margin-left: 10px;
   color: #fff; }
 
+  .content .check-boxes-wr .for-flex-check .active{
+    background: rgba(255, 255, 255, 0.253); 
+  }
+
 .best-wr .left-side {
   width: 45%;
   padding: 30px; }
@@ -538,14 +542,18 @@ app-build {
   .best-wr .fixed-map.page-view-after-build {
     width: 100%;
     left: 0; }
+    .best-wr .fixed-map.page-view-after-build .for-position-map {
+      width: 100%;
+      left: 0; }
     .best-wr .fixed-map.page-view-after-build .fixed-sights {
       max-width: 1000px;
-      margin: 0 auto; }
+      margin: 0 auto;
+      visibility: visible; }
 
 .for-position-map {
   position: fixed;
   height: 100%;
-  width: 100%;
+  width: 55%;
   left: 45%; }
 
 .best-wr .fixed-map .fixed-sights {
@@ -663,14 +671,15 @@ app-build {
   right: -20px; }
 
 .modal {
-  background: rgba(255, 255, 255, 0.8); }
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 6000; }
 
 .sights-slider .modal-body {
   padding: 0; }
 
 .sights-slider .modal-dialog {
   max-width: 975px;
-  margin: 50px auto; }
+  margin: 70px auto; }
 
 .sights-slider .modal-dialog .slider-init .slide {
   outline: none;
@@ -1384,8 +1393,7 @@ button.round,
   margin-bottom: 20px; }
 
 .faq-content {
-  margin-top: 5.4rem;
-  max-width: 1020px; }
+  margin-top: 5.4rem; }
 
 .faq-content .bgrid {
   color: rgba(255, 255, 255, 0.7);

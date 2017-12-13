@@ -4,15 +4,15 @@
           <div class="col-md-12">
               <h2>Make you trip unforgettable</h2>
               <h1>Build route through most interesting places</h1>
-              <form class="from-to">
+              <form class="from-to" (ngSubmit)="BuildMap()">
                   <div class="flex-iputs">
                       <div class="side">
                           <p>From</p>
-                          <input type="text">
+                          <input type="text" autocorrect="off" autocapitalize="off" spellcheck="off" placeholder="" #searchFrom>
                       </div>
                       <div class="side">
                           <p>To</p>
-                          <input type="text">
+                          <input type="text" autocorrect="off" autocapitalize="off" spellcheck="off" placeholder="" #searchTo>
                       </div>
                       <div class="for-padd">
                           <button class="butt-orange" type="submit">Build</button>
@@ -23,8 +23,6 @@
                       <img src="img/settings.svg" class="img-responsive" alt="">
                       <p class="set-text">Дополнительные настройки</p>
                   </div>-->
-              
-
               </form>
           </div>
       </div>
@@ -41,41 +39,11 @@
                   </span>
               </div>
               <ul class="for-flex-check">
-                  <li>
+                  <li *ngFor="let cb of Category; let i = index" (click)="ChangeCategory(i)" [class.active] ="cb.checked">
                       <div class="image">
                           <img src="../assets/img/dinner.png" class="img-responsive" alt="">
                       </div>
-                      <span>Dinner</span>
-                  </li>
-                  <li>
-                      <div class="image">
-                          <img src="../assets/img/dinner.png" class="img-responsive" alt="">
-                      </div>
-                      <span>Dinner</span>
-                  </li>
-                  <li>
-                      <div class="image">
-                          <img src="../assets/img/dinner.png" class="img-responsive" alt="">
-                      </div>
-                      <span>Dinner</span>
-                  </li>
-                  <li>
-                      <div class="image">
-                          <img src="../assets/img/dinner.png" class="img-responsive" alt="">
-                      </div>
-                      <span>Dinner</span>
-                  </li>
-                  <li>
-                      <div class="image">
-                          <img src="../assets/img/dinner.png" class="img-responsive" alt="">
-                      </div>
-                      <span>Dinner</span>
-                  </li>
-                  <li>
-                      <div class="image">
-                          <img src="../assets/img/dinner.png" class="img-responsive" alt="">
-                      </div>
-                      <span>Dinner</span>
+                      <span>{{cb.name}}</span>
                   </li>
               </ul>
           </div>
