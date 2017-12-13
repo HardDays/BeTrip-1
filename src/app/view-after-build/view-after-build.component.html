@@ -6,22 +6,33 @@
       <!--Сюда карту-->
       
       <div class="for-position-map">
-            <agm-map #gm [latitude]="StepsCoord[0].lat" [longitude]="StepsCoord[0].lng" style="height: 100%;" (mapClick)="mapClick()" [styles]="MapStyle">
+            <agm-map #gm [latitude]="StepsCoord[0].lat?StepsCoord[0].lat:0" [longitude]="StepsCoord[0].lng?StepsCoord[0].lng:0" style="height: 100%;" (mapClick)="mapClick()" [styles]="MapStyle">
 
-                <agm-marker [iconUrl]="'../assets/img/marker3.png'" [latitude]="StepsCoord[0].lat" [longitude]="StepsCoord[0].lng" (markerClick)="markerClick(0)">
-                    <agm-info-window [isOpen]="isInfoWinOpen[0]">
+               
+                <agm-marker [iconUrl]="'../assets/img/marker-yellow2.png'" [latitude]="StepsCoord[0].lat?StepsCoord[0].lat:0" [longitude]="StepsCoord[0].lng?StepsCoord[0].lng:0">
+                    
+                </agm-marker>
+
+
+                <agm-marker [iconUrl]="'../assets/img/marker-black.png'" *ngFor="let place of Places; let i = index" [latitude]="place.lat" [longitude]="place.lng" (markerClick)="markerClick(i)">
+                    <agm-info-window [isOpen]="isInfoWinOpen[i]">
                             <!-- тут диз карточки-->
                             <div class="cart-sight-wrapp">
-                                <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
+                                <div class="img" [ngStyle]="{'background-image':'url(' + allRoutsImages[i] + ')'}"></div>
                                 <div class="ava" style="background-image: url(../assets/img/ava.jpg)"></div>
-                                <p class="name-sight">Holywood</p>
+                                <p class="name-sight">{{place.name}}</p>
                             </div>
                     </agm-info-window>
                 </agm-marker>
 
+
+                <agm-marker [iconUrl]="'../assets/img/marker3.png'" [latitude]="StepsCoord[StepsCoord.length-1].lat?StepsCoord[StepsCoord.length-1].lat:0" [longitude]="StepsCoord[StepsCoord.length-1].lng?StepsCoord[StepsCoord.length-1].lng:0">
+                    
+                </agm-marker>
+
                 <agm-polyline >
                         <ng-container>
-                            <agm-polyline-point *ngFor="let coord of StepsCoord; let i = index" [latitude]="coord.lat" [longitude]="coord.lng"></agm-polyline-point>
+                            <agm-polyline-point *ngFor="let coord of StepsCoord; let i = index" [latitude]="coord.lat?coord.lat:0" [longitude]="coord.lng?coord.lng:0"></agm-polyline-point>
                         </ng-container>
                 </agm-polyline>
                
@@ -33,54 +44,13 @@
       <div class="fixed-sights ">
           <div class="flex-sights">
               
-              <div class="one-sight">
+              <div *ngFor="let place of Places; let i = index" class="one-sight">
                   <div class="for-before-wr">
-                      <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
+                      <div class="img" [ngStyle]="{'background-image':'url(' + allRoutsImages[i] + ')'}"></div>
                   </div>
-                  <p><span>1</span>Holywood</p>
+                  <p><span>{{i+1}}</span>{{place.name}}</p>
               </div>
-              <div class="one-sight">
-                  <div class="for-before-wr">
-                      <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
-                  </div>
-                  <p><span>2</span>Holywood</p>
-              </div>
-              <div class="one-sight">
-                  <div class="for-before-wr">
-                      <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
-                  </div>
-                  <p><span>3</span>Holywood</p>
-              </div>
-              <div class="one-sight">
-                  <div class="for-before-wr">
-                      <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
-                  </div>
-                  <p><span>4</span>Holywood</p>
-              </div>
-              <div class="one-sight">
-                  <div class="for-before-wr">
-                      <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
-                  </div>
-                  <p><span>5</span>Holywood</p>
-              </div>
-              <div class="one-sight">
-                  <div class="for-before-wr">
-                      <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
-                  </div>
-                  <p><span>6</span>Holywood</p>
-              </div>
-              <div class="one-sight">
-                  <div class="for-before-wr">
-                      <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
-                  </div>
-                  <p><span>7</span>Holywood</p>
-              </div>
-              <div class="one-sight">
-                  <div class="for-before-wr">
-                      <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
-                  </div>
-                  <p><span>8</span>Holywood</p>
-              </div>
+              
           </div>
       </div>
       
