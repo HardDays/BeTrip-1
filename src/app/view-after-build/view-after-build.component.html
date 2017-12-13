@@ -6,8 +6,18 @@
       <!--Сюда карту-->
       
       <div class="for-position-map">
-            <agm-map #gm [latitude]="lat" [longitude]="lng" style="height: 100%;" >
-    
+            <agm-map #gm [latitude]="lat" [longitude]="lng" style="height: 100%;" (mapClick)="mapClick()" [styles]="MapStyle">
+
+                <agm-marker [iconUrl]="'../assets/img/marker3.png'" [latitude]="lat" [longitude]="lng" (markerClick)="markerClick(0)">
+                    <agm-info-window [isOpen]="isInfoWinOpen[0]">
+                            <!-- тут диз карточки-->
+                            <div class="cart-sight-wrapp">
+                                <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
+                                <div class="ava" style="background-image: url(../assets/img/ava.jpg)"></div>
+                                <p class="name-sight">Holywood</p>
+                            </div>
+                    </agm-info-window>
+                </agm-marker>
                
     
             </agm-map>

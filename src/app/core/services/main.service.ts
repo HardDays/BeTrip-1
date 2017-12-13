@@ -51,7 +51,6 @@ export class MainService{
 
 
   RoutesCreate(from_place:string,to_place:string){
-
     let from_addr={
       "address":from_place
     }
@@ -65,6 +64,10 @@ export class MainService{
     }
     console.log(`POST ROUTES CREATE`,data);
     return this.http.PostData('/routes/create',JSON.stringify(data));
+}
+
+GetPolyById(id:number){
+  return this.http.GetData('/routes/get_poly/'+id,'');
 }
 
 

@@ -19,6 +19,9 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
   lat: number = 51.678418;
   lng: number = 7.809007;
 
+  activeRoute:number = 0;
+  isInfoWinOpen:boolean[] = [];
+  MapStyle = this.getMapStyle();
 
   flagForDropdown:boolean = false;
     ngOnInit() {
@@ -34,16 +37,38 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
         
         });
       this.BuildMap(from,to);
+
+      this.clearInfoWin();
     }
 
+    getMapStyle(){
+      return this.service.GetMapStyle();
+    }
 
     BuildMap(from:string,to:string){
      
       this.service.RoutesCreate(from,to).subscribe(
         (res)=>{
           console.log('ok',res);
+          this.service.GetPolyById(res[this.activeRoute].id).
+          subscribe((poly)=>{
+
+            console.log('poly',poly);
+            console.log('steps',poly);
+          });
         }
       );
+    }
+
+    clearInfoWin(){
+      this.isInfoWinOpen = [];
+      for(let i=0;i<2;i++)this.isInfoWinOpen.push(false);
+    }
+    mapClick(){
+      this.clearInfoWin();
+    }
+    markerClick(i:number){
+      this.isInfoWinOpen[i]= !this.isInfoWinOpen[i];
     }
 
     ngAfterViewInit() {
