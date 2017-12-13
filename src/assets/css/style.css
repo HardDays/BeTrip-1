@@ -8,13 +8,13 @@
   font-weight: normal;
   font-style: normal; }
 @font-face {
-  font-family: Poppins-Regular,sans-serif;
+  font-family: Poppins-Regular;
   src: url(../fonts/Poppins-Regular.ttf); }
 @font-face {
   font-family: SignPainter;
   src: url(../fonts/SignPainter-HouseScript.ttf); }
 body {
-  font-family: Poppins-Regular; }
+  font-family: Poppins-Regular, sans-serif; }
 
 ul {
   list-style: none; }
