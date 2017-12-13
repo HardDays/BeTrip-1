@@ -25,7 +25,6 @@ export class MainService{
         this.onPageChange$.next(true);
     }
 
-<<<<<<< HEAD
     UserLogin(email:string, password:string){
         let params = {
             email: email,
@@ -39,9 +38,8 @@ export class MainService{
             email: email,
             password: password
         };
-        return this.http.PostData('/user/create',JSON.stringify(params));
+        return this.http.PostData('/users/create',JSON.stringify(params));
     }
-=======
     ParamsToUrlSearchParams(params:any):string{
       let options = new URLSearchParams();
 
@@ -293,8 +291,4 @@ export class MainService{
           ]
     }
 
-
-   
-
->>>>>>> 3b960a21212dd8787e9fa02d512017d53b63a0ed
 }

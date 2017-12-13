@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { MainService} from './core/services/main.service';
-
 import {NgForm} from '@angular/forms';
 
 declare var jquery:any;
@@ -28,7 +27,6 @@ export class AppComponent {
   constructor(private service:MainService){
 
     this.page = location.pathname;
-  
     if( this.page != '/build') this.isBuildPage = false;
       else this.isBuildPage = true;
   
@@ -60,6 +58,7 @@ export class AppComponent {
 }
 Registration(){
   this.isLoginErr = false;
+  console.log(this.RegisterParams.email, this.RegisterParams.password)
   this.service.UserRegistration(this.RegisterParams.email, this.RegisterParams.password)
   .subscribe((res:boolean)=>{
       (err)=>{
@@ -69,5 +68,13 @@ Registration(){
       }  
   });
 }
-
+signIn(provider){
+  //this.sub = this._auth.login(provider).subscribe(
+    (data) => {
+                console.log(data);
+                //user data 
+                //name, image, uid, provider, uid, email, token (accessToken for Facebook & google, no token for linkedIn), idToken(only for google) 
+              }
+ // )
+}
 }
