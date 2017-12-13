@@ -11,12 +11,13 @@ declare var $ :any;
   styleUrls: ['./best.component.css']
 })
 export class BestComponent implements OnInit {
-
+  
   constructor(private service:MainService) { }
   lat: number = 51.678418;
   lng: number = 7.809007;
   MapStyle = this.getMapStyle();
   flagForOpenSlider:boolean = true;
+
   Params = {
     limit:10,
     offset:0
@@ -24,6 +25,7 @@ export class BestComponent implements OnInit {
 
   allBestRouts:any = [];
   allBestRoutsImages:any = [];
+  allSightByRoute:any = [];
   imagesSightsRoute:any = [];
 
 
@@ -92,22 +94,42 @@ export class BestComponent implements OnInit {
    
  
 
-    OpenSliderCart(i:number){
-      
-
-
+    OpenSliderCart(index:number){
+      this.allSightByRoute = this.allBestRouts[index].places;
+      console.log(this.allSightByRoute);
 
       if(!this.flagForOpenSlider){
         $('.flex-sights').slick('unslick');
       }
+      
       this.flagForOpenSlider = false;
-      $('.flex-sights').slick({
-          slidesToShow: 6,
-          slidesToScroll: 1,
-          arrows: true,
-          dots: false,
-          infinite:false
-      });
+     
+      setTimeout(function(){
+          $('.flex-sights').slick({
+            slidesToShow: 6,
+            slidesToScroll: 1,
+            arrows: true,
+            dots: false,
+            infinite:false
+        });
+      },500);
+      
+    
+      
+      for(let i in this.allSightByRoute){
+        this.service.GetImage(this.allSightByRoute[i].cover_id).subscribe(
+          (res)=>{
+            this.imagesSightsRoute[i] = res.url;
+          },
+          (err)=>{
+            console.log(err);
+          }
+        );
+      }
+  
+
+
+      
     }
 
     OpenModalSights(){

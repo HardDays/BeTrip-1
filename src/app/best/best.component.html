@@ -5,7 +5,7 @@
           <div class="one-block">
               <div class="new-wrapp-for-shadow">
                   <div class="for-before-wr">
-                      <div class="img" style="background-image: url(../assets/img/post_326.jpg)" [ngStyle]="{'background-image':'url(' + allBestRoutsImages[i] + ')' }">{{i}}</div>
+                      <div class="img" style="background-image: url(../assets/img/post_326.jpg)" [ngStyle]="{'background-image':'url(' + allBestRoutsImages[i] + ')' }"></div>
                   </div>
                   <div class="ava" style="background-image: url(../assets/img/ava.jpg)"></div>
                   <div class="padd-descript">
@@ -75,57 +75,14 @@
 
         </agm-map>
     </div>
-      <div class="fixed-sights" [ngClass]="{ visible : !this.flagForOpenSlider }">
+      <div class="fixed-sights" [ngClass]="{'visible':!flagForOpenSlider}">
           <div class="flex-sights">
-              
-              <div class="one-sight" (click)="OpenModalSights()">
-                  <div class="for-before-wr">
-                      <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
-                  </div>
-                  <p><span>1</span>Holywood</p>
-              </div>
-              <div class="one-sight" (click)="OpenModalSights()">
-                  <div class="for-before-wr">
-                      <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
-                  </div>
-                  <p><span>2</span>Holywood</p>
-              </div>
-              <div class="one-sight" (click)="OpenModalSights()">
-                  <div class="for-before-wr">
-                      <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
-                  </div>
-                  <p><span>3</span>Holywood</p>
-              </div>
-              <div class="one-sight" (click)="OpenModalSights()">
-                  <div class="for-before-wr">
-                      <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
-                  </div>
-                  <p><span>4</span>Holywood</p>
-              </div>
-              <div class="one-sight" (click)="OpenModalSights()">
-                  <div class="for-before-wr">
-                      <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
-                  </div>
-                  <p><span>5</span>Holywood</p>
-              </div>
-              <div class="one-sight" (click)="OpenModalSights()">
-                  <div class="for-before-wr">
-                      <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
-                  </div>
-                  <p><span>6</span>Holywood</p>
-              </div>
-              <div class="one-sight" (click)="OpenModalSights()">
-                  <div class="for-before-wr">
-                      <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
-                  </div>
-                  <p><span>7</span>Holywood</p>
-              </div>
-              <div class="one-sight" (click)="OpenModalSights()">
-                  <div class="for-before-wr">
-                      <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
-                  </div>
-                  <p><span>8</span>Holywood</p>
-              </div>
+                <div *ngFor="let item of allSightByRoute; let i = index" class="one-sight" (click)="OpenModalSights()">
+                    <div class="for-before-wr">
+                        <div class="img" [ngStyle]="{'background-image':'url(' + imagesSightsRoute[i] + ')'}"></div>
+                    </div>
+                    <p><span>{{i + 1}}</span>{{item.name}}</p>
+                </div>
           </div>
       </div>
   </div>
@@ -139,14 +96,14 @@
         <div class="modal-contant">
             <div class="modal-body">
                 <div class="slider-init">
-                    <div class="slide">
+                    <div class="slide" *ngFor="let item of allSightByRoute; let i = index">
                         <div class="after-slide">
                             <div class="for-before-wr">
-                                <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
+                                <div class="img" [ngStyle]="{'background-image':'url(' + imagesSightsRoute[i] + ')' }"></div>
                             </div>
                             <div class="content-sights">
-                                <p class="name">Holywood</p>
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, </p>
+                                <p class="name">{{item.name}}</p>
+                                <p>{{item.address}}</p>
 
                                 <div class="for-flex-buttons">
                                     <div class="find-more">
@@ -161,160 +118,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="slide">
-                        <div class="after-slide">
-                            <div class="for-before-wr">
-                                <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
-                            </div>
-                            <div class="content-sights">
-                                <p class="name">Holywood</p>
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, </p>
-
-                                <div class="for-flex-buttons">
-                                    <div class="find-more">
-                                        <p>Find more...</p>
-                                    </div>
-                                    <div class="one">
-                                        <div class="bg">
-                                            <img src="../assets/img/like.png" class="img-responsive" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="slide">
-                            <div class="after-slide">
-                                <div class="for-before-wr">
-                                    <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
-                                </div>
-                                <div class="content-sights">
-                                    <p class="name">Holywood</p>
-                                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, </p>
-    
-                                    <div class="for-flex-buttons">
-                                        <div class="find-more">
-                                            <p>Find more...</p>
-                                        </div>
-                                        <div class="one">
-                                            <div class="bg">
-                                                <img src="../assets/img/like.png" class="img-responsive" alt="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="slide">
-                            <div class="after-slide">
-                                <div class="for-before-wr">
-                                    <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
-                                </div>
-                                <div class="content-sights">
-                                    <p class="name">Holywood</p>
-                                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, </p>
-    
-                                    <div class="for-flex-buttons">
-                                        <div class="find-more">
-                                            <p>Find more...</p>
-                                        </div>
-                                        <div class="one">
-                                            <div class="bg">
-                                                <img src="../assets/img/like.png" class="img-responsive" alt="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="slide">
-                                <div class="after-slide">
-                                    <div class="for-before-wr">
-                                        <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
-                                    </div>
-                                    <div class="content-sights">
-                                        <p class="name">Holywood</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, </p>
-        
-                                        <div class="for-flex-buttons">
-                                            <div class="find-more">
-                                                <p>Find more...</p>
-                                            </div>
-                                            <div class="one">
-                                                <div class="bg">
-                                                    <img src="../assets/img/like.png" class="img-responsive" alt="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="slide">
-                                <div class="after-slide">
-                                    <div class="for-before-wr">
-                                        <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
-                                    </div>
-                                    <div class="content-sights">
-                                        <p class="name">Holywood</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, </p>
-        
-                                        <div class="for-flex-buttons">
-                                            <div class="find-more">
-                                                <p>Find more...</p>
-                                            </div>
-                                            <div class="one">
-                                                <div class="bg">
-                                                    <img src="../assets/img/like.png" class="img-responsive" alt="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="slide">
-                                    <div class="after-slide">
-                                        <div class="for-before-wr">
-                                            <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
-                                        </div>
-                                        <div class="content-sights">
-                                            <p class="name">Holywood</p>
-                                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, </p>
-            
-                                            <div class="for-flex-buttons">
-                                                <div class="find-more">
-                                                    <p>Find more...</p>
-                                                </div>
-                                                <div class="one">
-                                                    <div class="bg">
-                                                        <img src="../assets/img/like.png" class="img-responsive" alt="">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            <div class="slide">
-                                <div class="after-slide">
-                                    <div class="for-before-wr">
-                                        <div class="img" style="background-image: url(../assets/img/post_326.jpg)"></div>
-                                    </div>
-                                    <div class="content-sights">
-                                        <p class="name">Holywood</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, </p>
-        
-                                        <div class="for-flex-buttons">
-                                            <div class="find-more">
-                                                <p>Find more...</p>
-                                            </div>
-                                            <div class="one">
-                                                <div class="bg">
-                                                    <img src="../assets/img/like.png" class="img-responsive" alt="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                 
                 </div>
             </div>
         </div>
