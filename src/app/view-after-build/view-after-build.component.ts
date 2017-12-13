@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { MainService} from '../core/services/main.service';
 import { Router, ActivatedRoute, Params } from "@angular/router";
 
+import { CoordsModel } from "../core/models/coords.model";
 declare var jquery:any;
 declare var $ :any;
 
@@ -19,6 +20,10 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
   lat: number = 51.678418;
   lng: number = 7.809007;
 
+  activeRoute:number = 0;
+  isInfoWinOpen:boolean[] = [];
+  StepsCoord:CoordsModel[] = [];
+  MapStyle = this.getMapStyle();
 
   flagForDropdown:boolean = false;
     ngOnInit() {
@@ -33,17 +38,46 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
            to = params['to'];
         
         });
+        this.StepsCoord.push(new CoordsModel(this.lat,this.lng));
+        this.StepsCoord.push(new CoordsModel(this.lat+1,this.lng));
       this.BuildMap(from,to);
+
+      this.clearInfoWin();
     }
 
+    getMapStyle(){
+      return this.service.GetMapStyle();
+    }
 
     BuildMap(from:string,to:string){
-     
+      this.StepsCoord= [];
       this.service.RoutesCreate(from,to).subscribe(
         (res)=>{
           console.log('ok',res);
+          this.service.GetPolyById(res[this.activeRoute].id).
+          subscribe((poly)=>{
+
+            console.log('poly',poly);
+            for(let i=0;i<poly.routes[0].legs[0].steps.length;i++){
+            this.StepsCoord.push(poly.routes[0].legs[0].steps[i].start_location);
+            this.StepsCoord.push(poly.routes[0].legs[0].steps[i].end_location);
+              
+            }
+            console.log('steps',this.StepsCoord,this.StepsCoord[0].lat);
+          });
         }
       );
+    }
+
+    clearInfoWin(){
+      this.isInfoWinOpen = [];
+      for(let i=0;i<2;i++)this.isInfoWinOpen.push(false);
+    }
+    mapClick(){
+      this.clearInfoWin();
+    }
+    markerClick(i:number){
+      this.isInfoWinOpen[i]= !this.isInfoWinOpen[i];
     }
 
     ngAfterViewInit() {
