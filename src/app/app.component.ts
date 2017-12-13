@@ -114,4 +114,8 @@ logout(){
     (data)=>{console.log(data);this.user=null;}
   )
 }
+
+Navigate(){
+  this.router.navigate(['/build']);
+}
 }
