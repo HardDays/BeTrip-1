@@ -6,9 +6,9 @@
       <!--Сюда карту-->
       
       <div class="for-position-map">
-            <agm-map #gm [latitude]="lat" [longitude]="lng" style="height: 100%;" (mapClick)="mapClick()" [styles]="MapStyle">
+            <agm-map #gm [latitude]="StepsCoord[0].lat" [longitude]="StepsCoord[0].lng" style="height: 100%;" (mapClick)="mapClick()" [styles]="MapStyle">
 
-                <agm-marker [iconUrl]="'../assets/img/marker3.png'" [latitude]="lat" [longitude]="lng" (markerClick)="markerClick(0)">
+                <agm-marker [iconUrl]="'../assets/img/marker3.png'" [latitude]="StepsCoord[0].lat" [longitude]="StepsCoord[0].lng" (markerClick)="markerClick(0)">
                     <agm-info-window [isOpen]="isInfoWinOpen[0]">
                             <!-- тут диз карточки-->
                             <div class="cart-sight-wrapp">
@@ -21,7 +21,7 @@
 
                 <agm-polyline >
                         <ng-container>
-                            <agm-polyline-point *ngFor="let coord of StepsCoord; let i = index" [latitude]="StepsCoord[i].lat" [longitude]="StepsCoord[i].lng"></agm-polyline-point>
+                            <agm-polyline-point *ngFor="let coord of StepsCoord; let i = index" [latitude]="coord.lat" [longitude]="coord.lng"></agm-polyline-point>
                         </ng-container>
                 </agm-polyline>
                
