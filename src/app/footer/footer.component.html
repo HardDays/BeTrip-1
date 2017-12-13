@@ -26,8 +26,8 @@
             <div class="col-md-4">
                 <p class="head-tt">Subscribe</p>
                 <p>Keep yourself updated. Subscribe to our newsletter.</p>
-                <form id="mc-form" class="group" novalidate="true">
-                    <input type="email" value="" name="dEmail" class="email" id="mc-email" placeholder="type email &amp; hit enter" required=""> 
+                <form id="mc-form" class="group" novalidate="true" (ngSubmit)="SubscribeEmail(submitFormSubscribe)" #submitFormSubscribe="ngForm">
+                    <input type="text" email value="" #email="ngModel" name="email" class="email" placeholder="type email &amp; hit enter" required=""> 
                     <button type="submit" name="subscribe" ></button>
                     <label for="mc-email" class="subscribe-message"></label>
                 </form>
