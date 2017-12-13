@@ -1835,6 +1835,16 @@ footer #mc-form input:-ms-input-placeholder {
 }
 .cart-sight-wrapp{
     width: 275px;
+    //position: relative;
+    height: 248px;
+    .for-abs-cost{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 300px;
+
+    }
+
     .img{
         height: 200px;
         background-size: cover;
