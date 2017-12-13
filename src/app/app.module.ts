@@ -24,12 +24,9 @@ let providers = {
   "google": {
     "clientId": "285182475617-gom13u0bp7ik48v4lc9ngg5s3rijbjav.apps.googleusercontent.com"
   },
-  "twitter": {
-    "clientId": "vgA7wO4FemlddNtZBFsU8R1zj"
-  },
   "facebook": {
     "clientId": "1604317082925030",
-    "apiVersion": "<version>" //like v2.4 
+    "apiVersion": "v2.10" //like v2.4 
   }
 };
 @NgModule({
@@ -61,3 +58,4 @@ let providers = {
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+Angular2SocialLoginModule.loadProvidersScripts(providers);
