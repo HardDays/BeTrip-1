@@ -104,7 +104,7 @@ export class BestComponent implements OnInit {
       
       this.flagForOpenSlider = false;
      
-      setTimeout(function(){
+      setTimeout(()=>{
           $('.flex-sights').slick({
             slidesToShow: 6,
             slidesToScroll: 1,
@@ -112,9 +112,9 @@ export class BestComponent implements OnInit {
             dots: false,
             infinite:false
         });
+        this.flagForOpenSlider=!this.flagForOpenSlider;
       },500);
       
-    
       
       for(let i in this.allSightByRoute){
         this.service.GetImage(this.allSightByRoute[i].cover_id).subscribe(
