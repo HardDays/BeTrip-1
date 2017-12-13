@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { MainService} from './core/services/main.service';
 import {NgForm} from '@angular/forms';
+import { Router } from "@angular/router";
+
 
 declare var jquery:any;
 declare var $ :any;
@@ -24,7 +26,7 @@ export class AppComponent {
     email:'',
     password: ''
   }
-  constructor(private service:MainService){
+  constructor(private service:MainService,private router: Router){
 
     this.page = location.pathname;
     if( this.page != '/build') this.isBuildPage = false;
@@ -38,6 +40,7 @@ export class AppComponent {
       }
     );
   }
+  
   OpenModalSignIn(){
     $("#login-modal").modal('show');
   }
@@ -49,24 +52,29 @@ export class AppComponent {
     this.isLoginErr = false;
     this.service.UserLogin(this.LoginParams.email, this.LoginParams.password)
     .subscribe((res:boolean)=>{
+      $("#login-modal").modal('hide');
+      
+        },
         (err)=>{
             console.log(err);
             this.isLoginErr = true;
             
         }  
-    });
+    );
 }
 Registration(){
   this.isLoginErr = false;
   console.log(this.RegisterParams.email, this.RegisterParams.password)
   this.service.UserRegistration(this.RegisterParams.email, this.RegisterParams.password)
   .subscribe((res:boolean)=>{
+    $("#regist-modal").modal('hide');
+  },
       (err)=>{
           console.log(err);
           this.isLoginErr = true;
           
       }  
-  });
+  );
 }
 signIn(provider){
   //this.sub = this._auth.login(provider).subscribe(
