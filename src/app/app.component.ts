@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { MainService} from './core/services/main.service';
-import {NgForm} from '@angular/forms';
+import { NgForm } from '@angular/forms';
 import { Router } from "@angular/router";
-
+import { AuthService } from "angular2-social-login";
 
 declare var jquery:any;
 declare var $ :any;
@@ -27,7 +27,7 @@ export class AppComponent {
     email:'',
     password: ''
   }
-  constructor(private service:MainService,private router: Router){
+  constructor(private service:MainService,private router: Router,public _auth: AuthService){
 
     this.page = location.pathname;
     if( this.page != '/build') this.isBuildPage = false;
@@ -83,12 +83,12 @@ Registration(){
   );
 }
 signIn(provider){
-  //this.sub = this._auth.login(provider).subscribe(
+  this._auth.login(provider).subscribe(
     (data) => {
                 console.log(data);
                 //user data 
                 //name, image, uid, provider, uid, email, token (accessToken for Facebook & google, no token for linkedIn), idToken(only for google) 
               }
- // )
+  )
 }
 }
