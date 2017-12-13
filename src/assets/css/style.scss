@@ -1831,6 +1831,32 @@ footer #mc-form input:-ms-input-placeholder {
     }
     
 }
-
+.cart-sight-wrapp{
+    width: 275px;
+    .img{
+        height: 200px;
+        background-size: cover;
+        background-position: center;
+        
+    }
+    .ava {
+        width: 35px;
+        height: 35px;
+        border: 3px solid #fff;
+        position: relative;
+        background-size: cover;
+        background-position: center;
+        margin-top: -20px;
+        border-radius: 50%;
+        margin-left: 10px;
+    }
+    .name-sight{
+        font-size: 19px;
+        font-weight: bold;
+        padding-bottom: 10px;
+        
+        text-align: center;
+    }
+}
 
 /*# sourceMappingURL=style.css.map */

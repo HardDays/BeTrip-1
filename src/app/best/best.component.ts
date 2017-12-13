@@ -17,7 +17,16 @@ export class BestComponent implements OnInit {
   lng: number = 7.809007;
   MapStyle = this.getMapStyle();
   flagForOpenSlider:boolean = true;
-  
+  Params = {
+    limit:10,
+    offset:0
+  }
+
+  allBestRouts:any = [];
+  allBestRoutsImages:any = [];
+  imagesSightsRoute:any = [];
+
+
   isInfoWinOpen:boolean[] = [];
 
      ngOnInit() {
@@ -26,7 +35,31 @@ export class BestComponent implements OnInit {
       
       $('#sights-slider').on('hidden.bs.modal', function () {
         $('.slider-init').slick('unslick');
-    });
+      });
+
+      console.log('ok');
+      this.service.getBestRoutes(this.Params).subscribe(
+        (res)=>{
+          this.allBestRouts = res;
+          console.log(this.allBestRouts);
+          for(let i in res){
+            this.service.GetImage(this.allBestRouts[i].places[0].cover_id).subscribe(
+              (res)=>{
+                //console.log(res);
+                this.allBestRoutsImages[i] = res.url;
+              },
+              (err)=>{
+                console.log(err);
+              }
+            );
+        }
+        },
+        (err)=>{
+          console.log(err);
+        }
+      );
+
+
 
 
       if($(window).scrollTop() > 70){
@@ -59,11 +92,13 @@ export class BestComponent implements OnInit {
    
  
 
-    OpenSliderCart(){
+    OpenSliderCart(i:number){
       
+
+
+
       if(!this.flagForOpenSlider){
         $('.flex-sights').slick('unslick');
-        
       }
       this.flagForOpenSlider = false;
       $('.flex-sights').slick({

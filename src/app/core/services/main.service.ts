@@ -17,6 +17,9 @@ import { UserModel } from '../models/user.model';
 @Injectable()
 export class MainService{
     public onPageChange$: Subject<boolean>;
+    
+
+
     constructor(private http: HttpService, private router: Router){
         this.onPageChange$ = new Subject();
         this.onPageChange$.next(true);
@@ -41,6 +44,11 @@ export class MainService{
       return options.toString();
   }
 
+ getBestRoutes(params?:any){
+      
+      return this.http.GetData('/routes/get_best_routes',this.ParamsToUrlSearchParams(params));
+    }
+
 
   RoutesCreate(from_place:string,to_place:string){
     const data = {
@@ -51,6 +59,11 @@ export class MainService{
     return this.http.PostData('/routes/create',JSON.stringify(data));
 }
 
+
+  GetImage(id:string){
+    
+    return this.http.GetData('/images/get/'+id,'');
+  }
 
 
 
@@ -262,5 +275,8 @@ export class MainService{
             }
           ]
     }
+
+
+   
 
 }
