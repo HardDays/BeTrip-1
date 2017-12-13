@@ -39,7 +39,7 @@
                                     <li class="menu-item">
                                         <a class="op-modal-sign-in" *ngIf="!isLogined" (click)="OpenModalSignIn()">Sign In</a>
                                         <a class="op-modal-sign-up" *ngIf="!isLogined" (click)="OpenModalSignUp()">Sign Up</a>
-                                        <a *ngIf="isLogined">Sign Out</a>
+                                        <a *ngIf="isLogined" (click)="Logout()" >Sign Out</a>
                                     </li>
                                 </ul>
                             </li>
@@ -71,9 +71,10 @@
                   <button class="butt-orange" type="submit" type="submit">Login</button>
                   <p class="name-inp sign-up-with">Sign up with</p>
                   <div class="sign-up-w-wrapp">
-                      <img src="../assets/img/fb.png" (click)="signIn('facebook')" class="img-responsive" alt="">
-                      <img src="../assets/img/vk.png" class="img-responsive" alt="">
-                      <img src="../assets/img/tw.png" class="img-responsive" alt="">
+                      <input type="image" src="../assets/img/fb.png" (click)="signIn('facebook')" class="img-responsive" alt="">
+                      <input type="image" src="../assets/img/google.png" (click)="signIn('google')" class="img-responsive" alt="">
+                      <img src="../assets/img/tw.png" (click)="signIn('twitter')" class="img-responsive" alt="">
+                      
                   </div>
               </form>
           </div>

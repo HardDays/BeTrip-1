@@ -20,14 +20,15 @@ import { HttpService } from './core/services/http.service';
 import { FooterComponent } from './footer/footer.component';
 import { Angular2SocialLoginModule } from "angular2-social-login";
 
-import { AuthModule } from 'angular2-auth';
-
 let providers = {
   "google": {
-    "clientId": "GOOGLE_CLIENT_ID"
+    "clientId": "285182475617-gom13u0bp7ik48v4lc9ngg5s3rijbjav.apps.googleusercontent.com"
+  },
+  "twitter": {
+    "clientId": "vgA7wO4FemlddNtZBFsU8R1zj"
   },
   "facebook": {
-    "clientId": "FACEBOOK_CLIENT_ID",
+    "clientId": "1604317082925030",
     "apiVersion": "<version>" //like v2.4 
   }
 };
@@ -53,7 +54,8 @@ let providers = {
       apiKey: 'AIzaSyBaq3qTokKJ_b2VP0h5h_eeYliQ80ME74M',
       libraries: ["places"]
     }),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    Angular2SocialLoginModule
   ],
   providers: [MainService, HttpModule, HttpService],
   bootstrap: [AppComponent]
