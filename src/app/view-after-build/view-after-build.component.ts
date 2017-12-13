@@ -60,7 +60,7 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
             console.log('poly',poly);
             for(let i=0;i<poly.routes[0].legs[0].steps.length;i++){
             this.StepsCoord.push(poly.routes[0].legs[0].steps[i].start_location);
-           // this.StepsCoord.push(poly.routes[0].legs[0].steps[i].end_location);
+            this.StepsCoord.push(poly.routes[0].legs[0].steps[i].end_location);
               
             }
             console.log('steps',this.StepsCoord,this.StepsCoord[0].lat);
