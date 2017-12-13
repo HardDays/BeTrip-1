@@ -53,7 +53,7 @@ let providers = {
       apiKey: 'AIzaSyBaq3qTokKJ_b2VP0h5h_eeYliQ80ME74M',
       libraries: ["places"]
     }),
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ],
   providers: [MainService, HttpModule, HttpService],
   bootstrap: [AppComponent]

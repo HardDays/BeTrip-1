@@ -17,6 +17,8 @@ export class BestComponent implements OnInit {
   lng: number = 7.809007;
   MapStyle = this.getMapStyle();
   flagForOpenSlider:boolean = true;
+  newFlagForVisible:boolean = false;
+
 
   Params = {
     limit:10,
@@ -95,6 +97,7 @@ export class BestComponent implements OnInit {
  
 
     OpenSliderCart(index:number){
+      this.newFlagForVisible = false;
       this.allSightByRoute = this.allBestRouts[index].places;
       console.log(this.allSightByRoute);
 
@@ -104,17 +107,19 @@ export class BestComponent implements OnInit {
       
       this.flagForOpenSlider = false;
      
-      setTimeout(function(){
-          $('.flex-sights').slick({
+      setTimeout(()=>{
+
+        this.newFlagForVisible = true;
+
+        $('.flex-sights').slick({
             slidesToShow: 6,
             slidesToScroll: 1,
             arrows: true,
             dots: false,
             infinite:false
         });
-      },500);
+      },200);
       
-    
       
       for(let i in this.allSightByRoute){
         this.service.GetImage(this.allSightByRoute[i].cover_id).subscribe(
@@ -132,8 +137,9 @@ export class BestComponent implements OnInit {
       
     }
 
-    OpenModalSights(){
+    OpenModalSights(index){
         $("#sights-slider").modal("show");
+        console.log(index);
         $('.slider-init').slick({
             slidesToShow: 1,
             slidesToScroll: 1,
@@ -141,6 +147,7 @@ export class BestComponent implements OnInit {
             dots: false,
             infinite:false
         });
+        $('.slider-init').slick('slickGoTo',index,true);
     }
 
     getMapStyle(){
