@@ -21,8 +21,6 @@ const routes: Routes = [
     { path: 'trips',component: TripsComponent },
     { path: 'routs',component: ViewAfterBuildComponent }
     
-
-    
 ];
 
 @NgModule({
