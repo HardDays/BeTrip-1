@@ -20,4 +20,19 @@ export class MainService{
         this.onPageChange$.next(true);
     }
 
+    UserLogin(email:string, password:string){
+        let params = {
+            email: email,
+            password: password
+        };
+        return this.http.PostData('/auth/login',JSON.stringify(params));
+    }
+
+    UserRegistration(email:string, password:string){
+        let params = {
+            email: email,
+            password: password
+        };
+        return this.http.PostData('/user/create',JSON.stringify(params));
+    }
 }

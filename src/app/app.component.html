@@ -61,14 +61,14 @@
   <div class="modal-dialog">
       <div class="modal-contant">
           <div class="modal-body">
-              <form class="sign">
+              <form (ngSubmit)="Login()" class="sign">
                   <img src="../assets/img/Logo_icon.png" class="img-responsive" alt="">
                   <h2>Sign In</h2>
-                  <p class="name-inp">Email</p>
+                  <p class="name-inp" [(ngModel)]="LoginParams.email" name="email" (ngModelChange)="LoginParams.email = $event">Email</p>
                   <input type="text">
-                  <p class="name-inp">Password</p>
+                  <p class="name-inp" [(ngModel)]="LoginParams.password" name="loginPassword" (ngModelChange)="LoginParams.password = $event">Password</p>
                   <input type="password">
-                  <button class="butt-orange" type="submit">Login</button>
+                  <button class="butt-orange" type="submit" type="submit">Login</button>
                   <p class="name-inp sign-up-with">Sign up with</p>
                   <div class="sign-up-w-wrapp">
                       <img src="../assets/img/fb.png" class="img-responsive" alt="">
@@ -84,12 +84,12 @@
   <div class="modal-dialog">
       <div class="modal-contant">
           <div class="modal-body">
-              <form class="sign">
+              <form (ngSubmit)="Registration()" class="sign">
                   <img src="../assets/img/Logo_icon.png" class="img-responsive" alt="">
                   <h2>Sign Up</h2>
-                  <p class="name-inp">Email</p>
+                  <p class="name-inp" [ngModel]="RegisterParams.email" name="registerEmail" (ngModelChange)="RegisterParams.email = $event">Email</p>
                   <input type="text">
-                  <p class="name-inp">Password</p>
+                  <p class="name-inp" [(ngModel)]="RegisterParams.password" name="registerPassword" (ngModelChange)="RegisterParams.password = $event">Password</p>
                   <input type="password">
                   <button class="butt-orange" type="submit">Register</button>
               </form>

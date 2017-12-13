@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { MainService} from './core/services/main.service';
 
+import {NgForm} from '@angular/forms';
+
 declare var jquery:any;
 declare var $ :any;
 
@@ -14,6 +16,15 @@ export class AppComponent {
  
   page:string = 'none';
   isBuildPage:boolean = true;
+  isLoginErr = false;
+  public LoginParams = {
+    email:'',
+    password: ''
+  }
+  public RegisterParams = {
+    email:'',
+    password: ''
+  }
   constructor(private service:MainService){
 
     this.page = location.pathname;
@@ -36,6 +47,27 @@ export class AppComponent {
     $("#regist-modal").modal('show');
   }
 
- 
+  Login(){
+    this.isLoginErr = false;
+    this.service.UserLogin(this.LoginParams.email, this.LoginParams.password)
+    .subscribe((res:boolean)=>{
+        (err)=>{
+            console.log(err);
+            this.isLoginErr = true;
+            
+        }  
+    });
+}
+Registration(){
+  this.isLoginErr = false;
+  this.service.UserRegistration(this.RegisterParams.email, this.RegisterParams.password)
+  .subscribe((res:boolean)=>{
+      (err)=>{
+          console.log(err);
+          this.isLoginErr = true;
+          
+      }  
+  });
+}
 
 }
