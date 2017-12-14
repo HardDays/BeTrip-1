@@ -17,12 +17,15 @@ import { UserModel } from '../models/user.model';
 @Injectable()
 export class MainService{
     public onPageChange$: Subject<boolean>;
-    
+    public onLoginChange$: Subject<boolean>;
 
 
     constructor(private http: HttpService, private router: Router){
         this.onPageChange$ = new Subject();
         this.onPageChange$.next(true);
+
+        this.onLoginChange$ = new Subject();
+        this.onLoginChange$.next(false);
     }
 
     UserLogin(email:string, password:string){
@@ -47,6 +50,10 @@ export class MainService{
         };
         return this.http.PostData('/users/create',JSON.stringify(params));
     }
+
+    UserLogout(){
+      return this.http.PostData('auth/logout', '');
+  }
     ParamsToUrlSearchParams(params:any):string{
       let options = new URLSearchParams();
 

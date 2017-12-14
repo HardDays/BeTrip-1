@@ -1,22 +1,10 @@
-<div class="best-wr">
-  
-  <div class="fixed-map page-view-after-build">
-     
-      
-      <!--Сюда карту-->
-      
-      <div class="for-position-map">
-            <agm-map #gm [latitude]="StepsCoord[0].lat?StepsCoord[0].lat:0" [longitude]="StepsCoord[0].lng?StepsCoord[0].lng:0" style="height: 100%;" (mapClick)="mapClick()" [styles]="MapStyle">
-
-               
-                <agm-marker [iconUrl]="'../assets/img/marker-yellow2.png'" [latitude]="StepsCoord[0].lat?StepsCoord[0].lat:0" [longitude]="StepsCoord[0].lng?StepsCoord[0].lng:0">
-                    
-                </agm-marker>
-
-
-                <agm-marker [iconUrl]="'../assets/img/marker-black.png'" *ngFor="let place of Places; let i = index" [latitude]="place.lat" [longitude]="place.lng" (markerClick)="markerClick(i)">
+<div class="best-wr">  
+  <div class="fixed-map page-view-after-build">  
+      <div  class="for-position-map">
+            <agm-map #gm [zoom]="7" [latitude]="StepsCoord[StepsCoord.length/2]?StepsCoord[StepsCoord.length/2].lat+0.5:0" [longitude]="StepsCoord[StepsCoord.length/2]?StepsCoord[StepsCoord.length/2].lng:0" style="height: 100%;" (mapClick)="mapClick()" [styles]="MapStyle">
+                <agm-marker [iconUrl]="'../assets/img/marker-yellow2.png'" [latitude]="StepsCoord[0]?StepsCoord[0].lat:''" [longitude]="StepsCoord[0]?StepsCoord[0].lng:''"></agm-marker>
+                <agm-marker [iconUrl]="'../assets/img/marker-black.png'" *ngFor="let place of Places; let i = index" [latitude]="place?place.lat:0" [longitude]="place?place.lng:0" (markerClick)="markerClick(i)">
                     <agm-info-window [isOpen]="isInfoWinOpen[i]">
-                            <!-- тут диз карточки-->
                             <div class="cart-sight-wrapp">
                                 <div class="img" [ngStyle]="{'background-image':'url(' + allRoutsImages[i] + ')'}"></div>
                                 <div class="ava" style="background-image: url(../assets/img/ava.jpg)"></div>
@@ -25,35 +13,25 @@
                     </agm-info-window>
                 </agm-marker>
 
-
-                <agm-marker [iconUrl]="'../assets/img/marker3.png'" [latitude]="StepsCoord[StepsCoord.length-1].lat?StepsCoord[StepsCoord.length-1].lat:0" [longitude]="StepsCoord[StepsCoord.length-1].lng?StepsCoord[StepsCoord.length-1].lng:0">
-                    
-                </agm-marker>
+                <agm-marker [iconUrl]="'../assets/img/marker-yellow2.png'" [latitude]="StepsCoord[StepsCoord.length-1].lat" [longitude]="StepsCoord[StepsCoord.length-1].lng"></agm-marker>
 
                 <agm-polyline >
                         <ng-container>
                             <agm-polyline-point *ngFor="let coord of StepsCoord; let i = index" [latitude]="coord.lat?coord.lat:0" [longitude]="coord.lng?coord.lng:0"></agm-polyline-point>
                         </ng-container>
                 </agm-polyline>
-               
-    
             </agm-map>
-        </div>
-      
-      
+      </div>
       <div class="fixed-sights ">
-          <div class="flex-sights">
-              
-              <div *ngFor="let place of Places; let i = index" class="one-sight">
+          <div class="flex-sights"> 
+              <div *ngFor="let place of Places; let i = index" class="one-sight" (click)="OpenModalSights(i)">
                   <div class="for-before-wr">
                       <div class="img" [ngStyle]="{'background-image':'url(' + allRoutsImages[i] + ')'}"></div>
                   </div>
                   <p><span>{{i+1}}</span>{{place.name}}</p>
-              </div>
-              
+              </div>    
           </div>
       </div>
-      
       <div class="routs-count">
           <div class="picked-route" (click)="OpenRoute()">
               <div class="click">
@@ -82,9 +60,43 @@
                       <p>611km - 12h 34min</p>
                   </div>
               </div>
-          </div>
+          </div> 
       </div>
-      <!--<div class="save-route"></div>-->
-      
+      <!--<div class="save-route"></div>-->    
   </div>
 </div>
+
+<div class="modal sights-slider" id="sights-slider">
+            <div class="modal-dialog">
+                <div class="modal-contant">
+                    <div class="modal-body">
+                        <div class="slider-init">
+                            <div class="slide" *ngFor="let item of Places; let i = index">
+                                <div class="after-slide">
+                                    <div class="for-before-wr">
+                                        <div class="img" [ngStyle]="{'background-image':'url(' + allRoutsImages[i] + ')' }"></div>
+                                    </div>
+                                    <div class="content-sights">
+                                        <p class="name">{{item.name}}</p>
+                                        <p>{{item.address}}</p>
+        
+                                        <!--
+                                        <div class="for-flex-buttons">
+                                            <div class="find-more">
+                                                <p>Find more...</p>
+                                            </div>
+                                            <div class="one">
+                                                <div class="bg">
+                                                    <img src="../assets/img/like.png" class="img-responsive" alt="">
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                         
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>

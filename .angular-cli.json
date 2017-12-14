@@ -28,7 +28,8 @@
         "assets/js/jquery.js",
         "assets/js/bootstrap.min.js",
         "assets/js/slick.min.js",
-        "assets/js/plugins.js"
+        "assets/js/plugins.js",
+        "assets/gapi.js"
      
 
       ],

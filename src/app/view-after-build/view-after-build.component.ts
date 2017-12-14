@@ -26,11 +26,16 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
   StepsCoord:CoordsModel[] = [];
   Places:any[] = [];
   MapStyle = this.getMapStyle();
-
+    isLoading:boolean = true;
   flagForDropdown:boolean = false;
+
+  
+  flagForOpenSlider:boolean = true;
+  newFlagForVisible:boolean = false;
+
     ngOnInit() {
       this.service.onPageChange$.next(false);
-      this.StepsCoord.push(new CoordsModel(this.lat,this.lng));
+     // this.StepsCoord.push(new CoordsModel(this.lat,this.lng));
       let from:string='',to:string='';
       let sub:any = this.route.params.subscribe(params => {
         //this.Params.limit = +params['limit']; // (+) converts string 'id' to a number
@@ -41,8 +46,29 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
         
         });
        
+        $('#sights-slider').on('hidden.bs.modal', function () {
+          $('.slider-init').slick('unslick');
+        });
+
         //this.StepsCoord.push(new CoordsModel(this.lat+1,this.lng));
       this.BuildMap(from,to);
+
+
+      if($(window).scrollTop() > 70){
+        $(".fixed-sights").addClass("transformed");
+    }
+    else{
+        $(".fixed-sights").removeClass("transformed");
+    }
+    $(window).scroll(function(){
+      if($(window).scrollTop() > 70){
+          $(".fixed-sights").addClass("transformed");
+      }
+      else{
+          $(".fixed-sights").removeClass("transformed");
+      }
+  });
+
 
       this.clearInfoWin();
     }
@@ -61,12 +87,12 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
           console.log('ok',res);
           this.Places = res[this.activeRoute].places;
 
-          
-          for(let i of this.Places){
-            this.service.GetImage(i.cover_id).subscribe(
-              (res)=>{
+          for(let i=0;i<this.Places.length;i++){
+            this.service.GetImage(this.Places[i].cover_id).subscribe(
+              (img)=>{
                 //console.log(res);
-                this.allRoutsImages.push(res.url);
+                
+                this.allRoutsImages[i] = img.url;
               });
               
             }
@@ -82,12 +108,69 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
             
             }
             console.log('steps',this.StepsCoord,this.StepsCoord[0].lat);
-
+            this.isLoading = false;
            
           });
         
         });
     }
+
+      OpenSliderCart(index:number){
+      this.newFlagForVisible = false;
+     // this.allSightByRoute = this.allBestRouts[index].places;
+     // console.log(this.allSightByRoute);
+
+      if(!this.flagForOpenSlider){
+        $('.flex-sights').slick('unslick');
+      }
+      
+      this.flagForOpenSlider = false;
+     
+      setTimeout(()=>{
+
+        this.newFlagForVisible = true;
+
+        $('.flex-sights').slick({
+            slidesToShow: 6,
+            slidesToScroll: 1,
+            arrows: true,
+            dots: false,
+            infinite:false,
+            responsive: [
+              {
+                breakpoint: 1601,
+                settings: {
+                  slidesToShow: 4
+                }
+              },
+              {
+                breakpoint: 1301,
+                settings: {
+                  slidesToShow: 3
+                }
+              }
+            ]
+        });
+      },200);
+      
+    
+      
+    }
+
+    OpenModalSights(index){
+        $("#sights-slider").modal("show");
+        console.log(index);
+        $('.slider-init').slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: true,
+            dots: false,
+            infinite:false
+        });
+        $('.slider-init').slick('slickGoTo',index,true);
+    }
+
+
 
     clearInfoWin(){
       this.isInfoWinOpen = [];

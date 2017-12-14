@@ -20,15 +20,13 @@ import { HttpService } from './core/services/http.service';
 import { FooterComponent } from './footer/footer.component';
 import { Angular2SocialLoginModule } from "angular2-social-login";
 
-import { AuthModule } from 'angular2-auth';
-
 let providers = {
   "google": {
-    "clientId": "GOOGLE_CLIENT_ID"
+    "clientId": "285182475617-gom13u0bp7ik48v4lc9ngg5s3rijbjav.apps.googleusercontent.com"
   },
   "facebook": {
-    "clientId": "FACEBOOK_CLIENT_ID",
-    "apiVersion": "<version>" //like v2.4 
+    "clientId": "1604317082925030",
+    "apiVersion": "v2.10" //like v2.4 
   }
 };
 @NgModule({
@@ -60,5 +58,4 @@ let providers = {
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-
 Angular2SocialLoginModule.loadProvidersScripts(providers);

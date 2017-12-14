@@ -59,15 +59,12 @@ export class BestComponent implements OnInit {
                 console.log(err);
               }
             );
-        }
+          }
         },
         (err)=>{
           console.log(err);
         }
       );
-
-
-
 
       if($(window).scrollTop() > 70){
           $(".fixed-sights").addClass("transformed");
