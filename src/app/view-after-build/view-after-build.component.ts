@@ -17,8 +17,8 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private service: MainService,
     private params: ActivatedRoute,) { }
-  lat: number = 51.678418;
-  lng: number = 7.809007;
+  lat: number = 38.678418;
+  lng: number = 40.809007;
 
   activeRoute:number = 0;
   isInfoWinOpen:boolean[] = [];

@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild, NgZone } from '@angular/core';
 import { MainService} from '../core/services/main.service';
 import { AgmCoreModule } from '@agm/core';
+import { CoordsModel } from "../core/models/coords.model";
 
 declare var jquery:any;
 declare var $ :any;
@@ -13,8 +14,8 @@ declare var $ :any;
 export class BestComponent implements OnInit {
   
   constructor(private service:MainService) { }
-  lat: number = 51.678418;
-  lng: number = 7.809007;
+  lat: number = 45.678418;
+  lng: number = 10.809007;
   MapStyle = this.getMapStyle();
   flagForOpenSlider:boolean = true;
   newFlagForVisible:boolean = false;
@@ -22,6 +23,7 @@ export class BestComponent implements OnInit {
     limit:10,
     offset:0
   }
+  StepsCoord:CoordsModel[] = [];
 
   step = parseInt(''+new Date().getTime() / 100000) % 1000;
 
@@ -97,6 +99,7 @@ export class BestComponent implements OnInit {
  
 
     OpenSliderCart(index:number){
+      
       this.newFlagForVisible = false;
       this.allSightByRoute = this.allBestRouts[index].places;
       console.log(this.allSightByRoute);
@@ -134,7 +137,24 @@ export class BestComponent implements OnInit {
         });
       },200);
       
+      console.log(`!!!`,this.allBestRouts);
+      this.StepsCoord = [];
       
+      this.service.GetPolyById(this.allBestRouts[index].id).
+      subscribe((poly)=>{
+
+        console.log('poly',poly);
+        for(let i=0;i<poly.routes[0].legs[0].steps.length;i++){
+          this.StepsCoord.push(poly.routes[0].legs[0].steps[i].start_location);
+          this.StepsCoord.push(poly.routes[0].legs[0].steps[i].end_location);
+        
+        }
+        console.log('steps',this.StepsCoord,this.StepsCoord[0].lat);
+       this.lat = this.StepsCoord[this.StepsCoord.length/2].lat;
+       this.lng = this.StepsCoord[this.StepsCoord.length/2].lng;
+       
+      });
+
       for(let i in this.allSightByRoute){
         this.service.GetImage(this.allSightByRoute[i].cover_id).subscribe(
           (res)=>{
