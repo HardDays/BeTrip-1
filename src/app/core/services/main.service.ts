@@ -36,6 +36,9 @@ export class MainService{
         return this.http.PostData('/auth/login',JSON.stringify(params));
     }
 
+    GoogleLogin(token:any){
+      return this.http.PostData('auth/login_google',JSON.stringify(token));
+   }
     SendEmail(email:string){
       let params = {
           email: email,
