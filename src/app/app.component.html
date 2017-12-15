@@ -61,9 +61,12 @@
   <div class="modal-dialog">
       <div class="modal-contant">
           <div class="modal-body">
-              <form (ngSubmit)="Login()" class="sign">
+              <form #myForm="ngForm" (submit)="myForm.reset()" (ngSubmit)="Login()" class="sign">
                   <img src="../assets/img/Logo_icon.png" class="img-responsive" alt="">
                   <h2>Sign In</h2>
+                  <div *ngIf="isLoginErr" class="col-md-12">
+                    <h2 class="error-text-style" translate>Invalid email or password</h2>
+                    </div>
                   <p class="name-inp" >Email</p>
                   <input type="text" [(ngModel)]="LoginParams.email" name="email" (ngModelChange)="LoginParams.email = $event">
                   <p class="name-inp" >Password</p>
