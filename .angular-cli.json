@@ -24,9 +24,7 @@
         "assets/css/slick.css",
         "assets/css/style.css",
         "assets/css/media.css",
-        "assets-mobile/css/mobile-bootstrap.css",
-        "assets-mobile/css/mobile-bootstrap-theme.css",
-        "assets-mobile/css/mobile-font-awesome.css"
+        "assets/css/mobile-style.css"
 
       ],
       "scripts": [
@@ -34,10 +32,9 @@
         "assets/js/bootstrap.min.js",
         "assets/js/slick.min.js",
         "assets/js/plugins.js",
-        "assets/gapi.js",
+        "assets/js/jquery.countdown.min.js",
+        "assets/gapi.js"
 
-        "assets-mobile/js/bootstrap.min.js",
-        "assets-mobile/js/jquery.countdown.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

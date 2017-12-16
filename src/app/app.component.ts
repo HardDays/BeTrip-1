@@ -125,7 +125,13 @@ Logout(){
 signIn(provider){
   this.sub = this._auth.login(provider).subscribe(
     (data) => {
-      console.log(data);this.user=data;}
+      console.log(data);this.user=data;
+      this.service.GoogleLogin(this.user.token)
+        localStorage.setItem('token',this.user.token);
+        this.service.onLoginChange$.next(true);
+        this.isLogined = true;
+        $("#login-modal").modal('hide');
+    }
   )
   
 }

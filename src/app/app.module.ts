@@ -24,9 +24,12 @@ let providers = {
   "google": {
     "clientId": "285182475617-gom13u0bp7ik48v4lc9ngg5s3rijbjav.apps.googleusercontent.com"
   },
+  "linkedin": {
+    "clientId": "LINKEDIN_CLIENT_ID"
+  },
   "facebook": {
     "clientId": "1604317082925030",
-    "apiVersion": "v2.10" //like v2.4 
+    "apiVersion": "v2.4" //like v2.4 
   }
 };
 @NgModule({
