@@ -32,8 +32,6 @@
         "assets/js/bootstrap.min.js",
         "assets/js/slick.min.js",
         "assets/js/plugins.js",
-        "assets/js/jquery.countdown.min.js",
-        "assets/js/jquery-1.10.2.min.js",
         "assets/gapi.js"
       ],
       "environmentSource": "environments/environment.ts",
