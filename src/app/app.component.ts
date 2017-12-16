@@ -39,7 +39,7 @@ export class AppComponent {
       this.clientStatus = status.result;
       console.log(`client status: `,this.clientStatus);
 
-      this.clientStatus="web2";
+     // this.clientStatus="web2";
       if(this.clientStatus=="web"){
           this.isShow = true;
           this.page = location.pathname;
