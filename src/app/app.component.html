@@ -1,3 +1,4 @@
+<div *ngIf="clientStatus=='web'">
 <section class="content" [class.all-pages] = "!isBuildPage">
   <div class="head">
     <div class="container-fluid">
@@ -96,4 +97,38 @@
           </div>
       </div>
   </div>
+</div>
+
+</div>
+
+<div *ngIf="clientStatus!='web'">
+   <div id="wrapper">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h1>BeTrip</h1>
+					<h2 class="subtitle">New mobile version coming soon</h2>
+					<div  id="countdown"></div>
+					<form class="form-inline signup" role="form">
+					  <div class="form-group">
+					    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter your email">
+					  </div>
+					  <button type="submit" class="btn btn-theme">Follow us!</button>
+					</form>		
+                    
+				</div>
+				
+			</div>
+			<div class="row">
+				<div class="col-lg-6 col-lg-offset-3">
+						<p class="copyright">&copy; BeTrip</p>
+                        <div class="credits">
+
+                            <a href="#">Coming soon</a>
+                        </div>
+				</div>
+			</div>		
+		</div>
+	</div>
+
 </div>

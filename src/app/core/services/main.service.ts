@@ -28,6 +28,9 @@ export class MainService{
         this.onLoginChange$.next(false);
     }
 
+    GetClient(){
+      return this.http.GetData('/get_client','');
+    }
     UserLogin(email:string, password:string){
         let params = {
             email: email,
