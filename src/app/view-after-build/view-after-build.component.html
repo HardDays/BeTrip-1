@@ -22,7 +22,7 @@
                 </agm-polyline>
             </agm-map>
       </div>
-      <div class="fixed-sights ">
+      <div class="fixed-sights" [ngClass]="{'visible':!flagForOpenSlider && newFlagForVisible}">
           <div class="flex-sights"> 
               <div *ngFor="let place of Places; let i = index" class="one-sight" (click)="OpenModalSights(i)">
                   <div class="for-before-wr">
@@ -36,30 +36,22 @@
           <div class="picked-route" (click)="OpenRoute()">
               <div class="click">
                   <div class="one-route">
-                      <span>1</span>
-                      <p>611km - 12h 34min</p>
+                      <span>{{activeRoute+1}}</span>
+                      <p>{{(variantsRoute[activeRoute].distance - variantsRoute[activeRoute].distance % 1000) / 1000}} km - {{(variantsRoute[activeRoute].travel_time - (variantsRoute[activeRoute].travel_time % 3600))/3600}}h {{ (variantsRoute[activeRoute].travel_time - variantsRoute[activeRoute].travel_time % 60)/60 - ((variantsRoute[activeRoute].travel_time - (variantsRoute[activeRoute].travel_time % 3600))/3600)*60 }}min</p>
                   </div>
               </div>
           </div>
+          <br>
           <div class="outher">
-              <div class="click">
+               
+
+              <div *ngFor="let route of variantsRoute; let i = index" class="click" (click)="ChangeRoute(i)">
                   <div class="one-route">
-                      <span>1</span>
-                      <p>611km - 12h 34min</p>
+                      <span>{{i+1}}</span>
+                      <p> {{(route.distance - route.distance % 1000) / 1000}} km - {{(route.travel_time - (route.travel_time % 3600))/3600}}h {{ (route.travel_time - route.travel_time % 60)/60 - ((route.travel_time - (route.travel_time % 3600))/3600)*60 }}min</p>
                   </div>
               </div>
-              <div class="click">
-                  <div class="one-route">
-                      <span>2</span>
-                      <p>611km - 12h 34min</p>
-                  </div>
-              </div>
-              <div class="click">
-                  <div class="one-route">
-                      <span>3</span>
-                      <p>611km - 12h 34min</p>
-                  </div>
-              </div>
+              
           </div> 
       </div>
       <!--<div class="save-route"></div>-->    

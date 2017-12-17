@@ -18,6 +18,8 @@ export class AppComponent {
   public user;
   sub: any;
   page:string = 'none';
+  clientStatus:string = 'none';
+  isShow:boolean = false;
   isBuildPage:boolean = true;
   isLoginErr = false;
   isLogined = false;
@@ -32,23 +34,38 @@ export class AppComponent {
   }
   constructor(private service:MainService,private router: Router, public _auth: AuthService){
 
-    this.page = location.pathname;
-    if( this.page != '/build') this.isBuildPage = false;
-      else this.isBuildPage = true;
-  
-    this.service.onPageChange$.subscribe(
-      ()=>{
-        this.page = location.pathname;
-        if( this.page != '/build') this.isBuildPage = false;
-          else this.isBuildPage = true;
-      }
-    );
+    this.service.GetClient().
+    subscribe((status)=>{
+      this.clientStatus = status.result;
+      console.log(`client status: `,this.clientStatus);
 
-    if(localStorage.getItem('token')) this.isLogined = true;
+     // this.clientStatus="web2";
+      if(this.clientStatus=="web"){
+          this.isShow = true;
+          this.page = location.pathname;
+          if( this.page != '/build') this.isBuildPage = false;
+            else this.isBuildPage = true;
+        
+          this.service.onPageChange$.subscribe(
+            ()=>{
+              this.page = location.pathname;
+              if( this.page != '/build') this.isBuildPage = false;
+                else this.isBuildPage = true;
+            }
+      
+      
+          );
+      
+          if(localStorage.getItem('token')) this.isLogined = true;
+      
+          this.service.onLoginChange$.subscribe(()=>{
+            this.isLogined =!this.isLogined;
+          });
+    }
+    
 
-    this.service.onLoginChange$.subscribe(()=>{
-      this.isLogined =!this.isLogined;
     });
+
   }
   
   OpenModalSignIn(){
@@ -60,19 +77,23 @@ export class AppComponent {
 
   Login(){
     this.isLoginErr = false;
-    this.service.UserLogin(this.LoginParams.email, this.LoginParams.password)
-    .subscribe((res)=>{
-      localStorage.setItem('token',res.token);
-      this.service.onLoginChange$.next(true);
-      this.isLogined = true;
-      $("#login-modal").modal('hide');
-        },
-        (err)=>{
-            console.log(err);
-            this.isLoginErr = true;
-            
-        }  
+    
+      this.service.UserLogin(this.LoginParams.email, this.LoginParams.password)
+      .subscribe((res)=>{
+        localStorage.setItem('token',res.token);
+        this.service.onLoginChange$.next(true);
+        this.isLogined = true;
+        $("#login-modal").modal('hide');
+          },
+          (err)=>{
+              console.log(err);
+              this.isLoginErr = true;
+              
+          }  
+      
+
     );
+    
 }
 Registration(){
   this.isLoginErr = false;

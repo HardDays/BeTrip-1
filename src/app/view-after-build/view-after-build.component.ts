@@ -25,6 +25,7 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
   allRoutsImages:any = [];
   StepsCoord:CoordsModel[] = [];
   Places:any[] = [];
+  variantsRoute:any[] = [];
   MapStyle = this.getMapStyle();
     isLoading:boolean = true;
   flagForDropdown:boolean = false;
@@ -33,16 +34,19 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
   flagForOpenSlider:boolean = true;
   newFlagForVisible:boolean = false;
 
+  fromPlace:string='';
+  toPlace:string='';
+
     ngOnInit() {
       this.service.onPageChange$.next(false);
      // this.StepsCoord.push(new CoordsModel(this.lat,this.lng));
-      let from:string='',to:string='';
+      
       let sub:any = this.route.params.subscribe(params => {
         //this.Params.limit = +params['limit']; // (+) converts string 'id' to a number
         if(params['from'])
-           from = params['from'];
+           this.fromPlace = params['from'];
            if(params['to'])
-           to = params['to'];
+           this.toPlace = params['to'];
         
         });
        
@@ -51,7 +55,7 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
         });
 
         //this.StepsCoord.push(new CoordsModel(this.lat+1,this.lng));
-      this.BuildMap(from,to);
+      this.BuildMap(this.fromPlace,this.toPlace);
 
 
       if($(window).scrollTop() > 70){
@@ -76,6 +80,8 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
     getMapStyle(){
       return this.service.GetMapStyle();
     }
+    
+
 
     BuildMap(from:string,to:string){
       this.StepsCoord= [];
@@ -85,8 +91,9 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
         (res)=>{
 
           console.log('ok',res);
+          this.variantsRoute = res;
           this.Places = res[this.activeRoute].places;
-
+          
           for(let i=0;i<this.Places.length;i++){
             this.service.GetImage(this.Places[i].cover_id).subscribe(
               (img)=>{
@@ -115,7 +122,10 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
         });
     }
 
-      OpenSliderCart(index:number){
+    ChangeRoute(index:number){
+      this.activeRoute = index;
+      this.BuildMap(this.fromPlace,this.toPlace);
+   
       this.newFlagForVisible = false;
      // this.allSightByRoute = this.allBestRouts[index].places;
      // console.log(this.allSightByRoute);

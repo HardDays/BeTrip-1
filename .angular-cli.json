@@ -9,6 +9,7 @@
       "outDir": "dist",
       "assets": [
         "assets",
+        "assets-mobile",
         "favicon.ico"
       ],
       "index": "index.html",
@@ -22,7 +23,9 @@
         "assets/css/bootstrap.min.css",
         "assets/css/slick.css",
         "assets/css/style.css",
-        "assets/css/media.css"
+        "assets/css/media.css",
+        "assets/css/mobile-style.css"
+
       ],
       "scripts": [
         "assets/js/jquery.js",
@@ -30,8 +33,6 @@
         "assets/js/slick.min.js",
         "assets/js/plugins.js",
         "assets/gapi.js"
-     
-
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

@@ -1,3 +1,4 @@
+<div *ngIf="clientStatus=='web'">
 <section class="content" [class.all-pages] = "!isBuildPage">
   <div class="head">
     <div class="container-fluid">
@@ -99,4 +100,34 @@
           </div>
       </div>
   </div>
+</div>
+
+</div>
+
+<div *ngIf="clientStatus!='web'">
+   <div id="wrapperMob" style="height:1000px;">
+		<div class="containerMob">
+			<div class="row">
+				<div class="col-md-12">
+					<h1 class="text">BeTrip</h1>
+                    <h5 class="subtitleMob text" style="font-weight: 300;">New mobile version is coming</h5>
+                    <br>
+                    <img style="width:120px;" src="../assets/img/Logo_icon.png" alt="">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-6 col-lg-offset-3">
+						<p class="copyrightMob">&copy; BeTrip</p>
+                        <div class="creditsMob">
+
+                            <a href="#">Coming soon</a>
+                        </div>
+				</div>
+			</div>		
+		</div>
+	</div>
+
+    
+	
+
 </div>
