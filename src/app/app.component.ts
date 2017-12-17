@@ -102,10 +102,15 @@ Logout(){
   
 }
 signIn(provider){
+
+  console.log(`1`,provider);
   this.sub = this._auth.login(provider).subscribe(
     (data) => {
-      console.log(data);this.user=data;
-      this.service.GoogleLogin(this.user.token)
+      console.log(data);
+      console.log(data);
+      this.user=data;
+    if(provider=='google')
+        this.service.GoogleLogin(this.user.token);
         localStorage.setItem('token',this.user.token);
         this.service.onLoginChange$.next(true);
         this.isLogined = true;
