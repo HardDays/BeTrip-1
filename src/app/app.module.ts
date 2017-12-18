@@ -49,7 +49,8 @@ let providers = {
     AppRoutingModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBaq3qTokKJ_b2VP0h5h_eeYliQ80ME74M',
-      libraries: ["places"]
+      libraries: ["places"],
+      language:'en'
     }),
     ReactiveFormsModule,
     Angular2SocialLoginModule

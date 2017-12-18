@@ -89,9 +89,11 @@ export class BestComponent implements OnInit {
       this.isInfoWinOpen = [];
       for(let i=0;i<2;i++)this.isInfoWinOpen.push(false);
     }
+
     mapClick(){
       this.clearInfoWin();
     }
+    
     markerClick(i:number){
       this.isInfoWinOpen[i]= !this.isInfoWinOpen[i];
     }

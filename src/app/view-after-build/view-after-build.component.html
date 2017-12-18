@@ -1,12 +1,12 @@
 <div class="best-wr">  
   <div class="fixed-map page-view-after-build">  
       <div  class="for-position-map">
-            <agm-map #gm [zoom]="7" [latitude]="StepsCoord[StepsCoord.length/2]?StepsCoord[StepsCoord.length/2].lat+0.5:0" [longitude]="StepsCoord[StepsCoord.length/2]?StepsCoord[StepsCoord.length/2].lng:0" style="height: 100%;" (mapClick)="mapClick()" [styles]="MapStyle">
+            <agm-map #gm [zoom]="6" [maxZoom]='8' [latitude]="lat?lat+0.5+InfoWindowHSize:0" [longitude]="lng?lng:0" style="height: 100%;" (mapClick)="mapClick()" [styles]="MapStyle">
                 <agm-marker [iconUrl]="'../assets/img/marker-yellow2.png'" [latitude]="StepsCoord[0]?StepsCoord[0].lat:''" [longitude]="StepsCoord[0]?StepsCoord[0].lng:''"></agm-marker>
                 <agm-marker [iconUrl]="'../assets/img/marker-black.png'" *ngFor="let place of Places; let i = index" [latitude]="place?place.lat:0" [longitude]="place?place.lng:0" (markerClick)="markerClick(i)">
-                    <agm-info-window [isOpen]="isInfoWinOpen[i]">
+                    <agm-info-window [latitude]="StepsCoord[i].lat" [longitude]="StepsCoord[i].lng" [isOpen]="isInfoWinOpen[i]">
                             <div class="cart-sight-wrapp">
-                                <div class="img" [ngStyle]="{'background-image':'url(' + allRoutsImages[i] + ')'}"></div>
+                                <div class="img" [ngStyle]="{'background-image':allRoutsImages[i]?'url(' + allRoutsImages[i] + ')':'url(../assets/img/no_img.jpg)'}"></div>
                                 <div class="ava" style="background-image: url(../assets/img/ava.jpg)"></div>
                                 <p class="name-sight">{{place.name}}</p>
                             </div>
@@ -15,18 +15,18 @@
 
                 <agm-marker [iconUrl]="'../assets/img/marker-yellow2.png'" [latitude]="StepsCoord[StepsCoord.length-1].lat" [longitude]="StepsCoord[StepsCoord.length-1].lng"></agm-marker>
 
-                <agm-polyline >
+                <agm-polyline [strokeWeight]="5">
                         <ng-container>
                             <agm-polyline-point *ngFor="let coord of StepsCoord; let i = index" [latitude]="coord.lat?coord.lat:0" [longitude]="coord.lng?coord.lng:0"></agm-polyline-point>
                         </ng-container>
                 </agm-polyline>
             </agm-map>
       </div>
-      <div class="fixed-sights" [ngClass]="{'visible':!flagForOpenSlider && newFlagForVisible}">
+      <div class="fixed-sights" [ngClass]="{'visible':isVisible}">
           <div class="flex-sights"> 
               <div *ngFor="let place of Places; let i = index" class="one-sight" (click)="OpenModalSights(i)">
                   <div class="for-before-wr">
-                      <div class="img" [ngStyle]="{'background-image':'url(' + allRoutsImages[i] + ')'}"></div>
+                      <div class="img" [ngStyle]="{'background-image':allRoutsImages[i]?'url(' + allRoutsImages[i] + ')':'url(../assets/img/no_img.jpg)'}"></div>
                   </div>
                   <p><span>{{i+1}}</span>{{place.name}}</p>
               </div>    
@@ -66,7 +66,7 @@
                             <div class="slide" *ngFor="let item of Places; let i = index">
                                 <div class="after-slide">
                                     <div class="for-before-wr">
-                                        <div class="img" [ngStyle]="{'background-image':'url(' + allRoutsImages[i] + ')' }"></div>
+                                        <div class="img" [ngStyle]="{'background-image':allRoutsImages[i]?'url(' + allRoutsImages[i] + ')':'url(../assets/img/no_img.jpg)' }"></div>
                                     </div>
                                     <div class="content-sights">
                                         <p class="name">{{item.name}}</p>

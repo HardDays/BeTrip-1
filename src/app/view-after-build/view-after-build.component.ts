@@ -3,6 +3,7 @@ import { MainService} from '../core/services/main.service';
 import { Router, ActivatedRoute, Params } from "@angular/router";
 
 import { CoordsModel } from "../core/models/coords.model";
+
 declare var jquery:any;
 declare var $ :any;
 
@@ -29,8 +30,10 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
   MapStyle = this.getMapStyle();
     isLoading:boolean = true;
   flagForDropdown:boolean = false;
+  InfoWindowHSize:number = 0;
 
-  
+  isVisible = true;
+
   flagForOpenSlider:boolean = true;
   newFlagForVisible:boolean = false;
 
@@ -107,7 +110,6 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
               
           this.service.GetPolyById(res[this.activeRoute].id).
           subscribe((poly)=>{
-
             console.log('poly',poly);
             for(let i=0;i<poly.routes[0].legs[0].steps.length;i++){
               this.StepsCoord.push(poly.routes[0].legs[0].steps[i].start_location);
@@ -116,28 +118,77 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
             }
             console.log('steps',this.StepsCoord,this.StepsCoord[0].lat);
             this.isLoading = false;
-           
+            this.lat = this.StepsCoord[this.StepsCoord.length/2].lat;
+            this.lng = this.StepsCoord[this.StepsCoord.length/2].lng;
           });
         
         });
+       
     }
 
     ChangeRoute(index:number){
+    
       this.activeRoute = index;
-      this.BuildMap(this.fromPlace,this.toPlace);
-   
-      this.newFlagForVisible = false;
-     // this.allSightByRoute = this.allBestRouts[index].places;
-     // console.log(this.allSightByRoute);
+    
+      this.isVisible = false;
+
+      console.log(this.isVisible);
+
+
+      setTimeout(()=>{
+
+        $('.flex-sights').slick({
+          slidesToShow: 6,
+          slidesToScroll: 1,
+          arrows: true,
+          dots: false,
+          infinite:false,
+          responsive: [
+            {
+              breakpoint: 1601,
+              settings: {
+                slidesToShow: 4
+              }
+            },
+            {
+              breakpoint: 1301,
+              settings: {
+                slidesToShow: 3
+              }
+            }
+          ]
+      });
+      },300);
+      
+
+
+      /*
 
       if(!this.flagForOpenSlider){
         $('.flex-sights').slick('unslick');
       }
       
+
+      $('.flex-sights').slick({
+        slidesToShow: 6,
+        slidesToScroll: 1,
+        arrows: true,
+        dots: false,
+        infinite:false
+    });
+   
+      this.newFlagForVisible = false;
       this.flagForOpenSlider = false;
+      
+     // this.allSightByRoute = this.allBestRouts[index].places;
+     // console.log(this.allSightByRoute);
+
+      
      
+  
       setTimeout(()=>{
 
+        console.log(`123456`);
         this.newFlagForVisible = true;
 
         $('.flex-sights').slick({
@@ -163,6 +214,9 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
         });
       },200);
       
+      */
+
+     this.BuildMap(this.fromPlace,this.toPlace);
     
       
     }
@@ -183,14 +237,21 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
 
 
     clearInfoWin(){
+      let count = this.isInfoWinOpen.length;
       this.isInfoWinOpen = [];
-      for(let i=0;i<2;i++)this.isInfoWinOpen.push(false);
+      for(let i=0;i<count;i++)this.isInfoWinOpen.push(false);
+      this.InfoWindowHSize = 0;
     }
     mapClick(){
       this.clearInfoWin();
     }
     markerClick(i:number){
       this.isInfoWinOpen[i]= !this.isInfoWinOpen[i];
+      if( this.isInfoWinOpen[i]) this.InfoWindowHSize = 1;
+      else this.InfoWindowHSize = 1;
+     // console.log(this.Places[i]);
+      this.lat = this.Places[i].lat;
+      this.lng = this.Places[i].lng;
     }
 
     ngAfterViewInit() {
@@ -203,6 +264,7 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
     });
       
     }
+    
     OpenRoute(){
       if(!this.flagForDropdown){
           $(".outher").slideDown(200);
