@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
-
+import { RouteComponent } from './route/route.component';
 import { AppRoutingModule } from './app.routing';
 import { AppComponent } from './app.component';
 import { BuildComponent } from './build/build.component';
@@ -39,7 +39,8 @@ let providers = {
     FunctionalityComponent,
     TripsComponent,
     ViewAfterBuildComponent,
-    FooterComponent
+    FooterComponent,
+    RouteComponent
   ],
   imports: [
     BrowserModule,

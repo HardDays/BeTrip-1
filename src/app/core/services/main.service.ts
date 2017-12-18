@@ -84,6 +84,13 @@ export class MainService{
       return this.http.GetData('/routes/get_best_routes',this.ParamsToUrlSearchParams(params));
     }
 
+    getRoutePlaces(id:number){
+      
+      return this.http.GetData('/routes/get_route_places/'+id,'');
+    }
+
+
+   
 
   RoutesCreate(from_place:string,to_place:string){
     let from_addr={

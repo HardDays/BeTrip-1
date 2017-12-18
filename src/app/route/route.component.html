@@ -32,28 +32,7 @@
               </div>    
           </div>
       </div>
-      <div class="routs-count">
-          <div class="picked-route" (click)="OpenRoute()">
-              <div class="click">
-                  <div class="one-route">
-                      <span>{{activeRoute+1}}</span>
-                      <p>{{variantsRoute[activeRoute].distance?(variantsRoute[activeRoute].distance - variantsRoute[activeRoute].distance % 1000) / 1000 +'km - ' : 'Many-many km'}}{{variantsRoute[activeRoute].travel_time?(variantsRoute[activeRoute].travel_time - (variantsRoute[activeRoute].travel_time % 3600))/3600 + 'h ':''}}{{variantsRoute[activeRoute].travel_time? (variantsRoute[activeRoute].travel_time - variantsRoute[activeRoute].travel_time % 60)/60 - ((variantsRoute[activeRoute].travel_time - (variantsRoute[activeRoute].travel_time % 3600))/3600)*60 +'m': '' }}</p>
-                  </div>
-              </div>
-          </div>
-          <br>
-          <div class="outher">
-               
-
-              <div *ngFor="let route of variantsRoute; let i = index" class="click" (click)="ChangeRoute(i)">
-                  <div class="one-route">
-                      <span>{{i+1}}</span>
-                      <p> {{route.distance?(route.distance - route.distance % 1000) / 1000 + ' km - ':'Many-many km'}}{{route.travel_time?(route.travel_time - (route.travel_time % 3600))/3600 +'h ':''}}{{ route.travel_time?(route.travel_time - route.travel_time % 60)/60 - ((route.travel_time - (route.travel_time % 3600))/3600)*60 +'min':''}}</p>
-                  </div>
-              </div>
-              
-          </div> 
-      </div>
+      
       <!--<div class="save-route"></div>-->    
   </div>
 </div>
