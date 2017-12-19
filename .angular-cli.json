@@ -10,7 +10,7 @@
       "assets": [
         "assets",
         "assets-mobile",
-        "assets/favicon.ico"
+        "assets/favicon.png"
       ],
       "index": "index.html",
       "main": "main.ts",
