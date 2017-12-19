@@ -145,7 +145,7 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
     ChangeRoute(index:number){
     
       this.activeRoute = index;
-      this.isVisible = false;
+      this.flagForOpenSlider = false;
      this.BuildMap(this.fromPlace,this.toPlace);
     
       
