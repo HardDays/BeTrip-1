@@ -22,6 +22,7 @@
                 </agm-polyline>
             </agm-map>
       </div>
+      
       <div class="fixed-sights" [ngClass]="{'visible':isVisible}">
           <div class="flex-sights"> 
               <div *ngFor="let place of Places; let i = index" class="one-sight" (click)="OpenModalSights(i)">
