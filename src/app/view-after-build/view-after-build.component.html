@@ -1,4 +1,4 @@
-<div class="best-wr">  
+<div class="best-wr" >  
   <div class="fixed-map page-view-after-build">  
       <div  class="for-position-map">
             <agm-map #gm [zoom]="6" [maxZoom]='8' [latitude]="lat?lat+0.5+InfoWindowHSize:0" [longitude]="lng?lng:0" style="height: 100%;" (mapClick)="mapClick()" [styles]="MapStyle">
@@ -22,7 +22,7 @@
                 </agm-polyline>
             </agm-map>
       </div>
-      <div class="fixed-sights" [ngClass]="{'visible':isVisible}">
+      <div class="fixed-sights" [ngClass]="{'visible':flagForOpenSlider && newFlagForVisible}">
           <div class="flex-sights"> 
               <div *ngFor="let place of Places; let i = index" class="one-sight" (click)="OpenModalSights(i)">
                   <div class="for-before-wr">
@@ -58,13 +58,13 @@
   </div>
 </div>
 
-<div class="modal sights-slider" id="sights-slider">
+<div class="modal sights-slider" id="sights-slider" >
             <div class="modal-dialog">
                 <div class="modal-contant">
                     <div class="modal-body">
                         <div class="slider-init">
                             <div class="slide" *ngFor="let item of Places; let i = index">
-                                <div class="after-slide">
+                                <div class="after-slide" [ngClass]="{'visible':isVisible}">
                                     <div class="for-before-wr">
                                         <div class="img" [ngStyle]="{'background-image':allRoutsImages[i]?'url(' + allRoutsImages[i] + ')':'url(../assets/img/no_img.jpg)' }"></div>
                                     </div>

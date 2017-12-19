@@ -32,10 +32,10 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
   flagForDropdown:boolean = false;
   InfoWindowHSize:number = 0;
 
-  isVisible = true;
-
   flagForOpenSlider:boolean = true;
   newFlagForVisible:boolean = false;
+
+  isVisible:boolean = true;
 
   fromPlace:string='';
   toPlace:string='';
@@ -61,22 +61,6 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
       this.BuildMap(this.fromPlace,this.toPlace);
 
 
-      if($(window).scrollTop() > 70){
-        $(".fixed-sights").addClass("transformed");
-    }
-    else{
-        $(".fixed-sights").removeClass("transformed");
-    }
-    $(window).scroll(function(){
-      if($(window).scrollTop() > 70){
-          $(".fixed-sights").addClass("transformed");
-      }
-      else{
-          $(".fixed-sights").removeClass("transformed");
-      }
-  });
-
-
       this.clearInfoWin();
     }
 
@@ -90,18 +74,16 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
       this.StepsCoord= [];
       this.Places = [];
       this.allRoutsImages = [];
+      
       this.service.RoutesCreate(from,to).subscribe(
         (res)=>{
 
-          console.log('ok',res);
           this.variantsRoute = res;
           this.Places = res[this.activeRoute].places;
           
           for(let i=0;i<this.Places.length;i++){
             this.service.GetImage(this.Places[i].cover_id).subscribe(
-              (img)=>{
-                //console.log(res);
-                
+              (img)=>{ 
                 this.allRoutsImages[i] = img.url;
               });
               
@@ -110,112 +92,60 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
               
           this.service.GetPolyById(res[this.activeRoute].id).
           subscribe((poly)=>{
+
             console.log('poly',poly);
             for(let i=0;i<poly.routes[0].legs[0].steps.length;i++){
               this.StepsCoord.push(poly.routes[0].legs[0].steps[i].start_location);
               this.StepsCoord.push(poly.routes[0].legs[0].steps[i].end_location);
             
             }
+
             console.log('steps',this.StepsCoord,this.StepsCoord[0].lat);
             this.isLoading = false;
             this.lat = this.StepsCoord[this.StepsCoord.length/2].lat;
             this.lng = this.StepsCoord[this.StepsCoord.length/2].lng;
+
+            if(!this.flagForOpenSlider)
+              $('.flex-sights').slick('unslick');
+
+            setTimeout(()=>{
+              this.newFlagForVisible = true;
+                      $('.flex-sights').slick({
+                        slidesToShow: 6,
+                        slidesToScroll: 1,
+                        arrows: true,
+                        dots: false,
+                        infinite:false,
+                        responsive: [
+                          {
+                            breakpoint: 1601,
+                            settings: {
+                              slidesToShow: 4
+                            }
+                          },
+                          {
+                            breakpoint: 1301,
+                            settings: {
+                              slidesToShow: 3
+                            }
+                          }
+                        ]
+                    });
+                    this.flagForOpenSlider = true;  
+                   
+                  },300);
+                    
           });
         
         });
        
     }
 
+
     ChangeRoute(index:number){
     
       this.activeRoute = index;
-    
-      this.isVisible = false;
-
-      console.log(this.isVisible);
-
-
-      setTimeout(()=>{
-
-        $('.flex-sights').slick({
-          slidesToShow: 6,
-          slidesToScroll: 1,
-          arrows: true,
-          dots: false,
-          infinite:false,
-          responsive: [
-            {
-              breakpoint: 1601,
-              settings: {
-                slidesToShow: 4
-              }
-            },
-            {
-              breakpoint: 1301,
-              settings: {
-                slidesToShow: 3
-              }
-            }
-          ]
-      });
-      },300);
-      
-
-
-      /*
-
-      if(!this.flagForOpenSlider){
-        $('.flex-sights').slick('unslick');
-      }
-      
-
-      $('.flex-sights').slick({
-        slidesToShow: 6,
-        slidesToScroll: 1,
-        arrows: true,
-        dots: false,
-        infinite:false
-    });
-   
-      this.newFlagForVisible = false;
       this.flagForOpenSlider = false;
-      
-     // this.allSightByRoute = this.allBestRouts[index].places;
-     // console.log(this.allSightByRoute);
-
-      
-     
-  
-      setTimeout(()=>{
-
-        console.log(`123456`);
-        this.newFlagForVisible = true;
-
-        $('.flex-sights').slick({
-            slidesToShow: 6,
-            slidesToScroll: 1,
-            arrows: true,
-            dots: false,
-            infinite:false,
-            responsive: [
-              {
-                breakpoint: 1601,
-                settings: {
-                  slidesToShow: 4
-                }
-              },
-              {
-                breakpoint: 1301,
-                settings: {
-                  slidesToShow: 3
-                }
-              }
-            ]
-        });
-      },200);
-      
-      */
-
      this.BuildMap(this.fromPlace,this.toPlace);
     
       
@@ -254,15 +184,16 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
       this.lng = this.Places[i].lng;
     }
 
+
+
     ngAfterViewInit() {
-      $('.flex-sights').slick({
+     /* $('.flex-sights').slick({
         slidesToShow: 6,
         slidesToScroll: 1,
         arrows: true,
         dots: false,
         infinite:false
-    });
-      
+    });  */  
     }
     
     OpenRoute(){
