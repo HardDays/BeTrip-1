@@ -36,7 +36,7 @@ export class BestComponent implements OnInit {
   imagesSightsRoute:any = [];
   isInfoWinOpen:boolean[] = [];
 
-  //isLoading:boolean = true;
+  isLoading:boolean = true;
 
      ngOnInit() {
       this.service.onPageChange$.next(false);
@@ -59,7 +59,7 @@ export class BestComponent implements OnInit {
                 //console.log(res);
                 this.allBestRoutsImages[i] = res.url;
 
-                //this.isLoading = false;
+                this.isLoading = false;
 
               },
               (err)=>{
@@ -107,7 +107,7 @@ export class BestComponent implements OnInit {
 
     OpenSliderCart(index:number){
 
-      //this.isLoading = true;
+      this.isLoading = true;
 
       this.newFlagForVisible = false;
       this.allSightByRoute = this.allBestRouts[index].places;
@@ -145,7 +145,7 @@ export class BestComponent implements OnInit {
             ]
         });
 
-        //this.isLoading = false;
+        this.isLoading = false;
 
       },200);
       
