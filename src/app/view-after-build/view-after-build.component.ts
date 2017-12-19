@@ -49,10 +49,7 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
       $('#sights-slider').on('hidden.bs.modal', function () {
         $('.slider-init').slick('unslick');
       });
-
-
     this.BuildMap(this.fromPlace,this.toPlace);
-    this.clearInfoWin();
   }
 
   getMapStyle(){
@@ -123,7 +120,7 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
               this.Load = false;
             },300);   
     });
-
+    this.clearInfoWin();
   }
 
 
@@ -131,6 +128,7 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
     this.activeRoute = index;
     this.Load = true;  
     this.isLoading = true;
+    this.OpenRoute();
     this.GetPlaces();
   }
 
