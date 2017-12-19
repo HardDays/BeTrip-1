@@ -40,6 +40,7 @@ export class BestComponent implements OnInit {
  
   
      ngOnInit() {
+      $(".content").addClass("all-pages");
       this.service.onPageChange$.next(false);
      
      

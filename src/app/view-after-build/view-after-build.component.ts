@@ -37,6 +37,7 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
   toPlace:string='';
 
   ngOnInit() {
+    $(".content").addClass("all-pages");
     this.service.onPageChange$.next(false);     
     let sub:any = this.route.params.subscribe(params => {
       if(params['from'])
