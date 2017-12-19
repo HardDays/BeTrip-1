@@ -1,4 +1,4 @@
-<div *ngIf="clientStatus=='web'">
+<div *ngIf="clientStatus=='web'&&canShow">
 <section class="content" [class.all-pages] = "!isBuildPage">
   <div class="head">
     <div class="container-fluid">
@@ -104,7 +104,7 @@
 
 </div>
 
-<div *ngIf="clientStatus!='web'">
+<div *ngIf="clientStatus!='web'&&canShow">
    <div id="wrapperMob" style="height:1000px;">
 		<div class="containerMob">
 			<div class="row">

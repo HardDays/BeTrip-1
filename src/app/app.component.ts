@@ -20,6 +20,7 @@ export class AppComponent {
   page:string = 'none';
   clientStatus:string = 'none';
   isShow:boolean = false;
+  canShow:boolean = false;
   isBuildPage:boolean = true;
   isLoginErr = false;
   isLogined = false;
@@ -37,6 +38,7 @@ export class AppComponent {
     this.service.GetClient().
     subscribe((status)=>{
       this.clientStatus = status.result;
+      this.canShow = true;
       console.log(`client status: `,this.clientStatus);
 
      // this.clientStatus="web2";
