@@ -3,10 +3,10 @@
 <div class="best-wr">  
   <div class="fixed-map page-view-after-build">  
       <div  class="for-position-map">
-            <agm-map #gm [zoom]="6" [maxZoom]='8' [latitude]="lat?lat+1:0" [longitude]="lng?lng:0" style="height: 100%;" (mapClick)="mapClick()" [styles]="MapStyle">
+            <agm-map #gm [(zoom)]="zoom" [maxZoom]='8' [latitude]="lat?lat+InfoWindowHSize:0" [longitude]="lng?lng:0" style="height: 100%;" (mapClick)="mapClick()" [styles]="MapStyle">
                 <agm-marker [iconUrl]="'../assets/img/marker-yellow2.png'" [latitude]="StepsCoord[0]?StepsCoord[0].lat:''" [longitude]="StepsCoord[0]?StepsCoord[0].lng:''"></agm-marker>
                 <agm-marker [iconUrl]="'../assets/img/marker-black.png'" *ngFor="let place of Places; let i = index" [latitude]="place?place.lat:0" [longitude]="place?place.lng:0" (markerClick)="markerClick(i)">
-                    <agm-info-window [latitude]="StepsCoord[i].lat" [longitude]="StepsCoord[i].lng" [isOpen]="isInfoWinOpen[i]">
+                    <agm-info-window [maxWidth]="300" [latitude]="StepsCoord[i].lat" [longitude]="StepsCoord[i].lng" [isOpen]="isInfoWinOpen[i]">
                             <div class="cart-sight-wrapp">
                                 <div class="img" [ngStyle]="{'background-image':allRoutsImages[i]?'url(' + allRoutsImages[i] + ')':'url(../assets/img/no_img.jpg)'}"></div>
                                 <div class="ava" style="background-image: url(../assets/img/ava.jpg)"></div>
@@ -34,16 +34,10 @@
               </div>    
           </div>
       </div>
-
-      <!--было тут-->
-      
+      <!--было тут-->      
       <!--<div class="save-route"></div>-->    
   </div>
 </div>
-
-
-
-
 
 <div *ngIf="newFlagForVisible" class="routs-count">
     <div class="picked-route" (click)="OpenRoute()">

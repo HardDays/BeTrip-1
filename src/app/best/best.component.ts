@@ -104,6 +104,9 @@ export class BestComponent implements OnInit {
     
     markerClick(i:number){
       this.isInfoWinOpen[i]= !this.isInfoWinOpen[i];
+      
+      this.lat = this.allSightByRoute[i].lat;
+      this.lng = this.allSightByRoute[i].lng;
     }
    
  

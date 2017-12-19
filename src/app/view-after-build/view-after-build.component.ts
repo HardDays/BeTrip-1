@@ -19,6 +19,7 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
 
   lat: number = 38.678418;
   lng: number = 40.809007;
+  zoom:number = 6;
 
   activeRoute:number = 0;
   isInfoWinOpen:boolean[] = [];
@@ -160,10 +161,14 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
 
     markerClick(i:number){
       this.isInfoWinOpen[i]= !this.isInfoWinOpen[i];
-      if( this.isInfoWinOpen[i]) this.InfoWindowHSize = 1;
-      else this.InfoWindowHSize = 1;
+     
+      if( this.isInfoWinOpen[i]) this.InfoWindowHSize = 150/Math.pow(2,this.zoom);
+      else this.InfoWindowHSize = 0;
+
       this.lat = this.Places[i].lat;
       this.lng = this.Places[i].lng;
+
+     
     }
 
 
