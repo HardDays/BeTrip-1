@@ -547,8 +547,7 @@ app-build {
       left: 0; }
     .best-wr .fixed-map.page-view-after-build .fixed-sights {
       max-width: 1000px;
-      margin: 0 auto;
-      visibility: visible; }
+      margin: 0 auto; }
 
 .for-position-map {
   position: fixed;
