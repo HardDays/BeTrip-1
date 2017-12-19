@@ -22,7 +22,7 @@
                 </agm-polyline>
             </agm-map>
       </div>
-      <div class="fixed-sights" [ngClass]="{'visible':flagForOpenSlider && newFlagForVisible}">
+      <div class="fixed-sights" [ngClass]="{'visible':!isLoading && newFlagForVisible}">
           <div class="flex-sights"> 
               <div *ngFor="let place of Places; let i = index" class="one-sight" (click)="OpenModalSights(i)">
                   <div class="for-before-wr">

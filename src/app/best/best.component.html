@@ -69,7 +69,7 @@
 
         </agm-map>
     </div>
-      <div class="fixed-sights" [ngClass]="{'visible': flagForOpenSlider && newFlagForVisible}">
+      <div class="fixed-sights" [ngClass]="{'visible': isLoading && newFlagForVisible}">
           <div class="flex-sights">
                 <div *ngFor="let item of allSightByRoute; let i = index" class="one-sight" (click)="OpenModalSights(i)">
                     <div class="for-before-wr">
