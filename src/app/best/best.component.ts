@@ -35,6 +35,7 @@ export class BestComponent implements OnInit {
   imagesSightsRoute:any = [];
   isInfoWinOpen:boolean[] = [];
   isLoading:boolean = true;
+  
      ngOnInit() {
       this.service.onPageChange$.next(false);
      
