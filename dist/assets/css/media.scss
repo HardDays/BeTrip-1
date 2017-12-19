@@ -14,3 +14,18 @@
        left: 50%;
     }
 }
+
+@media (max-width: 991px) {
+    .process-content .right-side, .process-content .left-side{
+        position: relative;
+        width: 100%;
+    }
+    .content .head .flex-nav-wr .right-side {
+        width: 460px;
+    }
+}
+@media (max-width: 800px) {
+    .content .head .flex-nav-wr .logo-title{
+        font-size: 3rem;
+    }
+}

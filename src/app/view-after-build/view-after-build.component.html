@@ -1,4 +1,6 @@
-<div class="best-wr" >  
+<app-preloader *ngIf="Load"></app-preloader>
+
+<div class="best-wr">  
   <div class="fixed-map page-view-after-build">  
       <div  class="for-position-map">
             <agm-map #gm [zoom]="6" [maxZoom]='8' [latitude]="lat?lat+0.5+InfoWindowHSize:0" [longitude]="lng?lng:0" style="height: 100%;" (mapClick)="mapClick()" [styles]="MapStyle">

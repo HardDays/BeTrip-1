@@ -1,3 +1,5 @@
+<app-preloader *ngIf="Load"></app-preloader>
+
 <div *ngIf="clientStatus=='web'&&canShow">
 <section class="content" [class.all-pages] = "!isBuildPage">
   <div class="head">

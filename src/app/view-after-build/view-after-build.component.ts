@@ -3,7 +3,7 @@ import { MainService} from '../core/services/main.service';
 import { Router, ActivatedRoute, Params } from "@angular/router";
 
 import { CoordsModel } from "../core/models/coords.model";
-
+import { PreloaderComponent } from "../preloader/preloader.component";
 declare var jquery:any;
 declare var $ :any;
 
@@ -28,6 +28,7 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
   variantsRoute:any[] = [];
   MapStyle = this.getMapStyle();
   isLoading:boolean = false;
+  Load:boolean = true;
   flagForDropdown:boolean = false;
   InfoWindowHSize:number = 0;
   newFlagForVisible:boolean = false;
@@ -47,6 +48,7 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
       $('#sights-slider').on('hidden.bs.modal', function () {
         $('.slider-init').slick('unslick');
       });
+
 
     this.BuildMap(this.fromPlace,this.toPlace);
     this.clearInfoWin();
@@ -117,6 +119,7 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
                   ]
               });
               this.isLoading = false;  
+              this.Load = false;
             },300);   
     });
 
@@ -125,6 +128,7 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
 
   ChangeRoute(index:number){
     this.activeRoute = index;
+    this.Load = true;  
     this.isLoading = true;
     this.GetPlaces();
   }

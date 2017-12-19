@@ -1,3 +1,5 @@
+<app-preloader *ngIf="Load"></app-preloader>
+
 <div class="best-wr">
   <div class="left-side">
       <div class="all-best-blocks">
@@ -69,7 +71,7 @@
 
         </agm-map>
     </div>
-      <div class="fixed-sights" [ngClass]="{'visible': isLoading && newFlagForVisible}">
+      <div class="fixed-sights" [ngClass]="{'visible': !flagForOpenSlider && newFlagForVisible}">
           <div class="flex-sights">
                 <div *ngFor="let item of allSightByRoute; let i = index" class="one-sight" (click)="OpenModalSights(i)">
                     <div class="for-before-wr">
@@ -81,9 +83,6 @@
       </div>
   </div>
 </div>
-
-
-
 
 <div class="modal sights-slider" id="sights-slider">
     <div class="modal-dialog">

@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef, ViewChild, NgZone } from '@angular/core'
 import { MainService} from '../core/services/main.service';
 import { AgmCoreModule } from '@agm/core';
 import { CoordsModel } from "../core/models/coords.model";
+import { PreloaderComponent } from '../preloader/preloader.component';
 
 
 declare var jquery:any;
@@ -25,16 +26,18 @@ export class BestComponent implements OnInit {
     offset:0
   }
   StepsCoord:CoordsModel[] = [];
-
   step = parseInt(''+new Date().getTime() / 100000) % 1000;
 
+  Load:boolean = true;
 
   allBestRouts:any = [];
   allBestRoutsImages:any = [];
   allSightByRoute:any = [];
   imagesSightsRoute:any = [];
   isInfoWinOpen:boolean[] = [];
-  isLoading:boolean = true;
+
+
+ 
   
      ngOnInit() {
       this.service.onPageChange$.next(false);
@@ -56,7 +59,9 @@ export class BestComponent implements OnInit {
               (res)=>{
                 //console.log(res);
                 this.allBestRoutsImages[i] = res.url;
-                this.isLoading = false;
+                this.Load = false;
+              
+
               },
               (err)=>{
                 console.log(err);
@@ -84,6 +89,7 @@ export class BestComponent implements OnInit {
         }
     });
       this.clearInfoWin();
+     
     }
 
     clearInfoWin(){
@@ -102,7 +108,8 @@ export class BestComponent implements OnInit {
  
 
     OpenSliderCart(index:number){
-      this.isLoading = true;
+
+
       this.newFlagForVisible = false;
       this.allSightByRoute = this.allBestRouts[index].places;
       console.log(this.allSightByRoute);
@@ -138,7 +145,8 @@ export class BestComponent implements OnInit {
               }
             ]
         });
-        this.isLoading = false;
+
+
       },200);
       
       console.log(`!!!`,this.allBestRouts);

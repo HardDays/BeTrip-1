@@ -19,6 +19,7 @@ import { MainService } from './core/services/main.service';
 import { HttpService } from './core/services/http.service';
 import { FooterComponent } from './footer/footer.component';
 import { Angular2SocialLoginModule } from "angular2-social-login";
+import { PreloaderComponent } from './preloader/preloader.component';
 
 let providers = {
   "google": {
@@ -40,7 +41,8 @@ let providers = {
     TripsComponent,
     ViewAfterBuildComponent,
     FooterComponent,
-    RouteComponent
+    RouteComponent,
+    PreloaderComponent
   ],
   imports: [
     BrowserModule,
