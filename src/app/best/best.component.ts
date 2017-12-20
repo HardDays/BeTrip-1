@@ -202,6 +202,21 @@ export class BestComponent implements OnInit {
       return this.service.GetMapStyle();
     }
 
+
+    LikeRoute(id:number){
+      this.service.LikeRoute(id)
+      .subscribe(()=>{
+        console.log(`OK LIKE`);
+      });
+
+    }
+
+    RepostRoute(id:number){
+      this.service.RepostRoute(id)
+      .subscribe(()=>{
+        console.log(`OK REPOST`);
+      });
+    }
   
 
 }

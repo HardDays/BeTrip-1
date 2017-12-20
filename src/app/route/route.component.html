@@ -52,14 +52,14 @@
         <div class="padd-descript">
             <p class="name">{{CurrentRoute.name}}</p>
             <div class="button-wr">
-                <div class="one">
+                <div class="one" (click)="LikeRoute(CurrentRoute.id)">
                     <div class="bg">
-                        <img src="../assets/img/like.png" class="img-responsive" alt="">
-                        <span>1</span>
+                        <img src="../assets/img/like.png" class="img-responsive" alt="" >
+                        <span>{{CurrentRoute.likes_count}}</span>
                     </div>
                 </div>
                 <div class="one">
-                    <div class="bg">
+                    <div class="bg" (click)="RepostRoute(CurrentRoute.id)">
                         <img src="../assets/img/share.png" class="img-responsive" alt="">
                         <span>2</span>
                     </div>

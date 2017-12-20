@@ -232,6 +232,22 @@ export class RouteComponent implements OnInit, AfterViewInit {
       
     }
 
+    LikeRoute(id:number){
+      this.service.LikeRoute(id)
+      .subscribe(()=>{
+        console.log(`OK LIKE`);
+      });
+
+    }
+
+    RepostRoute(id:number){
+      this.service.RepostRoute(id)
+      .subscribe(()=>{
+        console.log(`OK REPOST`);
+      });
+
+    }
+
     OpenModalSights(index){
         $("#sights-slider").modal("show");
         console.log(index);

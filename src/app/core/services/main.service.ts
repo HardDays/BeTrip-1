@@ -122,7 +122,18 @@ GetPolyById(id:number){
       return this.http.GetData('/routes/get/'+id,'');
   }
 
+ 
+LikeRoute(route_id:number){
+  return this.http.PostData('/routes/like/'+route_id,'');
+}
 
+GetIsLikedRoute(id:number){
+  return this.http.GetData('/routes/is_liked/'+id,'');
+}
+
+RepostRoute(route_id:number){
+  return this.http.PostData('/routes/repost/'+route_id,'');
+}
 
     public GetAllCategory(){
         return [
