@@ -53,9 +53,9 @@
             <p class="name">{{CurrentRoute.name}}</p>
             <div class="button-wr">
                 <div class="one" (click)="LikeRoute(CurrentRoute.id)">
-                    <div class="bg">
+                    <div class="bg" [ngClass]="{'active':isILikeIt}">
                         <img src="../assets/img/like.png" class="img-responsive" alt="" >
-                        <span>{{CurrentRoute.likes_count}}</span>
+                        <span>{{CurrentRoute.likes_count}}{{isILikeIt?'+':''}}</span>
                     </div>
                 </div>
                 <div class="one">
