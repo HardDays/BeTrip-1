@@ -18,13 +18,13 @@
                           <div class="one" (click)="LikeRoute(item.id)">
                               <div class="bg">
                                   <img src="../assets/img/like.png" class="img-responsive" alt="">
-                                  <span>{{item.id + step}}</span>
+                                  <span>{{item.likes_count}}</span>
                               </div>
                           </div>
                           <div class="one" (click)="RepostRoute(item.id)">
                               <div class="bg">
                                   <img src="../assets/img/share.png" class="img-responsive" alt="">
-                                  <span>{{(item.id - 466) + step}}</span>
+                                  <span>{{item.reposts_count}}</span>
                               </div>
                           </div>
                           <div class="one">

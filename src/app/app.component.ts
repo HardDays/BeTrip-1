@@ -61,8 +61,13 @@ export class AppComponent{
       
       
           );
+
+          
       
-          if(localStorage.getItem('token')) this.isLogined = true;
+          if(localStorage.getItem('token')) {
+            this.isLogined = true;
+            this.service.BaseInit();
+          }
       
           this.service.onLoginChange$.subscribe(()=>{
             this.isLogined =!this.isLogined;
@@ -90,6 +95,8 @@ export class AppComponent{
         localStorage.setItem('token',res.token);
         this.service.onLoginChange$.next(true);
         this.isLogined = true;
+
+
         $("#login-modal").modal('hide');
           },
           (err)=>{

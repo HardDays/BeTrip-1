@@ -26,6 +26,15 @@ export class MainService{
 
         this.onLoginChange$ = new Subject();
         this.onLoginChange$.next(false);
+
+        this.onLoginChange$.subscribe((login)=>{
+          console.log(`change login`,login);
+          if(login) this.BaseInit();
+        });
+    }
+
+    BaseInit(){
+      this.http.BaseInitByToken(localStorage.getItem('token'));
     }
 
     GetClient(){
@@ -36,7 +45,7 @@ export class MainService{
             email: email,
             password: password
         };
-        return this.http.PostData('/auth/login',JSON.stringify(params));
+      return this.http.PostData('/auth/login',JSON.stringify(params));
     }
 
     GoogleLogin(token:any){
