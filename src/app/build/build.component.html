@@ -15,7 +15,7 @@
                           <input type="text" autocorrect="off" autocapitalize="off" spellcheck="off" placeholder="" #searchTo>
                       </div>
                       <div class="for-padd">
-                          <button class="butt-orange" type="submit">Build</button>
+                          <button class="butt-orange" [disabled]="placeFrom==''||placeTo==''" type="submit">{{(placeFrom==''||placeTo=='')?'Uncorrect Inputs!':'Build'}}</button>
                       </div>
                       
                   </div>
