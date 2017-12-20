@@ -35,7 +35,7 @@ export class BestComponent implements OnInit {
   allSightByRoute:any = [];
   imagesSightsRoute:any = [];
   isInfoWinOpen:boolean[] = [];
-
+  allRoutesLikes:boolean[] = [];
 
      ngOnInit() {
       $(".content").addClass("all-pages");
@@ -54,6 +54,7 @@ export class BestComponent implements OnInit {
           this.allBestRouts = res;
           console.log(this.allBestRouts);
           for(let i in res){
+
             this.service.GetImage(this.allBestRouts[i].places[0].cover_id).subscribe(
               (res)=>{
                 //console.log(res);
@@ -66,7 +67,19 @@ export class BestComponent implements OnInit {
                 console.log(err);
               }
             );
+
+            this.service.GetIsLikedRoute(this.allBestRouts[i].id).
+            subscribe((like)=>{
+              console.log(`is like = `,like);
+              this.allRoutesLikes[i] = like.is_liked;
+            });
+
+
+
           }
+        
+        
+        
         },
         (err)=>{
           console.log(err);
@@ -88,7 +101,7 @@ export class BestComponent implements OnInit {
         }
     });
       this.clearInfoWin();
-     
+      
     }
 
     clearInfoWin(){
@@ -203,11 +216,19 @@ export class BestComponent implements OnInit {
     }
 
 
-    LikeRoute(id:number){
+    LikeRoute(id:number,i:number){
       this.service.LikeRoute(id)
       .subscribe(()=>{
         console.log(`OK LIKE`);
+
+        if( this.allRoutesLikes[i])
+          this.allBestRouts[i].likes_count -= 1;
+        else
+          this.allBestRouts[i].likes_count+=1;
+        this.allRoutesLikes[i] = !this.allRoutesLikes[i];
       });
+      
+     
 
     }
 

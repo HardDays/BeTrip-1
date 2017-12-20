@@ -15,8 +15,8 @@
                       <p class="desc"><strong>Distance </strong>{{(item.distance - item.distance % 1000) / 1000}} km</p>
                       <p class="desc"><strong>Time </strong>{{(item.travel_time - (item.travel_time % 3600))/3600}}h {{ (item.travel_time - item.travel_time % 60)/60 - ((item.travel_time - (item.travel_time % 3600))/3600)*60 }}min</p>
                       <div class="button-wr">
-                          <div class="one" (click)="LikeRoute(item.id)">
-                              <div class="bg">
+                          <div class="one" (click)="LikeRoute(item.id,i)">
+                              <div class="bg" [ngClass]="{'active':allRoutesLikes[i]}">
                                   <img src="../assets/img/like.png" class="img-responsive" alt="">
                                   <span>{{item.likes_count}}</span>
                               </div>
