@@ -48,7 +48,7 @@
       <!--Сюда карту-->
       
     <div class="for-position-map">
-        <agm-map #gm [gestureHandling]="none" [mapDraggable]="false" [zoomControl]="false" [zoom]="6" [maxZoom]="6" [minZoom]="6" [latitude]="lat+2" [longitude]="lng" style="height: 100%;" (mapClick)="mapClick()" [styles]="MapStyle">
+        <agm-map #gm [mapDraggable]="false" [zoomControl]="false" [zoom]="6" [maxZoom]="6" [minZoom]="6" [latitude]="lat+2" [longitude]="lng" style="height: 100%;" (mapClick)="mapClick()" [styles]="MapStyle">
             <agm-marker [iconUrl]="'../assets/img/marker-yellow2.png'" [latitude]="StepsCoord[0]?StepsCoord[0].lat:''" [longitude]="StepsCoord[0]?StepsCoord[0].lng:''"></agm-marker>
             <agm-marker [iconUrl]="'../assets/img/marker-black.png'" *ngFor="let place of allSightByRoute; let i = index" [latitude]="place?place.lat:0" [longitude]="place?place.lng:0" (markerClick)="markerClick(i)">
                 <agm-info-window [isOpen]="isInfoWinOpen[i]">

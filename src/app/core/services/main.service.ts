@@ -118,6 +118,10 @@ GetPolyById(id:number){
     return this.http.GetData('/images/get/'+id,'');
   }
 
+  GetRouteById(id:number){
+      return this.http.GetData('/routes/get/'+id,'');
+  }
+
 
 
     public GetAllCategory(){
