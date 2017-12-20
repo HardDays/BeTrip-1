@@ -1890,3 +1890,136 @@ footer #mc-form input:-ms-input-placeholder {
 
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.one-block.avp {
+    position: fixed;
+    bottom: 30px;
+    right: 50px;
+    z-index: 5000;
+    padding: 10px;
+    width: 317px;
+    margin-bottom: 20px;
+    .new-wrapp-for-shadow {
+        background: #fff;
+        -webkit-box-shadow: 0 0 18px 0 rgba(0, 0, 0, 0.2);
+        box-shadow: 0 0 18px 0 rgba(0, 0, 0, 0.2);
+    }
+    .padd-descript {
+        padding: 0 10px;
+    }
+    .for-before-wr {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+    }
+    .for-before-wr:before {
+        content: '';
+        display: block;
+        padding-top: 63%;
+        position: relative;
+    }
+    .for-before-wr .img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: center no-repeat;
+        background-size: cover;
+    }
+    .ava {
+        width: 35px;
+        height: 35px;
+        border: 3px solid #fff;
+        position: relative;
+        background-size: cover;
+        background-position: center;
+        margin-top: -20px;
+        border-radius: 50%;
+        margin-left: 10px;
+    }
+    p {
+        margin-bottom: 10px;
+    }
+    p.name {
+        font-size: 20px;
+    
+        font-weight: bold;
+        cursor: pointer;
+        &.hover{
+            color: $color;
+        }
+    }
+    p.desc {
+        font-size: 13px;
+    }
+    p.desc strong {
+        padding-right: 10px;
+    }
+    .button-wr {
+        padding-bottom: 10px;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        padding-top: 10px;
+    }
+
+    .button-wr .one {
+        width: 100%;
+        padding: 0 5px;
+    }
+    .button-wr .one:first-child {
+        padding-left: 0;
+    }
+
+    .button-wr .one:last-child {
+        padding-right: 0;
+    }
+    .button-wr .one .bg {
+        cursor: pointer;
+        -webkit-transition: 0.3s;
+        transition: 0.3s;
+        height: 47px;
+        background-color: #f1f3f6;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+    }
+    .button-wr .one .bg:hover {
+        background: #240A30;
+    }
+    .button-wr .one .bg:hover span {
+        color: #FFC636;
+    }
+    .button-wr .one .bg img {
+        width: 30px;
+    }
+    .button-wr .one .bg span {
+        padding-left: 10px;
+        -webkit-transition: 0.3s;
+        transition: 0.3s;
+    }
+
+}
