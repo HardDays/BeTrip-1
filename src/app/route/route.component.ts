@@ -279,17 +279,21 @@ export class RouteComponent implements OnInit, AfterViewInit {
 
 
 
-    clearInfoWin(){
+    clearInfoWin(i?:number){
       let count = this.isInfoWinOpen.length;
       this.isInfoWinOpen = [];
       for(let i=0;i<count;i++)this.isInfoWinOpen.push(false);
       this.InfoWindowHSize = 0;
+      if(i)  this.isInfoWinOpen[i] = !this.isInfoWinOpen[i];
     }
     mapClick(){
       this.clearInfoWin();
     }
     markerClick(i:number){
-      this.isInfoWinOpen[i]= !this.isInfoWinOpen[i];
+      //this.isInfoWinOpen[i]= !this.isInfoWinOpen[i];
+      this.clearInfoWin();
+      this.isInfoWinOpen[i] = true;
+
       if( this.isInfoWinOpen[i]) this.InfoWindowHSize = 1;
       else this.InfoWindowHSize = 1;
      // console.log(this.Places[i]);

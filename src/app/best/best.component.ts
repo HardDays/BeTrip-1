@@ -104,9 +104,11 @@ export class BestComponent implements OnInit {
       
     }
 
-    clearInfoWin(){
+    clearInfoWin(i?:number){
+      let count = this.isInfoWinOpen.length;
       this.isInfoWinOpen = [];
-      for(let i=0;i<2;i++)this.isInfoWinOpen.push(false);
+      for(let i=0;i<count;i++)this.isInfoWinOpen.push(false);
+      if(i)  this.isInfoWinOpen[i] = !this.isInfoWinOpen[i];
     }
 
     mapClick(){
@@ -114,7 +116,10 @@ export class BestComponent implements OnInit {
     }
     
     markerClick(i:number){
-      this.isInfoWinOpen[i]= !this.isInfoWinOpen[i];
+
+      this.clearInfoWin();
+      this.isInfoWinOpen[i] = true;
+     // this.isInfoWinOpen[i]= !this.isInfoWinOpen[i];
       
       this.lat = this.allSightByRoute[i].lat;
       this.lng = this.allSightByRoute[i].lng;
