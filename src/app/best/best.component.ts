@@ -37,8 +37,6 @@ export class BestComponent implements OnInit {
   isInfoWinOpen:boolean[] = [];
 
 
- 
-  
      ngOnInit() {
       $(".content").addClass("all-pages");
       this.service.onPageChange$.next(false);
