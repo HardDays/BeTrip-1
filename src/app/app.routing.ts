@@ -8,7 +8,9 @@ import { DownloadComponent } from './download/download.component';
 import { FaqComponent } from './faq/faq.component';
 import { FunctionalityComponent } from './functionality/functionality.component';
 import { TripsComponent } from './trips/trips.component';
+import { RouteComponent } from './route/route.component';
 import { ViewAfterBuildComponent } from './view-after-build/view-after-build.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 const routes: Routes = [
@@ -19,7 +21,8 @@ const routes: Routes = [
     { path: 'faq',component: FaqComponent },
     { path: 'functionality',component: FunctionalityComponent },
     { path: 'trips',component: TripsComponent },
-    { path: 'routs',component: ViewAfterBuildComponent }
+    { path: 'routs',component: ViewAfterBuildComponent },
+    { path: 'route/:id',component: RouteComponent }
     
 ];
 

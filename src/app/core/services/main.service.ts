@@ -28,6 +28,17 @@ export class MainService{
         this.onLoginChange$.next(false);
     }
 
+    UpdateMe(name:string, email: string, date:any){
+      let data = {
+        name: name,
+        email: email,
+        date_of_birth: date
+    };
+      return this.http.PutData('/users/update',JSON.stringify(data));
+  }
+    GetMe(){
+      return this.http.GetData('/users/get',"");
+  }
     GetClient(){
       return this.http.GetData('/get_client','');
     }
@@ -84,6 +95,13 @@ export class MainService{
       return this.http.GetData('/routes/get_best_routes',this.ParamsToUrlSearchParams(params));
     }
 
+    getRoutePlaces(id:number){
+      
+      return this.http.GetData('/routes/get_route_places/'+id,'');
+    }
+
+
+   
 
   RoutesCreate(from_place:string,to_place:string){
     let from_addr={

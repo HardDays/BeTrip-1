@@ -3,7 +3,8 @@ import { MainService} from './core/services/main.service';
 import {NgForm} from '@angular/forms';
 import { Router } from "@angular/router";
 import { AuthService } from 'angular2-social-login';
-
+import { PreloaderComponent } from './preloader/preloader.component';
+import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 
 declare var jquery:any;
 declare var $ :any;
@@ -14,15 +15,18 @@ declare var $ :any;
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent {
+export class AppComponent{
   public user;
   sub: any;
   page:string = 'none';
   clientStatus:string = 'none';
   isShow:boolean = false;
+  canShow:boolean = false;
   isBuildPage:boolean = true;
   isLoginErr = false;
   isLogined = false;
+
+  Load:boolean = true;
 
   public LoginParams = {
     email:'',
@@ -37,6 +41,8 @@ export class AppComponent {
     this.service.GetClient().
     subscribe((status)=>{
       this.clientStatus = status.result;
+      this.canShow = true;
+      this.Load = false;
       console.log(`client status: `,this.clientStatus);
 
      // this.clientStatus="web2";
@@ -67,6 +73,7 @@ export class AppComponent {
     });
 
   }
+
   
   OpenModalSignIn(){
     $("#login-modal").modal('show');

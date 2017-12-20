@@ -6,7 +6,8 @@ import {CheckboxModel} from '../core/models/checkbox.model'
 import { FormControl } from '@angular/forms';
 import { } from 'googlemaps';
 import { MapsAPILoader } from '@agm/core';
-
+declare var jquery:any;
+declare var $ :any;
 @Component({
   selector: 'app-build',
   templateUrl: './build.component.html',
@@ -31,7 +32,7 @@ export class BuildComponent implements OnInit {
   @ViewChild('searchTo') public searchElementTo: ElementRef;
   
     ngOnInit() {
-      
+      $(".content").removeClass("all-pages");
      this.CreateAutocompleteFrom();
       this.CreateAutocompleteTo();
 

@@ -548,13 +548,16 @@ app-build {
     .best-wr .fixed-map.page-view-after-build .fixed-sights {
       max-width: 1000px;
       margin: 0 auto;
-      visibility: visible; }
+  
+     }
 
 .for-position-map {
   position: fixed;
   height: 100%;
   width: 55%;
   left: 45%; }
+
+
 
 .best-wr .fixed-map .fixed-sights {
   position: relative;
@@ -568,6 +571,9 @@ app-build {
   visibility: hidden; }
   .best-wr .fixed-map .fixed-sights.visible {
     visibility: visible; }
+
+    .best-wr .fixed-sights.visible {
+      visibility: visible; }
 
 .best-wr .fixed-map .fixed-sights.transformed {
   -webkit-transform: translateY(-70px);

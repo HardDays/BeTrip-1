@@ -2,6 +2,8 @@ import { Component, OnInit, ElementRef, ViewChild, NgZone } from '@angular/core'
 import { MainService} from '../core/services/main.service';
 import { AgmCoreModule } from '@agm/core';
 import { CoordsModel } from "../core/models/coords.model";
+import { PreloaderComponent } from '../preloader/preloader.component';
+
 
 declare var jquery:any;
 declare var $ :any;
@@ -24,19 +26,21 @@ export class BestComponent implements OnInit {
     offset:0
   }
   StepsCoord:CoordsModel[] = [];
-
   step = parseInt(''+new Date().getTime() / 100000) % 1000;
 
+  Load:boolean = true;
 
   allBestRouts:any = [];
   allBestRoutsImages:any = [];
   allSightByRoute:any = [];
   imagesSightsRoute:any = [];
-
-
   isInfoWinOpen:boolean[] = [];
 
+
+ 
+  
      ngOnInit() {
+      $(".content").addClass("all-pages");
       this.service.onPageChange$.next(false);
      
      
@@ -56,6 +60,9 @@ export class BestComponent implements OnInit {
               (res)=>{
                 //console.log(res);
                 this.allBestRoutsImages[i] = res.url;
+                this.Load = false;
+              
+
               },
               (err)=>{
                 console.log(err);
@@ -83,15 +90,18 @@ export class BestComponent implements OnInit {
         }
     });
       this.clearInfoWin();
+     
     }
 
     clearInfoWin(){
       this.isInfoWinOpen = [];
       for(let i=0;i<2;i++)this.isInfoWinOpen.push(false);
     }
+
     mapClick(){
       this.clearInfoWin();
     }
+    
     markerClick(i:number){
       this.isInfoWinOpen[i]= !this.isInfoWinOpen[i];
     }
@@ -99,7 +109,8 @@ export class BestComponent implements OnInit {
  
 
     OpenSliderCart(index:number){
-      
+
+
       this.newFlagForVisible = false;
       this.allSightByRoute = this.allBestRouts[index].places;
       console.log(this.allSightByRoute);
@@ -135,6 +146,8 @@ export class BestComponent implements OnInit {
               }
             ]
         });
+
+
       },200);
       
       console.log(`!!!`,this.allBestRouts);

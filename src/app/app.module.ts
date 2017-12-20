@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
-
+import { RouteComponent } from './route/route.component';
 import { AppRoutingModule } from './app.routing';
 import { AppComponent } from './app.component';
 import { BuildComponent } from './build/build.component';
@@ -19,6 +19,7 @@ import { MainService } from './core/services/main.service';
 import { HttpService } from './core/services/http.service';
 import { FooterComponent } from './footer/footer.component';
 import { Angular2SocialLoginModule } from "angular2-social-login";
+import { PreloaderComponent } from './preloader/preloader.component';
 
 let providers = {
   "google": {
@@ -39,7 +40,9 @@ let providers = {
     FunctionalityComponent,
     TripsComponent,
     ViewAfterBuildComponent,
-    FooterComponent
+    FooterComponent,
+    RouteComponent,
+    PreloaderComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +52,8 @@ let providers = {
     AppRoutingModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBaq3qTokKJ_b2VP0h5h_eeYliQ80ME74M',
-      libraries: ["places"]
+      libraries: ["places"],
+      language:'en'
     }),
     ReactiveFormsModule,
     Angular2SocialLoginModule

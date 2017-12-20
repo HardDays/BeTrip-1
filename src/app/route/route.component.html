@@ -1,9 +1,7 @@
-<app-preloader *ngIf="Load"></app-preloader>
-
 <div class="best-wr">  
   <div class="fixed-map page-view-after-build">  
       <div  class="for-position-map">
-            <agm-map #gm [zoom]="6" [maxZoom]='8' [latitude]="lat?lat+1:0" [longitude]="lng?lng:0" style="height: 100%;" (mapClick)="mapClick()" [styles]="MapStyle">
+            <agm-map #gm [zoom]="6" [maxZoom]='8' [latitude]="lat?lat+0.5+InfoWindowHSize:0" [longitude]="lng?lng:0" style="height: 100%;" (mapClick)="mapClick()" [styles]="MapStyle">
                 <agm-marker [iconUrl]="'../assets/img/marker-yellow2.png'" [latitude]="StepsCoord[0]?StepsCoord[0].lat:''" [longitude]="StepsCoord[0]?StepsCoord[0].lng:''"></agm-marker>
                 <agm-marker [iconUrl]="'../assets/img/marker-black.png'" *ngFor="let place of Places; let i = index" [latitude]="place?place.lat:0" [longitude]="place?place.lng:0" (markerClick)="markerClick(i)">
                     <agm-info-window [latitude]="StepsCoord[i].lat" [longitude]="StepsCoord[i].lng" [isOpen]="isInfoWinOpen[i]">
@@ -24,7 +22,8 @@
                 </agm-polyline>
             </agm-map>
       </div>
-      <div class="fixed-sights" [ngClass]="{'visible':!isLoading && newFlagForVisible}">
+      
+      <div class="fixed-sights" [ngClass]="{'visible':isVisible}">
           <div class="flex-sights"> 
               <div *ngFor="let place of Places; let i = index" class="one-sight" (click)="OpenModalSights(i)">
                   <div class="for-before-wr">
@@ -34,53 +33,18 @@
               </div>    
           </div>
       </div>
-
-      <!--было тут-->
       
       <!--<div class="save-route"></div>-->    
   </div>
 </div>
 
-
-
-
-
-<div *ngIf="newFlagForVisible" class="routs-count">
-    <div class="picked-route" (click)="OpenRoute()">
-        <div class="click">
-            <div class="one-route">
-                <span>{{activeRoute+1}}</span>
-                <p>{{variantsRoute[activeRoute].distance?(variantsRoute[activeRoute].distance - variantsRoute[activeRoute].distance % 1000) / 1000 +'km - ' : 'Many-many km'}}{{variantsRoute[activeRoute].travel_time?(variantsRoute[activeRoute].travel_time - (variantsRoute[activeRoute].travel_time % 3600))/3600 + 'h ':''}}{{variantsRoute[activeRoute].travel_time? (variantsRoute[activeRoute].travel_time - variantsRoute[activeRoute].travel_time % 60)/60 - ((variantsRoute[activeRoute].travel_time - (variantsRoute[activeRoute].travel_time % 3600))/3600)*60 +'m': '' }}</p>
-            </div>
-        </div>
-    </div>
-    <br>
-    <div class="outher">
-        <div *ngFor="let route of variantsRoute; let i = index" class="click" (click)="ChangeRoute(i)">
-            <div class="one-route">
-                <span>{{i+1}}</span>
-                <p> {{route.distance?(route.distance - route.distance % 1000) / 1000 + ' km - ':'Many-many km'}}{{route.travel_time?(route.travel_time - (route.travel_time % 3600))/3600 +'h ':''}}{{ route.travel_time?(route.travel_time - route.travel_time % 60)/60 - ((route.travel_time - (route.travel_time % 3600))/3600)*60 +'min':''}}</p>
-            </div>
-        </div>
-    </div> 
-</div>
-
-
-
-
-
-
-
-
-
-
-<div class="modal sights-slider" id="sights-slider" >
+<div class="modal sights-slider" id="sights-slider">
             <div class="modal-dialog">
                 <div class="modal-contant">
                     <div class="modal-body">
                         <div class="slider-init">
                             <div class="slide" *ngFor="let item of Places; let i = index">
-                                <div class="after-slide" [ngClass]="{'visible':isVisible}">
+                                <div class="after-slide">
                                     <div class="for-before-wr">
                                         <div class="img" [ngStyle]="{'background-image':allRoutsImages[i]?'url(' + allRoutsImages[i] + ')':'url(../assets/img/no_img.jpg)' }"></div>
                                     </div>
