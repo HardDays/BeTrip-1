@@ -37,8 +37,6 @@ export class BestComponent implements OnInit {
   isInfoWinOpen:boolean[] = [];
 
 
- 
-  
      ngOnInit() {
       $(".content").addClass("all-pages");
       this.service.onPageChange$.next(false);
@@ -104,6 +102,9 @@ export class BestComponent implements OnInit {
     
     markerClick(i:number){
       this.isInfoWinOpen[i]= !this.isInfoWinOpen[i];
+      
+      this.lat = this.allSightByRoute[i].lat;
+      this.lng = this.allSightByRoute[i].lng;
     }
    
  
@@ -201,6 +202,21 @@ export class BestComponent implements OnInit {
       return this.service.GetMapStyle();
     }
 
+
+    LikeRoute(id:number){
+      this.service.LikeRoute(id)
+      .subscribe(()=>{
+        console.log(`OK LIKE`);
+      });
+
+    }
+
+    RepostRoute(id:number){
+      this.service.RepostRoute(id)
+      .subscribe(()=>{
+        console.log(`OK REPOST`);
+      });
+    }
   
 
 }

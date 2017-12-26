@@ -22,13 +22,15 @@ export class RouteComponent implements OnInit, AfterViewInit {
   lng: number = 40.809007;
 
   activeRoute:number = 0;
+  CurrentRoute:any = null;
   isInfoWinOpen:boolean[] = [];
   allRoutsImages:any = [];
+  RouteImage:any = null;
   StepsCoord:CoordsModel[] = [];
   Places:any[] = [];
   variantsRoute:any[] = [];
   MapStyle = this.getMapStyle();
-    isLoading:boolean = true;
+  isLoading:boolean = true;
   flagForDropdown:boolean = false;
   InfoWindowHSize:number = 0;
 
@@ -87,6 +89,9 @@ export class RouteComponent implements OnInit, AfterViewInit {
       this.Places = [];
       this.allRoutsImages = [];
      
+     
+
+
           this.service.getRoutePlaces(routeId).subscribe((places)=>{
            this.Places = places;
            console.log(places);
@@ -99,6 +104,18 @@ export class RouteComponent implements OnInit, AfterViewInit {
                 });
                 
               }
+
+              this.service.GetRouteById(routeId).
+              subscribe((thisRoute)=>{
+                  this.CurrentRoute = thisRoute;
+                  console.log(`!!!`,this.CurrentRoute);
+
+                  this.service.GetImage(thisRoute.cover_id).subscribe(
+                    (img)=>{
+                      this.RouteImage = img.url;
+                    });
+                 
+              });
             
           });
           
@@ -213,6 +230,22 @@ export class RouteComponent implements OnInit, AfterViewInit {
     // this.BuildMap(this.fromPlace,this.toPlace);
     
       
+    }
+
+    LikeRoute(id:number){
+      this.service.LikeRoute(id)
+      .subscribe(()=>{
+        console.log(`OK LIKE`);
+      });
+
+    }
+
+    RepostRoute(id:number){
+      this.service.RepostRoute(id)
+      .subscribe(()=>{
+        console.log(`OK REPOST`);
+      });
+
     }
 
     OpenModalSights(index){

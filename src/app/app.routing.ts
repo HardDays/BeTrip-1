@@ -10,7 +10,6 @@ import { FunctionalityComponent } from './functionality/functionality.component'
 import { TripsComponent } from './trips/trips.component';
 import { RouteComponent } from './route/route.component';
 import { ViewAfterBuildComponent } from './view-after-build/view-after-build.component';
-import { ProfileComponent } from './profile/profile.component';
 
 
 const routes: Routes = [

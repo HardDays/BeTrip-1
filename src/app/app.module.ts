@@ -20,6 +20,7 @@ import { HttpService } from './core/services/http.service';
 import { FooterComponent } from './footer/footer.component';
 import { Angular2SocialLoginModule } from "angular2-social-login";
 import { PreloaderComponent } from './preloader/preloader.component';
+import { BsDatepickerModule } from 'ngx-bootstrap';
 
 let providers = {
   "google": {
@@ -56,7 +57,8 @@ let providers = {
       language:'en'
     }),
     ReactiveFormsModule,
-    Angular2SocialLoginModule
+    Angular2SocialLoginModule,
+    BsDatepickerModule.forRoot()
   ],
   providers: [MainService, HttpModule, HttpService],
   bootstrap: [AppComponent]

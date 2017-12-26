@@ -15,16 +15,16 @@
                       <p class="desc"><strong>Distance </strong>{{(item.distance - item.distance % 1000) / 1000}} km</p>
                       <p class="desc"><strong>Time </strong>{{(item.travel_time - (item.travel_time % 3600))/3600}}h {{ (item.travel_time - item.travel_time % 60)/60 - ((item.travel_time - (item.travel_time % 3600))/3600)*60 }}min</p>
                       <div class="button-wr">
-                          <div class="one">
+                          <div class="one" (click)="LikeRoute(item.id)">
                               <div class="bg">
                                   <img src="../assets/img/like.png" class="img-responsive" alt="">
-                                  <span>{{item.id + step}}</span>
+                                  <span>{{item.likes_count}}</span>
                               </div>
                           </div>
-                          <div class="one">
+                          <div class="one" (click)="RepostRoute(item.id)">
                               <div class="bg">
                                   <img src="../assets/img/share.png" class="img-responsive" alt="">
-                                  <span>{{(item.id - 466) + step}}</span>
+                                  <span>{{item.reposts_count}}</span>
                               </div>
                           </div>
                           <div class="one">
@@ -48,7 +48,7 @@
       <!--Сюда карту-->
       
     <div class="for-position-map">
-        <agm-map #gm [zoom]="6" [latitude]="lat+2" [longitude]="lng" style="height: 100%;" (mapClick)="mapClick()" [styles]="MapStyle">
+        <agm-map #gm [mapDraggable]="false" [zoomControl]="false" [zoom]="6" [maxZoom]="6" [minZoom]="6" [latitude]="lat+2" [longitude]="lng" style="height: 100%;" (mapClick)="mapClick()" [styles]="MapStyle">
             <agm-marker [iconUrl]="'../assets/img/marker-yellow2.png'" [latitude]="StepsCoord[0]?StepsCoord[0].lat:''" [longitude]="StepsCoord[0]?StepsCoord[0].lng:''"></agm-marker>
             <agm-marker [iconUrl]="'../assets/img/marker-black.png'" *ngFor="let place of allSightByRoute; let i = index" [latitude]="place?place.lat:0" [longitude]="place?place.lng:0" (markerClick)="markerClick(i)">
                 <agm-info-window [isOpen]="isInfoWinOpen[i]">

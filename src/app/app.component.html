@@ -1,40 +1,44 @@
 <app-preloader *ngIf="Load"></app-preloader>
 
 <nav id="nav-holder" class="nav-holder-3">
-    <button class="menu-close" (click)="CloseModalMenu()">
-        <span class="btn-close">
-        </span>
-    </button>
-    <div class="midd">
-        <div class="ava" [ngStyle]="{'background-image': 'url('+ Images[activeBooking.user_id] +')'}"></div>
-        <p class="name">{{Users[activeBooking.user_id]?.first_name}} {{Users[activeBooking.user_id]?.last_name}}</p>
-        <div class="time-show">
-            <div>
-                <p translate>begin</p>
-                <p> {{activeBooking?.begin_date?.split("T")[1]?.split(":")[0]}}{{activeBooking?.begin_date | date:":mm"}}</p>
+
+    <form (ngSubmit)="UpdateUser(submitFormUsr)" [ngFormOptions]="{ updateOn: 'submit' }" #submitFormUsr="ngForm">
+    <label class="file_upload">
+            <div class="avatar-img hovered" [ngStyle]="{'background-image': 'url('+this.image+')'}">
+
+                <span class="button">Upload image</span>
             </div>
-            <div>
-                <p translate>end</p>
-                <p>{{activeBooking?.end_date?.split("T")[1]?.split(":")[0]}}{{activeBooking?.end_date | date:":mm"}}</p>
-            </div>
+            <input accept=".jpg, .jpeg, .png" type="file" name="picture" (change)="changeListener($event)">
+    </label>
+    <div class="profile">
+        <div>
+            <p class="subscribe-text-style-yellow">Name</p>
         </div>
-
-        <button class="butt-orange" *ngIf="!activeBooking.is_visit_confirmed && !activeBooking.is_closed" (click)="changeConfirmStart(activeBooking)" translate>workBegin</button>
-        <button class="butt-orange" *ngIf="activeBooking.is_visit_confirmed && !activeBooking.is_closed" (click)="changeConfirmEnd(activeBooking)">endWork</button>
-        <button class="butt-orange" *ngIf="ExtendRequest.length > 0" (click)=" ApplyExtendBooking(ExtendRequest[0].id)" translate>extend</button>
-
-        <div *ngIf="activeBooking.is_closed" class="likeDislike">
-            <button class="like" (click)="rateUser(Users[activeBooking.user_id].id,'yes')" [ngClass]="{'checked-rate':Rates[activeBooking.user_id] && Rates[activeBooking.user_id].score == 'yes'}"></button>
-            <button class="dislike"(click)="rateUser(Users[activeBooking.user_id].id,'no')"[ngClass]="{'checked-rate':Rates[activeBooking.user_id] && Rates[activeBooking.user_id].score == 'no'}"></button>
+        <div>
+            <input class="input-text-style" type="text"  name="userName" [ngModel]="userName" [value]="userName" (ngModelChange)="change()" userName required>
         </div>
-
-
-
-
-
+        <div>
+            <p class="subscribe-text-style">Email</p>
+        </div>
+        <div>
+            <input class="input-text-style" type="text" name="email" [ngModel]="email" [value]="email" (ngModelChange)="email = $event" email required>
+        </div>
+        <!-- <div>
+            <p class="subscribe-text-style">Date of birth</p>
+        </div>
+        <div>
+                <input type="text"
+                readonly style="background-color:white; cursor: pointer;text-align:center"
+                class="input-text-style"
+                #dp="bsDatepicker"
+                bsDatepicker [bsValue]="bsValue"
+                (bsValueChange)="date = $event">
+        </div> -->
+        <button class="butt-orange-profile" type="submit">Save</button>
     </div>
+    </form>
 </nav>
-
+<div class="mask-nav-3" (click)="closeModal($event)"></div>
 <div *ngIf="clientStatus=='web'&&canShow">
 <section class="content all-pages">
   <div class="head">
@@ -77,7 +81,7 @@
                                     <li class="menu-item">
                                         <a class="op-modal-sign-in" *ngIf="!isLogined" (click)="OpenModalSignIn()">Sign In</a>
                                         <a class="op-modal-sign-up" *ngIf="!isLogined" (click)="OpenModalSignUp()">Sign Up</a>
-                                        <a *ngIf="!isLogined" routerLink="/profile">Profile</a>
+                                        <a *ngIf="isLogined" class="nav-button" (click)='OpenModalProfile($event)'>Profile</a>
                                         <a *ngIf="isLogined" (click)="Logout()" >Sign Out</a>
                                     </li>
                                 </ul>

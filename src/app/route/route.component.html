@@ -38,6 +38,49 @@
   </div>
 </div>
 
+
+
+
+
+<!--новая карточка-->
+<div class="one-block avp">
+    <div class="new-wrapp-for-shadow">
+        <div class="for-before-wr">
+            <div class="img" [ngStyle]="{'background-image':RouteImage?'url(' + RouteImage + ')':'url(../assets/img/no_img.jpg)'}"></div>
+        </div>
+        <div class="ava" style="background-image: url(../assets/img/ava.jpg)"></div>
+        <div class="padd-descript">
+            <p class="name">{{CurrentRoute.name}}</p>
+            <div class="button-wr">
+                <div class="one" (click)="LikeRoute(CurrentRoute.id)">
+                    <div class="bg">
+                        <img src="../assets/img/like.png" class="img-responsive" alt="" >
+                        <span>{{CurrentRoute.likes_count}}</span>
+                    </div>
+                </div>
+                <div class="one">
+                    <div class="bg" (click)="RepostRoute(CurrentRoute.id)">
+                        <img src="../assets/img/share.png" class="img-responsive" alt="">
+                        <span>{{CurrentRoute.reposts_count}}</span>
+                    </div>
+                </div>
+                <div class="one">
+                    <div class="bg">
+                        <img src="../assets/img/save.png" class="img-responsive" alt="">
+                        <span>3</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/новая карточка-->
+
+
+
+
+
+
 <div class="modal sights-slider" id="sights-slider">
             <div class="modal-dialog">
                 <div class="modal-contant">

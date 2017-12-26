@@ -26,18 +26,28 @@ export class MainService{
 
         this.onLoginChange$ = new Subject();
         this.onLoginChange$.next(false);
+
+        this.onLoginChange$.subscribe((login)=>{
+          console.log(`change login`,login);
+          if(login) this.BaseInit();
+        });
+    }
+
+    BaseInit(){
+      this.http.BaseInitByToken(localStorage.getItem('token'));
     }
 
     UpdateMe(name:string, email: string, date:any){
       let data = {
-        name: name,
+        first_name: name,
         email: email,
         date_of_birth: date
     };
-      return this.http.PutData('/users/update',JSON.stringify(data));
+      return this.http.PutData('/users/update_me',JSON.stringify(data));
   }
     GetMe(){
-      return this.http.GetData('/users/get',"");
+      this.BaseInit();
+      return this.http.GetData('/users/get_me',"");
   }
     GetClient(){
       return this.http.GetData('/get_client','');
@@ -47,7 +57,14 @@ export class MainService{
             email: email,
             password: password
         };
-        return this.http.PostData('/auth/login',JSON.stringify(params));
+      return this.http.PostData('/auth/login',JSON.stringify(params));
+    }
+
+    UploadPhoto(photo:any){
+      let params = {
+        base64: photo
+      };
+      return this.http.PostData('/users/upload_photo',JSON.stringify(params));
     }
 
     GoogleLogin(token:any){
@@ -129,7 +146,22 @@ GetPolyById(id:number){
     return this.http.GetData('/images/get/'+id,'');
   }
 
+  GetRouteById(id:number){
+      return this.http.GetData('/routes/get/'+id,'');
+  }
 
+ 
+LikeRoute(route_id:number){
+  return this.http.PostData('/routes/like/'+route_id,'');
+}
+
+GetIsLikedRoute(id:number){
+  return this.http.GetData('/routes/is_liked/'+id,'');
+}
+
+RepostRoute(route_id:number){
+  return this.http.PostData('/routes/repost/'+route_id,'');
+}
 
     public GetAllCategory(){
         return [

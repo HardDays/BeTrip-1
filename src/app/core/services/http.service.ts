@@ -46,7 +46,8 @@ export class HttpService
 
     GetData(method:string,params:string)
     {
-        if(!this.headers.has('Content-Type'))
+        console.log(this.headers);
+        if(!this.headers.has('Content-Type')) 
             this.headers.append('Content-Type','application/json');
         return this.http.get(this.serverUrl + method + "?"+ params,{headers:this.headers})
             .map((resp:Response)=>resp.json())
