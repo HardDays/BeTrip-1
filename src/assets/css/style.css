@@ -518,6 +518,8 @@ app-build {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center; }
+  .best-wr .left-side .all-best-blocks .one-block .button-wr .one .bg.active {
+    background-color: #b1b1b1; }
 
 .best-wr .left-side .all-best-blocks .one-block .button-wr .one .bg:hover {
   background: #240A30; }

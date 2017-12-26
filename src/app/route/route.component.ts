@@ -33,7 +33,7 @@ export class RouteComponent implements OnInit, AfterViewInit {
   isLoading:boolean = true;
   flagForDropdown:boolean = false;
   InfoWindowHSize:number = 0;
-
+  isILikeIt:boolean = false;
   isVisible = true;
 
   flagForOpenSlider:boolean = true;
@@ -105,6 +105,12 @@ export class RouteComponent implements OnInit, AfterViewInit {
                 
               }
 
+              this.service.GetIsLikedRoute(routeId).
+              subscribe((like)=>{
+                console.log(`is like = `,like);
+                this.isILikeIt = like.is_liked;
+              });
+
               this.service.GetRouteById(routeId).
               subscribe((thisRoute)=>{
                   this.CurrentRoute = thisRoute;
@@ -114,8 +120,11 @@ export class RouteComponent implements OnInit, AfterViewInit {
                     (img)=>{
                       this.RouteImage = img.url;
                     });
-                 
+                   
               });
+
+              
+           
             
           });
           
@@ -236,6 +245,13 @@ export class RouteComponent implements OnInit, AfterViewInit {
       this.service.LikeRoute(id)
       .subscribe(()=>{
         console.log(`OK LIKE`);
+
+        if( this.isILikeIt)
+        this.CurrentRoute.likes_count -= 1;
+      else
+        this.CurrentRoute.likes_count+=1;
+      this.isILikeIt = !this.isILikeIt;
+
       });
 
     }
@@ -263,17 +279,21 @@ export class RouteComponent implements OnInit, AfterViewInit {
 
 
 
-    clearInfoWin(){
+    clearInfoWin(i?:number){
       let count = this.isInfoWinOpen.length;
       this.isInfoWinOpen = [];
       for(let i=0;i<count;i++)this.isInfoWinOpen.push(false);
       this.InfoWindowHSize = 0;
+      if(i)  this.isInfoWinOpen[i] = !this.isInfoWinOpen[i];
     }
     mapClick(){
       this.clearInfoWin();
     }
     markerClick(i:number){
-      this.isInfoWinOpen[i]= !this.isInfoWinOpen[i];
+      //this.isInfoWinOpen[i]= !this.isInfoWinOpen[i];
+      this.clearInfoWin();
+      this.isInfoWinOpen[i] = true;
+
       if( this.isInfoWinOpen[i]) this.InfoWindowHSize = 1;
       else this.InfoWindowHSize = 1;
      // console.log(this.Places[i]);

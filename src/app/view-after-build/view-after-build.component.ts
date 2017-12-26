@@ -148,11 +148,12 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
 
 
 
-    clearInfoWin(){
+    clearInfoWin(i?:number){
       let count = this.isInfoWinOpen.length;
       this.isInfoWinOpen = [];
       for(let i=0;i<count;i++)this.isInfoWinOpen.push(false);
       this.InfoWindowHSize = 0;
+      if(i)  this.isInfoWinOpen[i] = !this.isInfoWinOpen[i];
     }
 
     mapClick(){
@@ -160,8 +161,10 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
     }
 
     markerClick(i:number){
-      this.isInfoWinOpen[i]= !this.isInfoWinOpen[i];
-     
+      
+     this.clearInfoWin();
+     this.isInfoWinOpen[i] = true;
+
       if( this.isInfoWinOpen[i]) this.InfoWindowHSize = 150/Math.pow(2,this.zoom);
       else this.InfoWindowHSize = 0;
 
