@@ -1,58 +1,56 @@
-<app-preloader *ngIf="Load"></app-preloader>
-
 <div class="best-wr">  
   <div class="fixed-map page-view-after-build">  
       <div  class="for-position-map">
-            <agm-map #gm [(zoom)]="zoom" [maxZoom]='8' [latitude]="lat?lat+InfoWindowHSize:0" [longitude]="lng?lng:0" style="height: 100%;" (mapClick)="mapClick()" [styles]="MapStyle">
-                <agm-marker [iconUrl]="'../assets/img/marker-yellow2.png'" [latitude]="StepsCoord[0]?StepsCoord[0].lat:''" [longitude]="StepsCoord[0]?StepsCoord[0].lng:''"></agm-marker>
-                <agm-marker [iconUrl]="'../assets/img/marker-black.png'" *ngFor="let place of Places; let i = index" [latitude]="place?place.lat:0" [longitude]="place?place.lng:0" (markerClick)="markerClick(i)">
-                    <agm-info-window [maxWidth]="300" [latitude]="StepsCoord[i].lat" [longitude]="StepsCoord[i].lng" [isOpen]="isInfoWinOpen[i]">
-                            <div class="cart-sight-wrapp">
-                                <div class="img" [ngStyle]="{'background-image':allRoutsImages[i]?'url(' + allRoutsImages[i] + ')':'url(../assets/img/no_img.jpg)'}"></div>
-                                <div class="ava" style="background-image: url(../assets/img/ava.jpg)"></div>
-                                <p class="name-sight">{{place.name}}</p>
-                            </div>
-                    </agm-info-window>
-                </agm-marker>
-
-                <agm-marker [iconUrl]="'../assets/img/marker-yellow2.png'" [latitude]="StepsCoord[StepsCoord.length-1].lat" [longitude]="StepsCoord[StepsCoord.length-1].lng"></agm-marker>
-
-                <agm-polyline [strokeWeight]="5">
-                        <ng-container>
-                            <agm-polyline-point *ngFor="let coord of StepsCoord; let i = index" [latitude]="coord.lat?coord.lat:0" [longitude]="coord.lng?coord.lng:0"></agm-polyline-point>
-                        </ng-container>
-                </agm-polyline>
-            </agm-map>
+        <agm-map #gm [mapDraggable]="true" [zoomControl]="true" [fitBounds]="zoomBounds" style="height: 100%;" (mapClick)="mapClick()" [styles]="MapStyle">   
+            <!--<agm-marker [iconUrl]="'../assets/img/marker-yellow2.png'" [latitude]="StepsCoord[0]?StepsCoord[0].lat:''" [longitude]="StepsCoord[0]?StepsCoord[0].lng:''"></agm-marker>-->
+            <agm-marker [iconUrl]="'../assets/img/marker-yellow2.png'" *ngFor="let place of selectedRoute.places; let i = index" [latitude]="place?place.lat:0" [longitude]="place?place.lng:0" (markerClick)="markerClick(i)">
+                <agm-info-window [isOpen]="false">
+                <div class="cart-sight-wrapp">
+                    <div class="img" [ngStyle]="{'background-image':'url(' + place.image + ')'}"></div>
+                    <div class="ava" style="background-image: url(../assets/img/ava.jpg)"></div>
+                    <p class="name-sight">{{place.name}}</p>
+                </div>
+                </agm-info-window>
+            </agm-marker>
+            
+            <!--<agm-marker [iconUrl]="'../assets/img/marker-yellow2.png'" [latitude]="StepsCoord[0]?StepsCoord[StepsCoord.length-1].lat:''" [longitude]="StepsCoord[0]?StepsCoord[StepsCoord.length-1].lng:''"></agm-marker>-->
+            
+            <agm-polyline [strokeColor]="'#FFC636'" [strokeOpacity]="'0.8'">
+                <ng-container>
+                    <agm-polyline-point *ngFor="let point of polyline; let i = index" [latitude]="point.lat?point.lat:0" [longitude]="point.lng?point.lng:0"></agm-polyline-point>
+                </ng-container>
+            </agm-polyline>
+        </agm-map>
       </div>
-      <div class="fixed-sights" [ngClass]="{'visible':!isLoading && newFlagForVisible}">
-          <div class="flex-sights"> 
-              <div *ngFor="let place of Places; let i = index" class="one-sight" (click)="OpenModalSights(i)">
-                  <div class="for-before-wr">
-                      <div class="img" [ngStyle]="{'background-image':allRoutsImages[i]?'url(' + allRoutsImages[i] + ')':'url(../assets/img/no_img.jpg)'}"></div>
-                  </div>
-                  <p><span>{{i+1}}</span>{{place.name}}</p>
-              </div>    
+      
+      <div class="fixed-sights" [ngClass]="{'visible': 'true'}">
+          <div class="flex-sights">
+                <div *ngFor="let item of selectedRoute.places; let i = index" class="one-sight" (click)="onRoutePlace(i)">
+                    <div class="for-before-wr">
+                        <div class="img" [ngStyle]="{'background-image':'url(' + item.image + ')'}"></div>
+                    </div>
+                    <p><span>{{i + 1}}</span><strong>{{item.name}}</strong></p>
+                </div>
           </div>
       </div>
-      <!--было тут-->      
       <!--<div class="save-route"></div>-->    
   </div>
 </div>
 
-<div *ngIf="newFlagForVisible" class="routs-count">
-    <div class="picked-route" (click)="OpenRoute()">
+<div *ngIf="true" class="routs-count">
+    <div class="picked-route" (click)="openRoutesMenu()">
         <div class="click">
             <div class="one-route">
-                <span>{{activeRoute+1}}</span>
-                <p>{{variantsRoute[activeRoute].distance?(variantsRoute[activeRoute].distance - variantsRoute[activeRoute].distance % 1000) / 1000 +'km - ' : 'Many-many km'}}{{variantsRoute[activeRoute].travel_time?(variantsRoute[activeRoute].travel_time - (variantsRoute[activeRoute].travel_time % 3600))/3600 + 'h ':''}}{{variantsRoute[activeRoute].travel_time? (variantsRoute[activeRoute].travel_time - variantsRoute[activeRoute].travel_time % 60)/60 - ((variantsRoute[activeRoute].travel_time - (variantsRoute[activeRoute].travel_time % 3600))/3600)*60 +'m': '' }}</p>
+                <span>{{routeIndex + 1}}</span>
+                <p>{{selectedRoute.distance?(selectedRoute.distance - selectedRoute.distance % 1000) / 1000 +'km - ' : 'Many-many km'}}{{selectedRoute.duration?(selectedRoute.duration - (selectedRoute.duration % 3600))/3600 + 'h ':''}}{{selectedRoute.duration? (selectedRoute.duration - selectedRoute.duration % 60)/60 - ((selectedRoute.duration - (selectedRoute.duration % 3600))/3600)*60 +'m': '' }}</p>
             </div>
         </div>
     </div>
     <br>
     <div class="outher">
-        <div *ngFor="let route of variantsRoute; let i = index" class="click" (click)="ChangeRoute(i)">
+        <div *ngFor="let route of routes; let i = index" class="click" (click)="changeRoute(i)">
             <div class="one-route">
-                <span>{{i+1}}</span>
+                <span>{{i + 1}}</span>
                 <p> {{route.distance?(route.distance - route.distance % 1000) / 1000 + ' km - ':'Many-many km'}}{{route.travel_time?(route.travel_time - (route.travel_time % 3600))/3600 +'h ':''}}{{ route.travel_time?(route.travel_time - route.travel_time % 60)/60 - ((route.travel_time - (route.travel_time % 3600))/3600)*60 +'min':''}}</p>
             </div>
         </div>
@@ -97,38 +95,36 @@
 <!--/новая карточка-->
 
 
+<div class="modal sights-slider" id="sights-slider">
+    <div class="modal-dialog">
+        <div class="modal-contant">
+            <div class="modal-body">
+                <div class="slider-init">
+                    <div class="slide" *ngFor="let item of selectedRoute.places; let i = index">
+                        <div class="after-slide">
+                            <div class="for-before-wr">
+                                <div class="img" [ngStyle]="{'background-image':'url(' + item.image + ')' }"></div>
+                            </div>
+                            <div class="content-sights">
+                                <p class="name">{{item.name}}</p>
+                                <p>{{item.description}}</p>
+                                <p>{{item.address}}</p>
 
-<div class="modal sights-slider" id="sights-slider" >
-            <div class="modal-dialog">
-                <div class="modal-contant">
-                    <div class="modal-body">
-                        <div class="slider-init">
-                            <div class="slide" *ngFor="let item of Places; let i = index">
-                                <div class="after-slide" [ngClass]="{'visible':isVisible}">
-                                    <div class="for-before-wr">
-                                        <div class="img" [ngStyle]="{'background-image':allRoutsImages[i]?'url(' + allRoutsImages[i] + ')':'url(../assets/img/no_img.jpg)' }"></div>
+                                <div class="for-flex-buttons">
+                                    <div class="find-more">
+                                        <p>Find more...</p>
                                     </div>
-                                    <div class="content-sights">
-                                        <p class="name">{{item.name}}</p>
-                                        <p>{{item.address}}</p>
-        
-                                        
-                                        <div class="for-flex-buttons">
-                                            <div class="find-more">
-                                                <p>Find more...</p>
-                                            </div>
-                                            <div class="one">
-                                                <div class="bg">
-                                                    <img src="../assets/img/like.png" class="img-responsive" alt="">
-                                                </div>
-                                            </div>
+                                    <div class="one" (click)="onPlaceLike(item)">
+                                        <div class="bg" [ngClass]="{'active': item.is_liked}">
+                                            <img src="../assets/img/like.png" class="img-responsive" alt="">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                         
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>

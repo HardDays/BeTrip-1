@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewChildren, ElementRef, QueryList, NgZone } from '@angular/core';
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import { MainService} from '../core/services/main.service';
 import {CheckboxModel} from '../core/models/checkbox.model'
@@ -18,28 +18,43 @@ declare var $ :any;
 
 export class BuildComponent implements OnInit {
 
-  Category: CheckboxModel[] = [];
-  placeFrom: string='';
-  placeTo: string='';
+  categories: CheckboxModel[] = [];
+  latFrom: number = 0.0;
+  lngFrom: number = 0.0;
+  latTo: number = 0.0;
+  lngTo: number = 0.0;
+  routeType: string = "internal";
 
   constructor(private service:MainService,  private mapsAPILoader: MapsAPILoader, 
     private ngZone: NgZone,private router: Router,
     private params: ActivatedRoute, ) {
       this.service.onPageChange$.next(false);
-     }
+  }
 
   @ViewChild('searchFrom') public searchElementFrom: ElementRef;
   @ViewChild('searchTo') public searchElementTo: ElementRef;
-  
-    ngOnInit() {
+
+  @ViewChildren('searchTo') ref: QueryList<any>; 
+
+  ngOnInit() {
       $(".content").removeClass("all-pages");
-     this.CreateAutocompleteFrom();
-      this.CreateAutocompleteTo();
+      this.createAutocompleteFrom();
 
-      this.Category = this.service.GetAllCategory();
-    }
+      this.categories = this.service.allCategories();
+  }
 
-  CreateAutocompleteFrom(){
+  ngAfterViewInit () {
+      this.ref.changes.subscribe(
+        (result) => {
+          this.searchElementTo = result.first;
+            if (this.routeType === 'bidirectional'){
+              this.createAutocompleteTo();   
+            }                             
+        } 
+      ); 
+  }
+
+  createAutocompleteFrom(){
       this.mapsAPILoader.load().then(
           () => {
              
@@ -49,29 +64,19 @@ export class BuildComponent implements OnInit {
              this.ngZone.run(() => {
              let place: google.maps.places.PlaceResult = autocomplete.getPlace();  
              if(place.geometry === undefined || place.geometry === null ){
-              
               return;
              }
              else {
-              console.log(autocomplete.getPlace().formatted_address);
-             this.placeFrom = autocomplete.getPlace().formatted_address;
-             // this.Params.public_lat=autocomplete.getPlace().geometry.location.toJSON().lat;
-             // this.Params.public_lng=autocomplete.getPlace().geometry.location.toJSON().lng;
-             // this.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
-              //this.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
-              console.log( autocomplete.getPlace().geometry.location.toJSON().lat, autocomplete.getPlace().geometry.location.toJSON().lng);
-            //  this.Params.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
-            //  this.Params.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
+              this.latFrom = autocomplete.getPlace().geometry.location.toJSON().lat;
+              this.lngFrom = autocomplete.getPlace().geometry.location.toJSON().lng;
              }
-            });
-            });
-          }
-             );
-  
-  
+           });
+         });
+       }
+    );
   }
 
-  CreateAutocompleteTo(){
+  createAutocompleteTo(){
     this.mapsAPILoader.load().then(
         () => {
            
@@ -85,40 +90,42 @@ export class BuildComponent implements OnInit {
             return;
            }
            else {
-            //this.Params.address = autocomplete.getPlace().formatted_address;
-            this.placeTo = autocomplete.getPlace().formatted_address;
-           // this.Params.public_lat=autocomplete.getPlace().geometry.location.toJSON().lat;
-           // this.Params.public_lng=autocomplete.getPlace().geometry.location.toJSON().lng;
-           // this.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
-            //this.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
-            console.log( autocomplete.getPlace().geometry.location.toJSON().lat, autocomplete.getPlace().geometry.location.toJSON().lng);
-          //  this.Params.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
-          //  this.Params.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
+            this.latTo = autocomplete.getPlace().geometry.location.toJSON().lat;
+            this.lngTo = autocomplete.getPlace().geometry.location.toJSON().lng;
            }
-          });
-          });
-        }
-           );
-
-
+        });
+      });
+    }
+  );
 }
 
-
-ChangeCategory(i:number){
-
- console.log(`change = `,i,this.Category);
-  this.Category[i].checked = !this.Category[i].checked;
-}
-
-BuildMap(){
-  let params ={
-    from: this.placeFrom,
-    to: this.placeTo
-   // category: this.Category
+changeRouteType(){
+  if (this.routeType === 'internal'){
+    this.routeType = 'bidirectional';
+    this.latTo = 0.0;
+    this.lngTo = 0.0;
+  //  this.CreateAutocompleteTo();
+  }else{
+    this.routeType = 'internal';
   }
-  this.router.navigate(['/routs',params]);
-  /*console.log(`build map`, this.placeFrom, this.placeTo, this.Category);
-  this.service.RoutesCreate(this.placeFrom,this.placeTo).subscribe(
+}
+
+changeCategory(i:number){
+  this.categories[i].checked = !this.categories[i].checked;
+}
+
+buildMap(){
+  let params ={
+    from_lat: this.latFrom,
+    from_lng: this.lngFrom,
+    to_lat: this.latTo,
+    to_lng: this.lngTo,
+    route_type: this.routeType,
+    categories: this.categories.filter(cat => cat.checked).map(cat => cat.value)
+  }
+  this.router.navigate(['/routes', params]);
+  //console.log(`build map`, this.placeFrom, this.placeTo, this.Category);
+  /*this.service.RoutesCreate(this.latFrom, this.lngFrom, this.latTo, this.lngTo).subscribe(
     (res)=>{
       console.log('ok',res);
     }

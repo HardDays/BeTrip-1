@@ -11,7 +11,7 @@ import { TokenModel } from '../models/token.model';
 export class HttpService
 {
     GoogleMapUrl: string = "https://maps.googleapis.com/maps/api/geocode/json?address=";
-    serverUrl: string = "http://213.196.32.20:3000";
+    serverUrl: string = "http://104.40.181.0:3000";//"http://localhost:3000"; // "http://213.196.32.20:3000";
     public headers:Headers = new Headers([]);
     public token: TokenModel = new TokenModel('');
     constructor(private http: Http){
@@ -33,6 +33,8 @@ export class HttpService
     GetToken():TokenModel{
         return this.token;
     }
+
+
 
     
     PostData(method:string,data:string)

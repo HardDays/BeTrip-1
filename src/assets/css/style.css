@@ -19,6 +19,8 @@ body {
 ul {
   list-style: none; }
 
+button:focus { outline:0 !important; }
+
 .butt-orange {
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -40,6 +42,11 @@ ul {
 
 .butt-orange:hover {
   color: #fff; }
+
+.btn-change {
+  color: #fff;
+  font-size: 16px;
+}
 
 .content {
   height: 100vh;
@@ -302,6 +309,17 @@ app-build {
   width: 50%;
   padding-right: 15px; }
 
+.change-route-type {
+    color: #fff;
+    font-size: 18px;
+    margin-top: -20px;
+}
+
+.change-route-type img{
+    width:25px;
+}
+
+
 .content .build-content form .flex-iputs .side p {
   color: #fff;
   font-size: 18px;
@@ -540,10 +558,12 @@ app-build {
   position: fixed;
   height: 100%;
   left: 45%;
-  top: 0; }
-  .best-wr .fixed-map.page-view-after-build {
+  top: 0; 
+}
+.best-wr .fixed-map.page-view-after-build {
     width: 100%;
-    left: 0; }
+    left: 0;
+}
     .best-wr .fixed-map.page-view-after-build .for-position-map {
       width: 100%;
       left: 0; }
@@ -566,13 +586,20 @@ app-build {
   transition: -webkit-transform 1s;
   transition: transform 1s;
   transition: transform 1s, -webkit-transform 1s;
-  visibility: hidden; }
-  .best-wr .fixed-map .fixed-sights.visible {
-    visibility: visible; }
+  visibility: hidden; 
+}
+
+.best-wr .fixed-map .fixed-sights.visible {
+  visibility: visible; 
+}
 
 .best-wr .fixed-map .fixed-sights.transformed {
   -webkit-transform: translateY(-70px);
   transform: translateY(-70px); }
+
+.best-wr .fixed-map .fixed-sights.transformed-small {
+  -webkit-transform: translateY(-35px);
+  transform: translateY(-35px); }
 
 .best-wr .fixed-map .fixed-sights .flex-sights {
   background: rgba(255, 255, 255, 0.7); }

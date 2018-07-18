@@ -1,11 +1,14 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { MainService} from '../core/services/main.service';
+import { MainService } from '../core/services/main.service';
 import { Router, ActivatedRoute, Params } from "@angular/router";
-
+import { LatLonSpherical } from 'geodesy';
+import { MapsAPILoader, LatLng, LatLngBounds } from '@agm/core';
+import { RouteModel } from "../core/models/route.model";
+import { PlaceModel } from "../core/models/place.model";
 import { CoordsModel } from "../core/models/coords.model";
 import { PreloaderComponent } from "../preloader/preloader.component";
-declare var jquery:any;
-declare var $ :any;
+declare var jquery: any;
+declare var $: any;
 
 @Component({
   selector: 'app-view-after-build',
@@ -15,180 +18,246 @@ declare var $ :any;
 export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
 
   constructor(private router: Router, private route: ActivatedRoute,
-              private service: MainService, private params: ActivatedRoute) { }
+    private service: MainService, private params: ActivatedRoute, private mapsAPILoader: MapsAPILoader) { }
 
-  lat: number = 38.678418;
-  lng: number = 40.809007;
-  zoom:number = 6;
+  menuShowed: boolean = false;
 
-  activeRoute:number = 0;
-  isInfoWinOpen:boolean[] = [];
-  allRoutsImages:any = [];
-  StepsCoord:CoordsModel[] = [];
-  Places:any[] = [];
-  variantsRoute:any[] = [];
-  MapStyle = this.getMapStyle();
-  isLoading:boolean = false;
-  Load:boolean = true;
-  flagForDropdown:boolean = false;
-  InfoWindowHSize:number = 0;
-  newFlagForVisible:boolean = false;
+  zoomBounds: google.maps.LatLngBounds;
 
-  fromPlace:string='';
-  toPlace:string='';
+  isSliderOpen: boolean = true;
+  isModalVisible: boolean = false;
+  isLoading: boolean = true;
+
+  routes: RouteModel[] = [];
+  polyline: CoordsModel[] = [];
+  routeIndex: number = 0;
+  selectedRoute: RouteModel = new RouteModel();
 
   ngOnInit() {
     $(".content").addClass("all-pages");
-    this.service.onPageChange$.next(false);     
-    let sub:any = this.route.params.subscribe(params => {
-      if(params['from'])
-          this.fromPlace = params['from'];
-          if(params['to'])
-          this.toPlace = params['to'];
-      });
-    
+    this.service.onPageChange$.next(false);
+    let sub: any = this.route.params.subscribe(params => {
       $('#sights-slider').on('hidden.bs.modal', function () {
         $('.slider-init').slick('unslick');
       });
-    this.BuildMap(this.fromPlace,this.toPlace);
+
+      this.mapsAPILoader.load().then(() => {
+        this.zoomBounds = new google.maps.LatLngBounds();
+        this.zoomBounds.extend(new google.maps.LatLng(61.29752, -9.27467));
+        this.zoomBounds.extend(new google.maps.LatLng(44.254402, 43.77806));
+      });
+
+      if (params['route_type'] == 'bidirectional'){
+        this.service.getBidirectionalRoute(params['from_lat'], params['from_lng'], params['to_lat'], params['to_lng'], params['categories']).subscribe(
+          (res) => {
+            this.routes = res;
+            for (let i in res) {
+              var route = this.routes[i];
+              route.image = this.service.getImageUrl(route.cover_id);
+              for (let k in route.places) {
+                route.places[k].image = this.service.getImageUrl(route.places[k].cover_id);
+              }
+            }
+            this.changeRoute(0);
+          }
+        );
+      }else{
+        this.service.getCityRoute(params['from_lat'], params['from_lng'], params['categories']).subscribe(
+          (res) => {
+            this.routes = res;
+            for (let i in res) {
+              var route = this.routes[i];
+              route.image = this.service.getImageUrl(route.cover_id);
+              for (let k in route.places) {
+                route.places[k].image = this.service.getImageUrl(route.places[k].cover_id);
+              }
+            }
+             this.changeRoute(0);
+          }
+        );
+      }
+    });
+
+    if ($(window).scrollTop() > 35) {
+      $(".fixed-sights").addClass("transformed-small");
+    }
+    else {
+      $(".fixed-sights").removeClass("transformed-small");
+    }
+    $(window).scroll(function () {
+      if ($(window).scrollTop() > 35) {
+        $(".fixed-sights").addClass("transformed-small");
+      }
+      else {
+        $(".fixed-sights").removeClass("transformed-small");
+      }
+    });
   }
 
-  getMapStyle(){
-    return this.service.GetMapStyle();
+  getMapStyle() {
+    return this.service.mapStyle();
   }
-    
-  BuildMap(from:string,to:string){
-    this.service.RoutesCreate(from,to).subscribe(
-      (res)=>{
-        this.variantsRoute = res;
-        this.GetPlaces();
+
+  getCurvedLine(place: PlaceModel, nextPlace: PlaceModel, isRight: number) {
+    var res: LatLonSpherical = [];
+
+    var p1 = new LatLonSpherical(place.lat, place.lng);
+    var p3 = new LatLonSpherical(nextPlace.lat, nextPlace.lng);
+    var middle = p1.midpointTo(p1, p3);
+
+    var dist = p1.distanceTo(p3);
+    var head = middle.bearingTo(p3);
+
+    var p2 = p1.rhumbDestinationPoint(dist * 0.75, head + 30 * Math.pow(-1, isRight));// new LatLonSpherical(middle.lat, middle.lon); //SphericalUtil.ComputeOffset(middle, dist * 0.2, head + 90 * Math.Pow(-1, isRight));
+
+    for (var i = 0; i < 150; i++) {
+      var T = i / 150.0;
+      var x = Math.pow(1 - T, 2) * p1.lat + 2 * (1 - T) * T * p2.lat + Math.pow(T, 2) * p3.lat;
+      var y = Math.pow(1 - T, 2) * p1.lon + 2 * (1 - T) * T * p2.lon + Math.pow(T, 2) * p3.lon;
+      res.push(new CoordsModel(x, y));
+    }
+    return res;
+  }
+
+  getRouteMiddle(route: RouteModel) {
+    var minLat = 1000000.0;
+    var minLng = 1000000.0;
+    var maxLat = -1000000.0;
+    var maxLng = -1000000.0;
+    this.zoomBounds = new google.maps.LatLngBounds();
+    for (let place of route.places) {
+      this.zoomBounds.extend(new google.maps.LatLng(place.lat, place.lng));
+
+      minLat = Math.min(minLat, place.lat);
+      minLng = Math.min(minLng, place.lng);
+      maxLat = Math.max(maxLat, place.lat);
+      maxLng = Math.max(maxLng, place.lng);
+    }
+    //margin from top for carousel
+    var dist = new LatLonSpherical(maxLat, minLng).distanceTo(new LatLonSpherical(minLat, maxLng));
+    var to = new LatLonSpherical(maxLat, minLng).rhumbDestinationPoint(dist * 0.5, 0)
+    this.zoomBounds.extend(new google.maps.LatLng(to.lat, to.lon));
+  }
+
+
+  changeRoute(index: number) {
+    this.selectedRoute = this.routes[index];
+    this.routeIndex = index;
+    this.polyline = [];
+
+    for (var i = 0; i < this.selectedRoute.places.length - 1; i++) {
+      var res = this.getCurvedLine(this.selectedRoute.places[i], this.selectedRoute.places[i + 1], i % 2);
+
+      for (var point of res) {
+        this.polyline.push(point);
+      }
+    }
+    this.getRouteMiddle(this.selectedRoute);
+    setTimeout(() => {
+      this.isModalVisible = true;
+
+      $('.flex-sights').slick({
+        slidesToShow: 6,
+        slidesToScroll: 1,
+        arrows: true,
+        dots: false,
+        infinite: false,
+        responsive: [
+          {
+            breakpoint: 1601,
+            settings: {
+              slidesToShow: 6
+            }
+          },
+          {
+            breakpoint: 1301,
+            settings: {
+              slidesToShow: 3
+            }
+          }
+        ]
+      });
+    }, 200);
+  }
+
+  onPlaceLike(place: PlaceModel) {
+    this.service.likePlace(place.id)
+      .subscribe(() => {
+        if (place.is_liked){
+          place.likes_count -= 1;
+        }else{
+          place.likes_count += 1;
+        }
+        place.is_liked = !place.is_liked;
       });
   }
 
-  GetPlaces(){
-    this.StepsCoord= [];
-    this.Places = [];
-    this.allRoutsImages = [];
+  onRouteLike(route: RouteModel) {
+    this.service.likeRoute(route.id)
+      .subscribe(() => {
+        if (route.is_liked){
+          route.likes_count -= 1;
+        }else{
+          route.likes_count += 1;
+        }
+        route.is_liked = !route.is_liked;
+      });
+  }
 
-    this.Places = this.variantsRoute[this.activeRoute].places;
-    
-    for(let i=0;i<this.Places.length;i++){
-      this.service.GetImage(this.Places[i].cover_id).subscribe(
-        (img)=>{ 
-          this.allRoutsImages[i] = img.url;
-        });   
-    }
-    console.log(this.Places,this.allRoutsImages);
-        
-    this.service.GetPolyById(this.variantsRoute[this.activeRoute].id).
-    subscribe((poly)=>{
-      console.log('poly',poly);
-      for(let i=0;i<poly.routes[0].legs[0].steps.length;i++){
-        this.StepsCoord.push(poly.routes[0].legs[0].steps[i].start_location);
-        this.StepsCoord.push(poly.routes[0].legs[0].steps[i].end_location);
-      }
-
-      this.lat = this.StepsCoord[this.StepsCoord.length/2].lat;
-      this.lng = this.StepsCoord[this.StepsCoord.length/2].lng;
-
-      if(this.isLoading)
-        $('.flex-sights').slick('unslick');
-
-      setTimeout(()=>{
-        this.newFlagForVisible = true;
-                $('.flex-sights').slick({
-                  slidesToShow: 6,
-                  slidesToScroll: 1,
-                  arrows: true,
-                  dots: false,
-                  infinite:false,
-                  responsive: [
-                    {
-                      breakpoint: 1601,
-                      settings: {
-                        slidesToShow: 4
-                      }
-                    },
-                    {
-                      breakpoint: 1301,
-                      settings: {
-                        slidesToShow: 3
-                      }
-                    }
-                  ]
-              });
-              this.isLoading = false;  
-              this.Load = false;
-            },300);   
+  onRoutePlace(index) {
+    $("#sights-slider").modal("show");
+    console.log(index);
+    $('.slider-init').slick({
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      arrows: true,
+      dots: false,
+      infinite: false
     });
+    $('.slider-init').slick('slickGoTo', index, true);
+  }
+
+  clearInfoWin(i?: number) {
+    /*    let count = this.isInfoWinOpen.length;
+        this.isInfoWinOpen = [];
+        for(let i=0;i<count;i++)this.isInfoWinOpen.push(false);
+        this.InfoWindowHSize = 0;
+        if(i)  this.isInfoWinOpen[i] = !this.isInfoWinOpen[i];*/
+  }
+
+  mapClick() {
     this.clearInfoWin();
   }
 
+  markerClick(i: number) {
 
-  ChangeRoute(index:number){
-    this.activeRoute = index;
-    this.Load = true;  
-    this.isLoading = true;
-    this.OpenRoute();
-    this.GetPlaces();
-  }
-
-  OpenModalSights(index){
-      $("#sights-slider").modal("show");
-      console.log(index);
-      $('.slider-init').slick({
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          arrows: true,
-          dots: false,
-          infinite:false
-      });
-      $('.slider-init').slick('slickGoTo',index,true);
-  }
-
-
-
-    clearInfoWin(i?:number){
-      let count = this.isInfoWinOpen.length;
-      this.isInfoWinOpen = [];
-      for(let i=0;i<count;i++)this.isInfoWinOpen.push(false);
-      this.InfoWindowHSize = 0;
-      if(i)  this.isInfoWinOpen[i] = !this.isInfoWinOpen[i];
-    }
-
-    mapClick(){
-      this.clearInfoWin();
-    }
-
-    markerClick(i:number){
-      
-     this.clearInfoWin();
-     this.isInfoWinOpen[i] = true;
+    this.clearInfoWin();
+    /* this.isInfoWinOpen[i] = true;
 
       if( this.isInfoWinOpen[i]) this.InfoWindowHSize = 150/Math.pow(2,this.zoom);
       else this.InfoWindowHSize = 0;
 
       this.lat = this.Places[i].lat;
       this.lng = this.Places[i].lng;
+     */
+  }
 
-     
-    }
 
+  ngAfterViewInit() {
+  }
 
-    ngAfterViewInit() { 
-    }
+  openRoutesMenu() {
     
-    OpenRoute(){
-      if(!this.flagForDropdown){
-          $(".outher").slideDown(200);
-          this.flagForDropdown = !this.flagForDropdown;
-      }
-      else{
-          $(".outher").slideUp(200);
-          this.flagForDropdown = !this.flagForDropdown;
-      }
+    if(!this.menuShowed){
+        $(".outher").slideDown(200);
+        this.menuShowed = !this.menuShowed;
     }
-    
+    else{
+        $(".outher").slideUp(200);
+        this.menuShowed = !this.menuShowed;
+    }
+  }
+
 
 
 }

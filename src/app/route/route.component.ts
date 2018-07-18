@@ -1,11 +1,15 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { MainService} from '../core/services/main.service';
+import { MainService } from '../core/services/main.service';
 import { Router, ActivatedRoute, Params } from "@angular/router";
+import { MapsAPILoader, LatLng, LatLngBounds } from '@agm/core';
+import { LatLonSpherical } from 'geodesy';
 
+import { RouteModel } from "../core/models/route.model";
+import { PlaceModel } from "../core/models/place.model";
 import { CoordsModel } from "../core/models/coords.model";
 
-declare var jquery:any;
-declare var $ :any;
+declare var jquery: any;
+declare var $: any;
 
 @Component({
   selector: 'route',
@@ -17,312 +21,236 @@ export class RouteComponent implements OnInit, AfterViewInit {
   constructor(private router: Router,
     private route: ActivatedRoute,
     private service: MainService,
-    private params: ActivatedRoute) { }
+    private params: ActivatedRoute, 
+    private mapsAPILoader: MapsAPILoader) { }
+
+  zoomBounds: google.maps.LatLngBounds;
+
+  isSliderOpen: boolean = true;
+  isModalVisible: boolean = false;
+  isLoading: boolean = true;
+
+  polyline: CoordsModel[] = [];
+  selectedRoute: RouteModel = new RouteModel();
+
   lat: number = 38.678418;
   lng: number = 40.809007;
 
-  activeRoute:number = 0;
-  CurrentRoute:any = null;
-  isInfoWinOpen:boolean[] = [];
-  allRoutsImages:any = [];
-  RouteImage:any = null;
-  StepsCoord:CoordsModel[] = [];
-  Places:any[] = [];
-  variantsRoute:any[] = [];
+  activeRoute: number = 0;
+  CurrentRoute: any = null;
+  isInfoWinOpen: boolean[] = [];
+  allRoutsImages: any = [];
+  RouteImage: any = null;
+  StepsCoord: CoordsModel[] = [];
+  Places: any[] = [];
+  variantsRoute: any[] = [];
   MapStyle = this.getMapStyle();
-  isLoading:boolean = true;
-  flagForDropdown:boolean = false;
-  InfoWindowHSize:number = 0;
-  isILikeIt:boolean = false;
+  flagForDropdown: boolean = false;
+  InfoWindowHSize: number = 0;
+  isILikeIt: boolean = false;
   isVisible = true;
 
-  flagForOpenSlider:boolean = true;
-  newFlagForVisible:boolean = false;
-
-  RouteId:number = 0;
-
-    ngOnInit() {
-      this.service.onPageChange$.next(false);
-     // this.StepsCoord.push(new CoordsModel(this.lat,this.lng));
-
-     
-      
-       this.route.params.subscribe(params => {
-          console.log(`id route = `, params['id']);
-          this.RouteId = params['id'];
-        });
-       
-        $('#sights-slider').on('hidden.bs.modal', function () {
-          $('.slider-init').slick('unslick');
-        });
-
-        //this.StepsCoord.push(new CoordsModel(this.lat+1,this.lng));
-      this.BuildMap(this.RouteId);
+  flagForOpenSlider: boolean = true;
+  newFlagForVisible: boolean = false;
 
 
-      if($(window).scrollTop() > 70){
-        $(".fixed-sights").addClass("transformed");
-    }
-    else{
-        $(".fixed-sights").removeClass("transformed");
-    }
-    $(window).scroll(function(){
-      if($(window).scrollTop() > 70){
-          $(".fixed-sights").addClass("transformed");
-      }
-      else{
-          $(".fixed-sights").removeClass("transformed");
-      }
-  });
+  ngOnInit() {
+    this.service.onPageChange$.next(false);
+    // this.StepsCoord.push(new CoordsModel(this.lat,this.lng));
 
+    this.route.params.subscribe(params => {
 
-      this.clearInfoWin();
-    }
+      this.service.getRoute(params['id']).subscribe(
+        (res) => {
+          this.selectedRoute = res as RouteModel;
+          this.selectedRoute.image = this.service.getImageUrl(this.selectedRoute.cover_id);
+          for (let k in this.selectedRoute.places) {
+            this.selectedRoute.places[k].image = this.service.getImageUrl(this.selectedRoute.places[k].cover_id);
+          }
 
-    getMapStyle(){
-      return this.service.GetMapStyle();
-    }
-    
+          this.isSliderOpen = false;
+          this.polyline = [];
 
-    BuildMap(routeId:number){
-      this.StepsCoord= [];
-      this.Places = [];
-      this.allRoutsImages = [];
-     
-     
+          //this.getRouteMiddle(this.selectedRoute);
 
-
-          this.service.getRoutePlaces(routeId).subscribe((places)=>{
-           this.Places = places;
-           console.log(places);
-            for(let i=0;i<places.length;i++){
-              this.service.GetImage(places[i].cover_id).subscribe(
-                (img)=>{
-                  console.log(img.url);
-                  
-                  this.allRoutsImages[i] = img.url;
-                });
-                
-              }
-
-              this.service.GetIsLikedRoute(routeId).
-              subscribe((like)=>{
-                console.log(`is like = `,like);
-                this.isILikeIt = like.is_liked;
-              });
-
-              this.service.GetRouteById(routeId).
-              subscribe((thisRoute)=>{
-                  this.CurrentRoute = thisRoute;
-                  console.log(`!!!`,this.CurrentRoute);
-
-                  this.service.GetImage(thisRoute.cover_id).subscribe(
-                    (img)=>{
-                      this.RouteImage = img.url;
-                    });
-                   
-              });
-
-              
-           
+          for (var i = 0; i < this.selectedRoute.places.length - 1; i++){
+            var res = this.getCurvedLine(this.selectedRoute.places[i], this.selectedRoute.places[i + 1], i % 2);
             
-          });
-          
-          this.service.GetPolyById(routeId).
-          subscribe((poly)=>{
-            console.log('poly',poly);
-            for(let i=0;i<poly.routes[0].legs[0].steps.length;i++){
-              this.StepsCoord.push(poly.routes[0].legs[0].steps[i].start_location);
-              this.StepsCoord.push(poly.routes[0].legs[0].steps[i].end_location);
+            for (var point of res){
+              this.polyline.push(point);
             }
+          }
 
-            this.isLoading = false;
-            this.lat = this.StepsCoord[this.StepsCoord.length/2].lat;
-            this.lng = this.StepsCoord[this.StepsCoord.length/2].lng;
-           
+          this.mapsAPILoader.load().then(() => {
+            this.getRouteMiddle(this.selectedRoute);
           });
 
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+    });
 
-       
+
+    $('#sights-slider').on('hidden.bs.modal', function () {
+      $('.slider-init').slick('unslick');
+    });
+
+    //this.StepsCoord.push(new CoordsModel(this.lat+1,this.lng));
+
+
+    if ($(window).scrollTop() > 35) {
+      $(".fixed-sights").addClass("transformed-small");
     }
-
-    ChangeRoute(index:number){
-    
-      this.activeRoute = index;
-    
-      this.isVisible = false;
-
-      console.log(this.isVisible);
-
-
-      setTimeout(()=>{
-
-        $('.flex-sights').slick({
-          slidesToShow: 6,
-          slidesToScroll: 1,
-          arrows: true,
-          dots: false,
-          infinite:false,
-          responsive: [
-            {
-              breakpoint: 1601,
-              settings: {
-                slidesToShow: 4
-              }
-            },
-            {
-              breakpoint: 1301,
-              settings: {
-                slidesToShow: 3
-              }
-            }
-          ]
-      });
-      },300);
-      
-
-
-      /*
-
-      if(!this.flagForOpenSlider){
-        $('.flex-sights').slick('unslick');
+    else {
+      $(".fixed-sights").removeClass("transformed-small");
+    }
+    $(window).scroll(function () {
+      console.log($(window).scrollTop());
+      if ($(window).scrollTop() > 35) {
+        $(".fixed-sights").addClass("transformed-small");
       }
+      else {
+        $(".fixed-sights").removeClass("transformed-small");
+      }
+    });
+
+    
+    this.clearInfoWin();
+  }
+
+  getMapStyle() {
+    return this.service.mapStyle();
+  }
+
+
+ getCurvedLine(place: PlaceModel, nextPlace: PlaceModel, isRight: number) {
+    var res: LatLonSpherical = [];
+
+    var p1 = new LatLonSpherical(place.lat, place.lng);
+    var p3 = new LatLonSpherical(nextPlace.lat, nextPlace.lng);
+    var middle = p1.midpointTo(p1, p3);
+
+    var dist = p1.distanceTo(p3);
+    var head = middle.bearingTo(p3);
+
+    var p2 = p1.rhumbDestinationPoint(dist * 0.75, head + 30 * Math.pow(-1, isRight));// new LatLonSpherical(middle.lat, middle.lon); //SphericalUtil.ComputeOffset(middle, dist * 0.2, head + 90 * Math.Pow(-1, isRight));
+
+    for (var i = 0; i < 150; i++)
+    {
+        var T = i / 150.0;
+        var x = Math.pow(1 - T, 2) * p1.lat + 2 * (1 - T) * T * p2.lat + Math.pow(T, 2) * p3.lat;
+        var y = Math.pow(1 - T, 2) * p1.lon + 2 * (1 - T) * T * p2.lon + Math.pow(T, 2) * p3.lon;
+        res.push(new CoordsModel(x, y));
+    }
+    return res;
+  }
+
+  getRouteMiddle(route: RouteModel){
+    var minLat = 1000000.0;
+    var minLng = 1000000.0;
+    var maxLat = -1000000.0;
+    var maxLng = -1000000.0;
+    this.zoomBounds = new google.maps.LatLngBounds();
+    for (let place of route.places){
+      this.zoomBounds.extend(new google.maps.LatLng(place.lat, place.lng));
       
+      minLat = Math.min(minLat, place.lat);
+      minLng = Math.min(minLng, place.lng);
+      maxLat = Math.max(maxLat, place.lat);
+      maxLng = Math.max(maxLng, place.lng);
+    }
+    //margin from top for carousel
+    var dist = new LatLonSpherical(maxLat, minLng).distanceTo(new LatLonSpherical(minLat, maxLng));
+    var to = new LatLonSpherical(maxLat, maxLng).rhumbDestinationPoint(dist * 0.5, 60)
+    this.zoomBounds.extend(new google.maps.LatLng(to.lat, to.lon));
+  }
+
+
+  onPlaceLike(place: PlaceModel) {
+    this.service.likePlace(place.id)
+      .subscribe(() => {
+        if (place.is_liked){
+          place.likes_count -= 1;
+        }else{
+          place.likes_count += 1;
+        }
+        place.is_liked = !place.is_liked;
+      });
+  }
+
+  onRouteLike(route: RouteModel) {
+    this.service.likeRoute(route.id)
+      .subscribe(() => {
+        if (route.is_liked){
+          route.likes_count -= 1;
+        }else{
+          route.likes_count += 1;
+        }
+        route.is_liked = !route.is_liked;
+      });
+  }
+
+  onRoutePlace(index) {
+    $("#sights-slider").modal("show");
+    console.log(index);
+    $('.slider-init').slick({
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      arrows: true,
+      dots: false,
+      infinite: false
+    });
+    $('.slider-init').slick('slickGoTo', index, true);
+  }
+
+  clearInfoWin(i?: number) {
+    let count = this.isInfoWinOpen.length;
+    this.isInfoWinOpen = [];
+    for (let i = 0; i < count; i++)this.isInfoWinOpen.push(false);
+    this.InfoWindowHSize = 0;
+    if (i) this.isInfoWinOpen[i] = !this.isInfoWinOpen[i];
+  }
+  mapClick() {
+    this.clearInfoWin();
+  }
+  markerClick(i: number) {
+    //this.isInfoWinOpen[i]= !this.isInfoWinOpen[i];
+    this.clearInfoWin();
+    this.isInfoWinOpen[i] = true;
+
+    if (this.isInfoWinOpen[i]) this.InfoWindowHSize = 1;
+    else this.InfoWindowHSize = 1;
+    // console.log(this.Places[i]);
+    this.lat = this.Places[i].lat;
+    this.lng = this.Places[i].lng;
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
 
       $('.flex-sights').slick({
         slidesToShow: 6,
         slidesToScroll: 1,
         arrows: true,
         dots: false,
-        infinite:false
-    });
-   
-      this.newFlagForVisible = false;
-      this.flagForOpenSlider = false;
-      
-     // this.allSightByRoute = this.allBestRouts[index].places;
-     // console.log(this.allSightByRoute);
-
-      
-     
-  
-      setTimeout(()=>{
-
-        console.log(`123456`);
-        this.newFlagForVisible = true;
-
-        $('.flex-sights').slick({
-            slidesToShow: 6,
-            slidesToScroll: 1,
-            arrows: true,
-            dots: false,
-            infinite:false,
-            responsive: [
-              {
-                breakpoint: 1601,
-                settings: {
-                  slidesToShow: 4
-                }
-              },
-              {
-                breakpoint: 1301,
-                settings: {
-                  slidesToShow: 3
-                }
-              }
-            ]
-        });
-      },200);
-      
-      */
-
-    // this.BuildMap(this.fromPlace,this.toPlace);
-    
-      
-    }
-
-    LikeRoute(id:number){
-      this.service.LikeRoute(id)
-      .subscribe(()=>{
-        console.log(`OK LIKE`);
-
-        if( this.isILikeIt)
-        this.CurrentRoute.likes_count -= 1;
-      else
-        this.CurrentRoute.likes_count+=1;
-      this.isILikeIt = !this.isILikeIt;
-
+        infinite: false,
+        responsive: [
+          {
+            breakpoint: 1601,
+            settings: {
+              slidesToShow: 6
+            }
+          },
+          {
+            breakpoint: 1301,
+            settings: {
+              slidesToShow: 3
+            }
+          }
+        ]
       });
-
-    }
-
-    RepostRoute(id:number){
-      this.service.RepostRoute(id)
-      .subscribe(()=>{
-        console.log(`OK REPOST`);
-      });
-
-    }
-
-    OpenModalSights(index){
-        $("#sights-slider").modal("show");
-        console.log(index);
-        $('.slider-init').slick({
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            arrows: true,
-            dots: false,
-            infinite:false
-        });
-        $('.slider-init').slick('slickGoTo',index,true);
-    }
-
-
-
-    clearInfoWin(i?:number){
-      let count = this.isInfoWinOpen.length;
-      this.isInfoWinOpen = [];
-      for(let i=0;i<count;i++)this.isInfoWinOpen.push(false);
-      this.InfoWindowHSize = 0;
-      if(i)  this.isInfoWinOpen[i] = !this.isInfoWinOpen[i];
-    }
-    mapClick(){
-      this.clearInfoWin();
-    }
-    markerClick(i:number){
-      //this.isInfoWinOpen[i]= !this.isInfoWinOpen[i];
-      this.clearInfoWin();
-      this.isInfoWinOpen[i] = true;
-
-      if( this.isInfoWinOpen[i]) this.InfoWindowHSize = 1;
-      else this.InfoWindowHSize = 1;
-     // console.log(this.Places[i]);
-      this.lat = this.Places[i].lat;
-      this.lng = this.Places[i].lng;
-    }
-
-    ngAfterViewInit() {
-      $('.flex-sights').slick({
-        slidesToShow: 6,
-        slidesToScroll: 1,
-        arrows: true,
-        dots: false,
-        infinite:false
-    });
-      
-    }
-    
-    OpenRoute(){
-      if(!this.flagForDropdown){
-          $(".outher").slideDown(200);
-          this.flagForDropdown = !this.flagForDropdown;
-      }
-      else{
-          $(".outher").slideUp(200);
-          this.flagForDropdown = !this.flagForDropdown;
-      }
-    }
-    
-
-
+    }, 300);
+  }
 }

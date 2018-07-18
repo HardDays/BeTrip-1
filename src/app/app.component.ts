@@ -38,7 +38,7 @@ export class AppComponent{
   }
   constructor(private service:MainService,private router: Router, public _auth: AuthService){
 
-    this.service.GetClient().
+    this.service.getClient().
     subscribe((status)=>{
       this.clientStatus = status.result;
       this.canShow = true;
@@ -90,7 +90,7 @@ export class AppComponent{
   Login(){
     this.isLoginErr = false;
     
-      this.service.UserLogin(this.LoginParams.email, this.LoginParams.password)
+      this.service.login(this.LoginParams.email, this.LoginParams.password)
       .subscribe((res)=>{
         localStorage.setItem('token',res.token);
         this.service.onLoginChange$.next(true);
@@ -112,7 +112,7 @@ export class AppComponent{
 Registration(){
   this.isLoginErr = false;
   console.log(this.RegisterParams.email, this.RegisterParams.password)
-  this.service.UserRegistration(this.RegisterParams.email, this.RegisterParams.password)
+  this.service.register(this.RegisterParams.email, this.RegisterParams.password)
   .subscribe((res)=>{
     localStorage.setItem('token',res.token);
     $("#regist-modal").modal('hide');
@@ -127,7 +127,7 @@ Registration(){
 Logout(){
   this.isLoginErr = false;
   console.log(this.RegisterParams.email, this.RegisterParams.password)
-  this.service.UserLogout();
+  this.service.logout();
   
     console.log(`logout`);
     localStorage.removeItem('token');
@@ -145,7 +145,7 @@ signIn(provider){
       console.log(data);
       this.user=data;
     if(provider=='google')
-        this.service.GoogleLogin(this.user.token);
+        this.service.googleLogin(this.user.token);
         localStorage.setItem('token',this.user.token);
         this.service.onLoginChange$.next(true);
         this.isLogined = true;

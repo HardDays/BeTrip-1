@@ -20,7 +20,7 @@ export class FooterComponent implements OnInit {
   SubscribeEmail(form){
     console.log(form);
 
-    this.service.SendEmail(form.control.controls.email.value).subscribe(
+    this.service.sendEmail(form.control.controls.email.value).subscribe(
       (res)=>{
        
       }

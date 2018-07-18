@@ -4,20 +4,24 @@
           <div class="col-md-12">
               <h2>Make you trip unforgettable</h2>
               <h1>Build route through most interesting places</h1>
-              <form class="from-to" (ngSubmit)="BuildMap()">
+              <form class="from-to" (ngSubmit)="buildMap()">
                   <div class="flex-iputs">
-                      <div class="side">
-                          <p>From</p>
+                      <div class="side" [style.width]="(routeType === 'bidirectional') ? '50%' : '100%'">
+                          <p>{{(routeType === 'bidirectional') ? 'From' : 'Where?'}}</p>
                           <input type="text" autocorrect="off" autocapitalize="off" spellcheck="off" placeholder="" #searchFrom>
                       </div>
-                      <div class="side">
+                      <div *ngIf="routeType === 'bidirectional'" class="side">
                           <p>To</p>
                           <input type="text" autocorrect="off" autocapitalize="off" spellcheck="off" placeholder="" #searchTo>
                       </div>
                       <div class="for-padd">
-                          <button class="butt-orange" [disabled]="placeFrom==''||placeTo==''" type="submit">{{(placeFrom==''||placeTo=='')?'Uncorrect Inputs!':'Build'}}</button>
-                      </div>
-                      
+                          <button class="butt-orange" [disabled]="(latFrom==0 && lngFrom==0) || (latTo==0 && lngTo==0 && routeType=='bidirectional')" type="submit">{{((latFrom==0 && lngFrom==0) || (latTo==0 && lngTo==0 && routeType=='bidirectional'))?'Enter address!':'Build'}}</button>
+                      </div>    
+                      <br>
+                  </div>
+                  <div class="change-route-type" >
+                    <img [src]="'../assets/img/icon-change.png'">
+                    <button type="button" class="btn btn-link btn-change" style="color: #fff;font-size: 16px;" (click)="changeRouteType()">{{(routeType === 'bidirectional') ? 'City routes' : 'Routes between cities' }}</button>
                   </div>
                   <!--<div class="settings">
                       <img src="img/settings.svg" class="img-responsive" alt="">
@@ -39,7 +43,7 @@
                   </span>
               </div>
               <ul class="for-flex-check">
-                  <li *ngFor="let cb of Category; let i = index" (click)="ChangeCategory(i)" [class.active] ="cb.checked">
+                  <li *ngFor="let cb of categories; let i = index" (click)="changeCategory(i)" [class.active] ="cb.checked">
                       <div class="image">
                           <img [src]="'../assets/img/icons/'+ cb.image" class="img-responsive max-width-icon-new" alt="">
                       </div>

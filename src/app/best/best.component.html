@@ -3,25 +3,25 @@
 <div class="best-wr">
   <div class="left-side">
       <div class="all-best-blocks">
-          <ng-container *ngFor="let item of allBestRouts; let i = index">
+          <ng-container *ngFor="let item of routes; let i = index">
           <div class="one-block">
               <div class="new-wrapp-for-shadow">
                   <div class="for-before-wr">
-                      <div class="img" style="background-image: url(../assets/img/post_326.jpg)" [ngStyle]="{'background-image':'url(' + allBestRoutsImages[i] + ')' }"></div>
+                      <div class="img" style="background-image: url(../assets/img/post_326.jpg)" [ngStyle]="{'background-image':'url(' + item.image + ')' }"></div>
                   </div>
                   <div class="ava" style="background-image: url(../assets/img/ava.jpg)"></div>
                   <div class="padd-descript">
-                      <p class="name" (click)="OpenSliderCart(i)">{{item.name}}</p>
-                      <p class="desc"><strong>Distance </strong>{{(item.distance - item.distance % 1000) / 1000}} km</p>
-                      <p class="desc"><strong>Time </strong>{{(item.travel_time - (item.travel_time % 3600))/3600}}h {{ (item.travel_time - item.travel_time % 60)/60 - ((item.travel_time - (item.travel_time % 3600))/3600)*60 }}min</p>
+                      <p class="name" (click)="onRoute(i)">{{item.name}}</p>
+                      <p class="desc"><strong>Distance</strong>{{(item.distance - item.distance % 1000) / 1000}} km</p>
+                      <p class="desc"><strong>Time</strong>{{(item.duration - (item.duration % 3600))/3600}}h {{ (item.duration - item.duration % 60)/60 - ((item.duration - (item.duration % 3600))/3600)*60 }}min</p>
                       <div class="button-wr">
-                          <div class="one" (click)="LikeRoute(item.id,i)">
-                              <div class="bg" [ngClass]="{'active':allRoutesLikes[i]}">
+                          <div class="one" (click)="onRouteLike(item)">
+                              <div class="bg" [ngClass]="{'active': item.is_liked}">
                                   <img src="../assets/img/like.png" class="img-responsive" alt="">
                                   <span>{{item.likes_count}}</span>
                               </div>
                           </div>
-                          <div class="one" (click)="RepostRoute(item.id)">
+                          <div class="one" (click)="onRouteRepost(item.id)">
                               <div class="bg">
                                   <img src="../assets/img/share.png" class="img-responsive" alt="">
                                   <span>{{item.reposts_count}}</span>
@@ -30,16 +30,14 @@
                           <div class="one">
                               <div class="bg">
                                   <img src="../assets/img/save.png" class="img-responsive" alt="">
-                                  <span>{{(item.id + step)-500}}</span>
+                                  <span>{{0}}</span>
                               </div>
                           </div>
                       </div>
                   </div>
               </div>
           </div>
-        </ng-container>
-        
-          
+        </ng-container>      
       </div>
   </div>
   <div class="fixed-map">
@@ -48,39 +46,38 @@
       <!--Сюда карту-->
       
     <div class="for-position-map">
-        <agm-map #gm [mapDraggable]="false" [zoomControl]="false" [zoom]="6" [maxZoom]="6" [minZoom]="6" [latitude]="lat+2" [longitude]="lng" style="height: 100%;" (mapClick)="mapClick()" [styles]="MapStyle">
-            <agm-marker [iconUrl]="'../assets/img/marker-yellow2.png'" [latitude]="StepsCoord[0]?StepsCoord[0].lat:''" [longitude]="StepsCoord[0]?StepsCoord[0].lng:''"></agm-marker>
-            <agm-marker [iconUrl]="'../assets/img/marker-black.png'" *ngFor="let place of allSightByRoute; let i = index" [latitude]="place?place.lat:0" [longitude]="place?place.lng:0" (markerClick)="markerClick(i)">
-                <agm-info-window [isOpen]="isInfoWinOpen[i]">
-                        <div class="cart-sight-wrapp">
-                            <div class="img" [ngStyle]="{'background-image':'url(' + imagesSightsRoute[i] + ')'}"></div>
-                            <div class="ava" style="background-image: url(../assets/img/ava.jpg)"></div>
-                            <p class="name-sight">{{place.name}}</p>
-                        </div>
+        <agm-map #gm [mapDraggable]="true" [zoomControl]="true" [fitBounds]="zoomBounds" style="height: 100%;" (mapClick)="mapClick()" [styles]="MapStyle">
+            
+            <!--<agm-marker [iconUrl]="'../assets/img/marker-yellow2.png'" [latitude]="StepsCoord[0]?StepsCoord[0].lat:''" [longitude]="StepsCoord[0]?StepsCoord[0].lng:''"></agm-marker>-->
+            <agm-marker [iconUrl]="'../assets/img/marker-yellow2.png'" *ngFor="let place of selectedRoute.places; let i = index" [latitude]="place?place.lat:0" [longitude]="place?place.lng:0" (markerClick)="markerClick(i)">
+                <agm-info-window [isOpen]="false">
+                <div class="cart-sight-wrapp">
+                    <div class="img" [ngStyle]="{'background-image':'url(' + place.image + ')'}"></div>
+                    <div class="ava" style="background-image: url(../assets/img/ava.jpg)"></div>
+                    <p class="name-sight">{{place.name}}</p>
+                </div>
                 </agm-info-window>
             </agm-marker>
             
-            <agm-marker [iconUrl]="'../assets/img/marker-yellow2.png'" [latitude]="StepsCoord[0]?StepsCoord[StepsCoord.length-1].lat:''" [longitude]="StepsCoord[0]?StepsCoord[StepsCoord.length-1].lng:''"></agm-marker>
+            <!--<agm-marker [iconUrl]="'../assets/img/marker-yellow2.png'" [latitude]="StepsCoord[0]?StepsCoord[StepsCoord.length-1].lat:''" [longitude]="StepsCoord[0]?StepsCoord[StepsCoord.length-1].lng:''"></agm-marker>-->
             
-
-            <agm-polyline >
+            <agm-polyline [strokeColor]="'#FFC636'" [strokeOpacity]="'0.8'">
                 <ng-container>
-                    <agm-polyline-point *ngFor="let coord of StepsCoord; let i = index" [latitude]="coord.lat?coord.lat:0" [longitude]="coord.lng?coord.lng:0"></agm-polyline-point>
+                    <agm-polyline-point *ngFor="let point of polyline; let i = index" [latitude]="point.lat?point.lat:0" [longitude]="point.lng?point.lng:0"></agm-polyline-point>
                 </ng-container>
-        </agm-polyline>
-
+            </agm-polyline>
         </agm-map>
     </div>
-      <div class="fixed-sights" [ngClass]="{'visible': !flagForOpenSlider && newFlagForVisible}">
+    <div class="fixed-sights" [ngClass]="{'visible': !isSliderOpen && isModalVisible}">
           <div class="flex-sights">
-                <div *ngFor="let item of allSightByRoute; let i = index" class="one-sight" (click)="OpenModalSights(i)">
+                <div *ngFor="let item of selectedRoute.places; let i = index" class="one-sight" (click)="onRoutePlace(i)">
                     <div class="for-before-wr">
-                        <div class="img" [ngStyle]="{'background-image':'url(' + imagesSightsRoute[i] + ')'}"></div>
+                        <div class="img" [ngStyle]="{'background-image':'url(' + item.image + ')'}"></div>
                     </div>
                     <p><span>{{i + 1}}</span><strong>{{item.name}}</strong></p>
                 </div>
           </div>
-      </div>
+    </div>
   </div>
 </div>
 
@@ -89,21 +86,22 @@
         <div class="modal-contant">
             <div class="modal-body">
                 <div class="slider-init">
-                    <div class="slide" *ngFor="let item of allSightByRoute; let i = index">
+                    <div class="slide" *ngFor="let item of selectedRoute.places; let i = index">
                         <div class="after-slide">
                             <div class="for-before-wr">
-                                <div class="img" [ngStyle]="{'background-image':'url(' + imagesSightsRoute[i] + ')' }"></div>
+                                <div class="img" [ngStyle]="{'background-image':'url(' + item.image + ')' }"></div>
                             </div>
                             <div class="content-sights">
                                 <p class="name">{{item.name}}</p>
+                                <p>{{item.description}}</p>
                                 <p>{{item.address}}</p>
 
                                 <div class="for-flex-buttons">
                                     <div class="find-more">
                                         <p>Find more...</p>
                                     </div>
-                                    <div class="one">
-                                        <div class="bg">
+                                    <div class="one" (click)="onPlaceLike(item)">
+                                        <div class="bg" [ngClass]="{'active': item.is_liked}">
                                             <img src="../assets/img/like.png" class="img-responsive" alt="">
                                         </div>
                                     </div>
@@ -111,7 +109,6 @@
                             </div>
                         </div>
                     </div>
-                 
                 </div>
             </div>
         </div>

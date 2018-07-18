@@ -20,7 +20,7 @@ const routes: Routes = [
     { path: 'faq',component: FaqComponent },
     { path: 'functionality',component: FunctionalityComponent },
     { path: 'trips',component: TripsComponent },
-    { path: 'routs',component: ViewAfterBuildComponent },
+    { path: 'routes',component: ViewAfterBuildComponent },
     { path: 'route/:id',component: RouteComponent }
     
 ];
