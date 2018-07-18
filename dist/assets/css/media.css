@@ -1,0 +1,26 @@
+@media (max-width: 1500px) {
+  .best-wr .left-side {
+    width: 50%; }
+
+  .best-wr .fixed-map {
+    width: 50%;
+    left: 50%; }
+
+  .best-wr .left-side .all-best-blocks .one-block .button-wr .one .bg span {
+    font-size: 12px; }
+
+  .for-position-map {
+    width: 50%;
+    left: 50%; } }
+@media (max-width: 991px) {
+  .process-content .right-side, .process-content .left-side {
+    position: relative;
+    width: 100%; }
+
+  .content .head .flex-nav-wr .right-side {
+    width: 460px; } }
+@media (max-width: 800px) {
+  .content .head .flex-nav-wr .logo-title {
+    font-size: 3rem; } }
+
+/*# sourceMappingURL=media.css.map */
