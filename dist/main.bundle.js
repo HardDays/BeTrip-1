@@ -38,7 +38,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<app-preloader *ngIf=\"Load\"></app-preloader>\r\n\r\n<div *ngIf=\"clientStatus=='web'&&canShow\">\r\n<section class=\"content all-pages\">\r\n  <div class=\"head\">\r\n    <div class=\"container-fluid\">\r\n        <div class=\"row for-b\">\r\n            <div class=\"col-md-12\">\r\n                <div class=\"flex-nav-wr\">\r\n                    \r\n                    <div class=\"for-center\" (click)=\"Navigate()\">\r\n                        <img class=\"img-responsive width-logo\" src=\"../assets/img/Logo_icon.png\" alt=\"\">\r\n                         <div class=\"logo-title\">\r\n                            <p>BeTrip Alpha</p>\r\n                        </div>\r\n                    </div>\r\n                   \r\n                    <div class=\"right-side\">\r\n                        <ul>\r\n                            <li>\r\n                                <a routerLinkActive=\"active\" routerLink=\"/build\">build</a>\r\n                            </li>\r\n                            <li>\r\n                                <a routerLinkActive=\"active\" routerLink=\"/best\">Best</a>\r\n                            </li>\r\n                            <li>\r\n                                <!--<a routerLinkActive=\"active\" routerLink=\"/trips\">trips</a>-->\r\n                            </li>\r\n                            <li class=\"for-drop-down-first-drop\">\r\n                                <a href=\"#\">about</a>\r\n                                <ul class=\"sub-menu\">\r\n                                    <li class=\"menu-item\">\r\n                                        <a routerLink=\"/functionality\" class=\"op-modal-sign-in\">Functionality</a>\r\n                                        <a routerLink=\"/download\" class=\"op-modal-sign-up\">Download</a>\r\n                                        <a routerLink=\"/faq\">FAQ</a>\r\n                                    </li>\r\n                                </ul>\r\n                            </li>\r\n                            <li class=\"for-drop-down\">\r\n                                <img src=\"../assets/img/man.svg\" class=\"img-responsive\" alt=\"\">\r\n                                <ul class=\"sub-menu\">\r\n                                    <li class=\"menu-item\">\r\n                                        <a class=\"op-modal-sign-in\" *ngIf=\"!isLogined\" (click)=\"OpenModalSignIn()\">Sign In</a>\r\n                                        <a class=\"op-modal-sign-up\" *ngIf=\"!isLogined\" (click)=\"OpenModalSignUp()\">Sign Up</a>\r\n                                        <a *ngIf=\"isLogined\" (click)=\"Logout()\" >Sign Out</a>\r\n                                    </li>\r\n                                </ul>\r\n                            </li>\r\n                        </ul>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n\r\n<router-outlet></router-outlet>\r\n\r\n\r\n</section>\r\n\r\n<div class=\"modal login-modal\" id=\"login-modal\">\r\n  <div class=\"modal-dialog\">\r\n      <div class=\"modal-contant\">\r\n          <div class=\"modal-body\">\r\n              <form #myForm=\"ngForm\" (submit)=\"myForm.reset()\" (ngSubmit)=\"Login()\" class=\"sign\">\r\n                  <img src=\"../assets/img/Logo_icon.png\" class=\"img-responsive\" alt=\"\">\r\n                  <h2>Sign In</h2>\r\n                  <div *ngIf=\"isLoginErr\" class=\"col-md-12\">\r\n                    <h2 class=\"error-text-style\" translate>Invalid email or password</h2>\r\n                    </div>\r\n                  <p class=\"name-inp\" >Email</p>\r\n                  <input type=\"text\" [(ngModel)]=\"LoginParams.email\" name=\"email\" (ngModelChange)=\"LoginParams.email = $event\">\r\n                  <p class=\"name-inp\" >Password</p>\r\n                  <input [(ngModel)]=\"LoginParams.password\" name=\"loginPassword\" (ngModelChange)=\"LoginParams.password = $event\"type=\"password\">\r\n                  <button class=\"butt-orange\" type=\"submit\" type=\"submit\">Login</button>\r\n                 <!-- <p class=\"name-inp sign-up-with\">Sign up with</p>\r\n                   <div class=\"sign-up-w-wrapp\">\r\n                      <img  src=\"../assets/img/fb.png\" (click)=\"signIn('facebook')\" class=\"img-responsive\" alt=\"\">\r\n                      <img src=\"../assets/img/google.png\" (click)=\"signIn('google')\" class=\"img-responsive\" alt=\"\">\r\n                      <img src=\"../assets/img/tw.png\" (click)=\"signIn('twitter')\" class=\"img-responsive\" alt=\"\">\r\n                  </div> -->\r\n              </form>\r\n          </div>\r\n      </div>\r\n  </div>\r\n</div>\r\n<div class=\"modal login-modal\" id=\"regist-modal\">\r\n  <div class=\"modal-dialog\">\r\n      <div class=\"modal-contant\">\r\n          <div class=\"modal-body\">\r\n              <form (ngSubmit)=\"Registration()\" class=\"sign\">\r\n                  <img src=\"../assets/img/Logo_icon.png\" class=\"img-responsive\" alt=\"\">\r\n                  <h2>Sign Up</h2>\r\n                  <p class=\"name-inp\" >Email</p>\r\n                  <input [ngModel]=\"RegisterParams.email\" name=\"registerEmail\" type=\"text\" (ngModelChange)=\"RegisterParams.email = $event\">\r\n                  <p class=\"name-inp\" >Password</p>\r\n                  <input type=\"password\" [(ngModel)]=\"RegisterParams.password\" name=\"registerPassword\" (ngModelChange)=\"RegisterParams.password = $event\">\r\n                  <button class=\"butt-orange\" type=\"submit\">Register</button>\r\n              </form>\r\n          </div>\r\n      </div>\r\n  </div>\r\n</div>\r\n\r\n</div>\r\n\r\n<div *ngIf=\"clientStatus!='web'&&canShow\">\r\n   <div id=\"wrapperMob\" style=\"height:1000px;\">\r\n\t\t<div class=\"containerMob\">\r\n\t\t\t<div class=\"row\">\r\n\t\t\t\t<div class=\"col-md-12\">\r\n\t\t\t\t\t<h1 class=\"text\">BeTrip</h1>\r\n                    <h5 class=\"subtitleMob text\" style=\"font-weight: 300;\">New mobile version is coming</h5>\r\n                    <br>\r\n                    <img style=\"width:120px;\" src=\"../assets/img/Logo_icon.png\" alt=\"\">\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<div class=\"row\">\r\n\t\t\t\t<div class=\"col-lg-6 col-lg-offset-3\">\r\n\t\t\t\t\t\t<p class=\"copyrightMob\">&copy; BeTrip</p>\r\n                        <div class=\"creditsMob\">\r\n\r\n                            <a href=\"#\">Coming soon</a>\r\n                        </div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\t\t\r\n\t\t</div>\r\n\t</div>\r\n\r\n    \r\n\t\r\n\r\n</div>\r\n"
+module.exports = "<app-preloader *ngIf=\"Load\"></app-preloader>\r\n\r\n<div *ngIf=\"clientStatus=='web'&&canShow\">\r\n<section class=\"content all-pages\">\r\n  <div class=\"head\">\r\n    <div class=\"container-fluid\">\r\n        <div class=\"row for-b\">\r\n            <div class=\"col-md-12\">\r\n                <div class=\"flex-nav-wr\">\r\n                    \r\n                    <div class=\"for-center\" (click)=\"Navigate()\">\r\n                        <img class=\"img-responsive width-logo\" src=\"../assets/img/Logo_icon.png\" alt=\"\">\r\n                         <div class=\"logo-title\">\r\n                            <p>BeTrip Alpha</p>\r\n                        </div>\r\n                    </div>\r\n                   \r\n                    <div class=\"right-side\">\r\n                        <ul>\r\n                            <li>\r\n                                <a routerLinkActive=\"active\" routerLink=\"/build\">Build</a>\r\n                            </li>\r\n                            <li>\r\n                                <a routerLinkActive=\"active\" routerLink=\"/best\">Routes</a>\r\n                            </li>\r\n                            <li>\r\n                                <a routerLinkActive=\"active\" routerLink=\"/places\">Places</a>\r\n                            </li>\r\n                            <li>\r\n                                <!--<a routerLinkActive=\"active\" routerLink=\"/trips\">trips</a>-->\r\n                            </li>\r\n                            <li class=\"for-drop-down-first-drop\">\r\n                                <a routerLinkActive=\"active\"  routerLink=\"/functionality\">About</a>\r\n                                <ul class=\"sub-menu\">\r\n                                    <li class=\"menu-item\">\r\n                                        <a routerLink=\"/functionality\" class=\"op-modal-sign-in\">Functionality</a>\r\n                                        <a routerLink=\"/download\" class=\"op-modal-sign-up\">Download</a>\r\n                                        <a routerLink=\"/faq\">FAQ</a>\r\n                                    </li>\r\n                                </ul>\r\n                            </li>\r\n                            <li class=\"for-drop-down\">\r\n                                <img src=\"../assets/img/man.svg\" class=\"img-responsive\" alt=\"\">\r\n                                <ul class=\"sub-menu\">\r\n                                    <li class=\"menu-item\">\r\n                                        <a class=\"op-modal-sign-in\" *ngIf=\"!isLogined\" (click)=\"OpenModalSignIn()\">Sign In</a>\r\n                                        <a class=\"op-modal-sign-up\" *ngIf=\"!isLogined\" (click)=\"OpenModalSignUp()\">Sign Up</a>\r\n                                        <a *ngIf=\"isLogined\" (click)=\"Logout()\" >Sign Out</a>\r\n                                    </li>\r\n                                </ul>\r\n                            </li>\r\n                        </ul>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n\r\n<router-outlet></router-outlet>\r\n\r\n\r\n</section>\r\n\r\n<div class=\"modal login-modal\" id=\"login-modal\">\r\n  <div class=\"modal-dialog\">\r\n      <div class=\"modal-contant\">\r\n          <div class=\"modal-body\">\r\n              <form #myForm=\"ngForm\" (submit)=\"myForm.reset()\" (ngSubmit)=\"Login()\" class=\"sign\">\r\n                  <img src=\"../assets/img/Logo_icon.png\" class=\"img-responsive\" alt=\"\">\r\n                  <h2>Sign In</h2>\r\n                  <div *ngIf=\"isLoginErr\" class=\"col-md-12\">\r\n                    <h2 class=\"error-text-style\" translate>Invalid email or password</h2>\r\n                    </div>\r\n                  <p class=\"name-inp\" >Email</p>\r\n                  <input type=\"text\" [(ngModel)]=\"LoginParams.email\" name=\"email\" (ngModelChange)=\"LoginParams.email = $event\">\r\n                  <p class=\"name-inp\" >Password</p>\r\n                  <input [(ngModel)]=\"LoginParams.password\" name=\"loginPassword\" (ngModelChange)=\"LoginParams.password = $event\"type=\"password\">\r\n                  <button class=\"butt-orange\" type=\"submit\" type=\"submit\">Login</button>\r\n                 <!-- <p class=\"name-inp sign-up-with\">Sign up with</p>\r\n                   <div class=\"sign-up-w-wrapp\">\r\n                      <img  src=\"../assets/img/fb.png\" (click)=\"signIn('facebook')\" class=\"img-responsive\" alt=\"\">\r\n                      <img src=\"../assets/img/google.png\" (click)=\"signIn('google')\" class=\"img-responsive\" alt=\"\">\r\n                      <img src=\"../assets/img/tw.png\" (click)=\"signIn('twitter')\" class=\"img-responsive\" alt=\"\">\r\n                  </div> -->\r\n              </form>\r\n          </div>\r\n      </div>\r\n  </div>\r\n</div>\r\n<div class=\"modal login-modal\" id=\"regist-modal\">\r\n  <div class=\"modal-dialog\">\r\n      <div class=\"modal-contant\">\r\n          <div class=\"modal-body\">\r\n              <form (ngSubmit)=\"Registration()\" class=\"sign\">\r\n                  <img src=\"../assets/img/Logo_icon.png\" class=\"img-responsive\" alt=\"\">\r\n                  <h2>Sign Up</h2>\r\n                  <p class=\"name-inp\" >Email</p>\r\n                  <input [ngModel]=\"RegisterParams.email\" name=\"registerEmail\" type=\"text\" (ngModelChange)=\"RegisterParams.email = $event\">\r\n                  <p class=\"name-inp\" >Password</p>\r\n                  <input type=\"password\" [(ngModel)]=\"RegisterParams.password\" name=\"registerPassword\" (ngModelChange)=\"RegisterParams.password = $event\">\r\n                  <button class=\"butt-orange\" type=\"submit\">Register</button>\r\n              </form>\r\n          </div>\r\n      </div>\r\n  </div>\r\n</div>\r\n\r\n</div>\r\n\r\n<div *ngIf=\"clientStatus!='web'&&canShow\">\r\n   <div id=\"wrapperMob\" style=\"height:1000px;\">\r\n\t\t<div class=\"containerMob\">\r\n\t\t\t<div class=\"row\">\r\n\t\t\t\t<div class=\"col-md-12\">\r\n\t\t\t\t\t<h1 class=\"text\">BeTrip</h1>\r\n                    <h5 class=\"subtitleMob text\" style=\"font-weight: 300;\">New mobile version is coming</h5>\r\n                    <br>\r\n                    <img style=\"width:120px;\" src=\"../assets/img/Logo_icon.png\" alt=\"\">\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<div class=\"row\">\r\n\t\t\t\t<div class=\"col-lg-6 col-lg-offset-3\">\r\n\t\t\t\t\t\t<p class=\"copyrightMob\">&copy; BeTrip</p>\r\n                        <div class=\"creditsMob\">\r\n\r\n                            <a href=\"#\">Coming soon</a>\r\n                        </div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\t\t\r\n\t\t</div>\r\n\t</div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -222,12 +222,16 @@ var AppComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__footer_footer_component__ = __webpack_require__("../../../../../src/app/footer/footer.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19_angular2_social_login__ = __webpack_require__("../../../../angular2-social-login/dist/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__preloader_preloader_component__ = __webpack_require__("../../../../../src/app/preloader/preloader.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__places_places_component__ = __webpack_require__("../../../../../src/app/places/places.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__ngu_carousel__ = __webpack_require__("../../../../@ngu/carousel/index.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
 
 
 
@@ -262,7 +266,7 @@ var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["I" /* NgModule */])({
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["J" /* NgModule */])({
             declarations: [
                 __WEBPACK_IMPORTED_MODULE_7__app_component__["a" /* AppComponent */],
                 __WEBPACK_IMPORTED_MODULE_8__build_build_component__["a" /* BuildComponent */],
@@ -274,7 +278,8 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_14__view_after_build_view_after_build_component__["a" /* ViewAfterBuildComponent */],
                 __WEBPACK_IMPORTED_MODULE_18__footer_footer_component__["a" /* FooterComponent */],
                 __WEBPACK_IMPORTED_MODULE_5__route_route_component__["a" /* RouteComponent */],
-                __WEBPACK_IMPORTED_MODULE_20__preloader_preloader_component__["a" /* PreloaderComponent */]
+                __WEBPACK_IMPORTED_MODULE_20__preloader_preloader_component__["a" /* PreloaderComponent */],
+                __WEBPACK_IMPORTED_MODULE_21__places_places_component__["a" /* PlacesComponent */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -288,7 +293,8 @@ var AppModule = (function () {
                     language: 'en'
                 }),
                 __WEBPACK_IMPORTED_MODULE_2__angular_forms__["c" /* ReactiveFormsModule */],
-                __WEBPACK_IMPORTED_MODULE_19_angular2_social_login__["a" /* Angular2SocialLoginModule */]
+                __WEBPACK_IMPORTED_MODULE_19_angular2_social_login__["a" /* Angular2SocialLoginModule */],
+                __WEBPACK_IMPORTED_MODULE_22__ngu_carousel__["a" /* NguCarouselModule */]
             ],
             providers: [__WEBPACK_IMPORTED_MODULE_16__core_services_main_service__["a" /* MainService */], __WEBPACK_IMPORTED_MODULE_3__angular_http__["c" /* HttpModule */], __WEBPACK_IMPORTED_MODULE_17__core_services_http_service__["a" /* HttpService */]],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_7__app_component__["a" /* AppComponent */]]
@@ -318,13 +324,15 @@ __WEBPACK_IMPORTED_MODULE_19_angular2_social_login__["a" /* Angular2SocialLoginM
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__functionality_functionality_component__ = __webpack_require__("../../../../../src/app/functionality/functionality.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__trips_trips_component__ = __webpack_require__("../../../../../src/app/trips/trips.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__route_route_component__ = __webpack_require__("../../../../../src/app/route/route.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__view_after_build_view_after_build_component__ = __webpack_require__("../../../../../src/app/view-after-build/view-after-build.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__places_places_component__ = __webpack_require__("../../../../../src/app/places/places.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__view_after_build_view_after_build_component__ = __webpack_require__("../../../../../src/app/view-after-build/view-after-build.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -345,14 +353,15 @@ var routes = [
     { path: 'faq', component: __WEBPACK_IMPORTED_MODULE_7__faq_faq_component__["a" /* FaqComponent */] },
     { path: 'functionality', component: __WEBPACK_IMPORTED_MODULE_8__functionality_functionality_component__["a" /* FunctionalityComponent */] },
     { path: 'trips', component: __WEBPACK_IMPORTED_MODULE_9__trips_trips_component__["a" /* TripsComponent */] },
-    { path: 'routes', component: __WEBPACK_IMPORTED_MODULE_11__view_after_build_view_after_build_component__["a" /* ViewAfterBuildComponent */] },
-    { path: 'route/:id', component: __WEBPACK_IMPORTED_MODULE_10__route_route_component__["a" /* RouteComponent */] }
+    { path: 'routes', component: __WEBPACK_IMPORTED_MODULE_12__view_after_build_view_after_build_component__["a" /* ViewAfterBuildComponent */] },
+    { path: 'route/:id', component: __WEBPACK_IMPORTED_MODULE_10__route_route_component__["a" /* RouteComponent */] },
+    { path: 'places', component: __WEBPACK_IMPORTED_MODULE_11__places_places_component__["a" /* PlacesComponent */] }
 ];
 var AppRoutingModule = (function () {
     function AppRoutingModule() {
     }
     AppRoutingModule = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* NgModule */])({
             imports: [
                 __WEBPACK_IMPORTED_MODULE_1__angular_common__["b" /* CommonModule */],
                 __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__["a" /* BrowserModule */],
@@ -390,7 +399,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/best/best.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<app-preloader *ngIf=\"Load\"></app-preloader>\r\n\r\n<div class=\"best-wr\">\r\n  <div class=\"left-side\">\r\n      <div class=\"all-best-blocks\">\r\n          <ng-container *ngFor=\"let item of routes; let i = index\">\r\n          <div class=\"one-block\">\r\n              <div class=\"new-wrapp-for-shadow\">\r\n                  <div class=\"for-before-wr\">\r\n                      <div class=\"img\" style=\"background-image: url(../assets/img/post_326.jpg)\" [ngStyle]=\"{'background-image':'url(' + item.image + ')' }\"></div>\r\n                  </div>\r\n                  <div class=\"ava\" style=\"background-image: url(../assets/img/ava.jpg)\"></div>\r\n                  <div class=\"padd-descript\">\r\n                      <p class=\"name\" (click)=\"onRoute(i)\">{{item.name}}</p>\r\n                      <p class=\"desc\"><strong>Distance</strong>{{(item.distance - item.distance % 1000) / 1000}} km</p>\r\n                      <p class=\"desc\"><strong>Time</strong>{{(item.duration - (item.duration % 3600))/3600}}h {{ (item.duration - item.duration % 60)/60 - ((item.duration - (item.duration % 3600))/3600)*60 }}min</p>\r\n                      <div class=\"button-wr\">\r\n                          <div class=\"one\" (click)=\"onRouteLike(item)\">\r\n                              <div class=\"bg\" [ngClass]=\"{'active': item.is_liked}\">\r\n                                  <img src=\"../assets/img/like.png\" class=\"img-responsive\" alt=\"\">\r\n                                  <span>{{item.likes_count}}</span>\r\n                              </div>\r\n                          </div>\r\n                          <div class=\"one\" (click)=\"onRouteRepost(item.id)\">\r\n                              <div class=\"bg\">\r\n                                  <img src=\"../assets/img/share.png\" class=\"img-responsive\" alt=\"\">\r\n                                  <span>{{item.reposts_count}}</span>\r\n                              </div>\r\n                          </div>\r\n                          <div class=\"one\">\r\n                              <div class=\"bg\">\r\n                                  <img src=\"../assets/img/save.png\" class=\"img-responsive\" alt=\"\">\r\n                                  <span>{{0}}</span>\r\n                              </div>\r\n                          </div>\r\n                      </div>\r\n                  </div>\r\n              </div>\r\n          </div>\r\n        </ng-container>      \r\n      </div>\r\n  </div>\r\n  <div class=\"fixed-map\">\r\n     \r\n      \r\n      <!--Сюда карту-->\r\n      \r\n    <div class=\"for-position-map\">\r\n        <agm-map #gm [mapDraggable]=\"true\" [zoomControl]=\"true\" [fitBounds]=\"zoomBounds\" style=\"height: 100%;\" (mapClick)=\"mapClick()\" [styles]=\"MapStyle\">\r\n            \r\n            <!--<agm-marker [iconUrl]=\"'../assets/img/marker-yellow2.png'\" [latitude]=\"StepsCoord[0]?StepsCoord[0].lat:''\" [longitude]=\"StepsCoord[0]?StepsCoord[0].lng:''\"></agm-marker>-->\r\n            <agm-marker [iconUrl]=\"'../assets/img/marker-yellow2.png'\" *ngFor=\"let place of selectedRoute.places; let i = index\" [latitude]=\"place?place.lat:0\" [longitude]=\"place?place.lng:0\" (markerClick)=\"markerClick(i)\">\r\n                <agm-info-window [isOpen]=\"false\">\r\n                <div class=\"cart-sight-wrapp\">\r\n                    <div class=\"img\" [ngStyle]=\"{'background-image':'url(' + place.image + ')'}\"></div>\r\n                    <div class=\"ava\" style=\"background-image: url(../assets/img/ava.jpg)\"></div>\r\n                    <p class=\"name-sight\">{{place.name}}</p>\r\n                </div>\r\n                </agm-info-window>\r\n            </agm-marker>\r\n            \r\n            <!--<agm-marker [iconUrl]=\"'../assets/img/marker-yellow2.png'\" [latitude]=\"StepsCoord[0]?StepsCoord[StepsCoord.length-1].lat:''\" [longitude]=\"StepsCoord[0]?StepsCoord[StepsCoord.length-1].lng:''\"></agm-marker>-->\r\n            \r\n            <agm-polyline [strokeColor]=\"'#FFC636'\" [strokeOpacity]=\"'0.8'\">\r\n                <ng-container>\r\n                    <agm-polyline-point *ngFor=\"let point of polyline; let i = index\" [latitude]=\"point.lat?point.lat:0\" [longitude]=\"point.lng?point.lng:0\"></agm-polyline-point>\r\n                </ng-container>\r\n            </agm-polyline>\r\n        </agm-map>\r\n    </div>\r\n    <div class=\"fixed-sights\" [ngClass]=\"{'visible': !isSliderOpen && isModalVisible}\">\r\n          <div class=\"flex-sights\">\r\n                <div *ngFor=\"let item of selectedRoute.places; let i = index\" class=\"one-sight\" (click)=\"onRoutePlace(i)\">\r\n                    <div class=\"for-before-wr\">\r\n                        <div class=\"img\" [ngStyle]=\"{'background-image':'url(' + item.image + ')'}\"></div>\r\n                    </div>\r\n                    <p><span>{{i + 1}}</span><strong>{{item.name}}</strong></p>\r\n                </div>\r\n          </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<div class=\"modal sights-slider\" id=\"sights-slider\">\r\n    <div class=\"modal-dialog\">\r\n        <div class=\"modal-contant\">\r\n            <div class=\"modal-body\">\r\n                <div class=\"slider-init\">\r\n                    <div class=\"slide\" *ngFor=\"let item of selectedRoute.places; let i = index\">\r\n                        <div class=\"after-slide\">\r\n                            <div class=\"for-before-wr\">\r\n                                <div class=\"img\" [ngStyle]=\"{'background-image':'url(' + item.image + ')' }\"></div>\r\n                            </div>\r\n                            <div class=\"content-sights\">\r\n                                <p class=\"name\">{{item.name}}</p>\r\n                                <p>{{item.description}}</p>\r\n                                <p>{{item.address}}</p>\r\n\r\n                                <div class=\"for-flex-buttons\">\r\n                                    <div class=\"find-more\">\r\n                                        <p>Find more...</p>\r\n                                    </div>\r\n                                    <div class=\"one\" (click)=\"onPlaceLike(item)\">\r\n                                        <div class=\"bg\" [ngClass]=\"{'active': item.is_liked}\">\r\n                                            <img src=\"../assets/img/like.png\" class=\"img-responsive\" alt=\"\">\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>"
+module.exports = "<app-preloader *ngIf=\"isLoading\"></app-preloader>\r\n\r\n<div class=\"best-wr\">\r\n  <div class=\"left-side\">\r\n      <div class=\"all-best-blocks\">\r\n          <ng-container *ngFor=\"let item of routes; let i = index\">\r\n          <div class=\"one-block\">\r\n              <div class=\"new-wrapp-for-shadow\">\r\n                  <div class=\"for-before-wr\">\r\n                      <div class=\"img\" style=\"background-image: url(../assets/img/post_326.jpg)\" [ngStyle]=\"{'background-image':'url(' + item.image + ')' }\"></div>\r\n                  </div>\r\n                  <div class=\"ava\" style=\"background-image: url(../assets/img/ava.jpg)\"></div>\r\n                  <div class=\"padd-descript\">\r\n                      <p class=\"name\" (click)=\"onRoute(i)\">{{item.name}}</p>\r\n                      <p class=\"desc\"><strong>Distance</strong>{{(item.distance - item.distance % 1000) / 1000}} km</p>\r\n                      <p class=\"desc\"><strong>Time</strong>{{(item.duration - (item.duration % 3600))/3600}}h {{ (item.duration - item.duration % 60)/60 - ((item.duration - (item.duration % 3600))/3600)*60 }}min</p>\r\n                      <div class=\"button-wr\">\r\n                          <div class=\"one\" (click)=\"onRouteLike(item)\">\r\n                              <div class=\"bg\" [ngClass]=\"{'active': item.is_liked}\">\r\n                                  <img src=\"../assets/img/like.png\" class=\"img-responsive\" alt=\"\">\r\n                                  <span>{{item.likes_count}}</span>\r\n                              </div>\r\n                          </div>\r\n                          <div class=\"one\" (click)=\"onRouteRepost(item.id)\">\r\n                              <div class=\"bg\">\r\n                                  <img src=\"../assets/img/share.png\" class=\"img-responsive\" alt=\"\">\r\n                                  <span>{{item.reposts_count}}</span>\r\n                              </div>\r\n                          </div>\r\n                          <div class=\"one\">\r\n                              <div class=\"bg\">\r\n                                  <img src=\"../assets/img/save.png\" class=\"img-responsive\" alt=\"\">\r\n                                  <span>{{0}}</span>\r\n                              </div>\r\n                          </div>\r\n                      </div>\r\n                  </div>\r\n              </div>\r\n          </div>\r\n        </ng-container>      \r\n      </div>\r\n  </div>\r\n  <div class=\"fixed-map\">\r\n     \r\n      \r\n      <!--Сюда карту-->\r\n      \r\n    <div class=\"for-position-map\">\r\n        <agm-map #gm [mapDraggable]=\"true\" [zoomControl]=\"true\" [latitude]=\"lat\" [longitude]=\"lng\" [fitBounds]=\"zoomBounds\" style=\"height: 100%;\" (mapClick)=\"mapClick()\" [styles]=\"mapStyle\">\r\n            \r\n            <!--<agm-marker [iconUrl]=\"'../assets/img/marker-yellow2.png'\" [latitude]=\"StepsCoord[0]?StepsCoord[0].lat:''\" [longitude]=\"StepsCoord[0]?StepsCoord[0].lng:''\"></agm-marker>-->\r\n            <agm-marker [iconUrl]=\"'../assets/img/marker-yellow2.png'\" *ngFor=\"let place of selectedRoute.places; let i = index\" [latitude]=\"place?place.lat:0\" [longitude]=\"place?place.lng:0\" (markerClick)=\"markerClick(i)\">\r\n                <agm-info-window [isOpen]=\"placeWindows[i]\">\r\n                <div class=\"cart-sight-wrapp\">\r\n                    <div class=\"img\" [ngStyle]=\"{'background-image':'url(' + place.image + ')'}\"></div>\r\n                    <div class=\"ava\" style=\"background-image: url(../assets/img/ava.jpg)\"></div>\r\n                    <p class=\"name-sight\">{{place.name}}</p>\r\n                </div>\r\n                </agm-info-window>\r\n            </agm-marker>\r\n            \r\n            <!--<agm-marker [iconUrl]=\"'../assets/img/marker-yellow2.png'\" [latitude]=\"StepsCoord[0]?StepsCoord[StepsCoord.length-1].lat:''\" [longitude]=\"StepsCoord[0]?StepsCoord[StepsCoord.length-1].lng:''\"></agm-marker>-->\r\n            \r\n            <agm-polyline [strokeColor]=\"'#FFC636'\" [strokeOpacity]=\"'0.8'\">\r\n                <ng-container>\r\n                    <agm-polyline-point *ngFor=\"let point of polyline; let i = index\" [latitude]=\"point.lat?point.lat:0\" [longitude]=\"point.lng?point.lng:0\"></agm-polyline-point>\r\n                </ng-container>\r\n            </agm-polyline>\r\n        </agm-map>\r\n    </div>\r\n    <div class=\"fixed-sights\" [ngClass]=\"{'visible': !isSliderOpen && isModalVisible}\">\r\n       <!--   <div class=\"flex-sights\">\r\n                <div *ngFor=\"let item of selectedRoute.places; let i = index\" class=\"one-sight\" (click)=\"onRoutePlace(i)\">\r\n                    <div class=\"for-before-wr\">\r\n                        <div class=\"img\" [ngStyle]=\"{'background-image':'url(' + item.image + ')'}\"></div>\r\n                    </div>\r\n                    <p><span>{{i + 1}}</span><strong>{{item.name}}</strong></p>\r\n                </div>\r\n          </div>-->\r\n            <ngu-carousel\r\n                [inputs]=\"carouselOne\"\r\n                class=\"pl-carousel\">\r\n                <ngu-item NguCarouselItem *ngFor=\"let item of selectedRoute.places; let i = index\" (click)=\"onRoutePlace(i)\"  >\r\n                    <div class=\"car-item\">\r\n                        <div class=\"bannerStyle\"  [ngStyle]=\"{'background-image':'url(' + item.image + ')'}\">\r\n                            <div style=\"height:100px;\">\r\n                            </div>                        \r\n                        </div>\r\n                        <p><span>{{i + 1}}</span><strong>{{item.name}}</strong></p>\r\n                    </div>\r\n                </ngu-item> \r\n                <button NguCarouselPrev class='left-arrow-car'>&lt;</button>\r\n                <button NguCarouselNext class='right-arrow-car'>&gt;</button>\r\n            </ngu-carousel>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<div class=\"modal sights-slider\" id=\"sights-slider\">\r\n    <div class=\"modal-dialog\">\r\n        <div class=\"modal-contant\">\r\n            <div class=\"modal-body\">\r\n                <div class=\"slider-init\">\r\n                    <div class=\"slide\" *ngFor=\"let item of selectedRoute.places; let i = index\">\r\n                        <div class=\"after-slide\">\r\n                            <div class=\"for-before-wr\">\r\n                                <div class=\"img\" [ngStyle]=\"{'background-image':'url(' + item.image + ')' }\"></div>\r\n                            </div>\r\n                            <div class=\"content-sights\">\r\n                                <p class=\"name\">{{item.name}}</p>\r\n                                <p>{{item.description}}</p>\r\n                                <p>{{item.address}}</p>\r\n\r\n                                <div class=\"for-flex-buttons\">\r\n                                    <div class=\"find-more\">\r\n                                        <p>Find more...</p>\r\n                                    </div>\r\n                                    <div class=\"one\" (click)=\"onPlaceLike(item)\">\r\n                                        <div class=\"bg\" [ngClass]=\"{'active': item.is_liked}\">\r\n                                            <img src=\"../assets/img/like.png\" class=\"img-responsive\" alt=\"\">\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -431,6 +440,7 @@ var BestComponent = (function () {
         this.routes = [];
         this.polyline = [];
         this.selectedRoute = new __WEBPACK_IMPORTED_MODULE_4__core_models_route_model__["a" /* RouteModel */]();
+        this.placeWindows = [];
         this.params = {
             limit: 10,
             offset: 0
@@ -441,6 +451,18 @@ var BestComponent = (function () {
         var _this = this;
         $(".content").addClass("all-pages");
         this.service.onPageChange$.next(false);
+        this.carouselOne = {
+            grid: { xs: 2, sm: 3, md: 3, lg: 3, all: 0 },
+            slide: 1,
+            speed: 400,
+            point: {
+                visible: false,
+                pointStyles: "\n          .ngucarouselPoint {\n            list-style-type: none;\n            text-align: center;\n            padding: 12px;\n            margin: 0;\n            white-space: nowrap;\n            overflow: auto;\n            position: absolute;\n            width: 100%;\n            bottom: 0px;\n            left: 0;\n            box-sizing: border-box;\n          }\n          .ngucarouselPoint li {\n            display: inline-block;\n            border-radius: 999px;\n            background: rgba(255, 255, 255, 0.55);\n            padding: 5px;\n            margin: 0 3px;\n            transition: .4s ease all;\n          }\n          .ngucarouselPoint li.active {\n              background: white;\n              width: 10px;\n          }\n        "
+            },
+            load: 2,
+            loop: true,
+            touch: true
+        };
         $('#sights-slider').on('hidden.bs.modal', function () {
             $('.slider-init').slick('unslick');
         });
@@ -459,6 +481,7 @@ var BestComponent = (function () {
                     route.places[k].image = _this.service.getImageUrl(route.places[k].cover_id);
                 }
             }
+            _this.isLoading = false;
         }, function (err) {
             console.log(err);
         });
@@ -478,19 +501,19 @@ var BestComponent = (function () {
         });
         this.clearInfoWin();
     };
-    BestComponent.prototype.clearInfoWin = function (i) {
-        /* let count = this.isInfoWinOpen.length;
-         this.isInfoWinOpen = [];
-         for(let i=0;i<count;i++)this.isInfoWinOpen.push(false);
-         if(i)  this.isInfoWinOpen[i] = !this.isInfoWinOpen[i];*/
+    BestComponent.prototype.clearInfoWin = function () {
+        for (var i in this.placeWindows) {
+            this.placeWindows[i] = false;
+        }
     };
     BestComponent.prototype.mapClick = function () {
         this.clearInfoWin();
     };
     BestComponent.prototype.markerClick = function (i) {
         this.clearInfoWin();
-        //this.isInfoWinOpen[i] = true;
-        // this.isInfoWinOpen[i]= !this.isInfoWinOpen[i];
+        this.placeWindows[i] = !this.placeWindows[i];
+        this.lat = this.selectedRoute.places[i].lat + 0.025;
+        this.lng = this.selectedRoute.places[i].lng;
     };
     BestComponent.prototype.getCurvedLine = function (place, nextPlace, isRight) {
         var res = [];
@@ -528,15 +551,13 @@ var BestComponent = (function () {
         this.zoomBounds.extend(new google.maps.LatLng(to.lat, to.lon));
     };
     BestComponent.prototype.onRoute = function (index) {
-        var _this = this;
-        this.isModalVisible = false;
+        this.isModalVisible = true;
         this.selectedRoute = this.routes[index];
-        if (!this.isSliderOpen) {
-            $('.flex-sights').slick('unslick');
-        }
+        /*if (!this.isSliderOpen) {
+          $('.flex-sights').slick('unslick');
+        }*/
+        this.clearInfoWin();
         this.getRouteMiddle(this.selectedRoute);
-        // this.centerLat = center.lat;
-        //   this.centerLng = center.lng;
         this.isSliderOpen = false;
         this.polyline = [];
         for (var i = 0; i < this.selectedRoute.places.length - 1; i++) {
@@ -546,30 +567,31 @@ var BestComponent = (function () {
                 this.polyline.push(point);
             }
         }
-        setTimeout(function () {
-            _this.isModalVisible = true;
-            $('.flex-sights').slick({
-                slidesToShow: 6,
-                slidesToScroll: 1,
-                arrows: true,
-                dots: false,
-                infinite: false,
-                responsive: [
-                    {
-                        breakpoint: 1601,
-                        settings: {
-                            slidesToShow: 4
-                        }
-                    },
-                    {
-                        breakpoint: 1301,
-                        settings: {
-                            slidesToShow: 3
-                        }
-                    }
-                ]
-            });
-        }, 200);
+        /*setTimeout(() => {
+          this.isModalVisible = true;
+    
+          $('.flex-sights').slick({
+            slidesToShow: 6,
+            slidesToScroll: 1,
+            arrows: true,
+            dots: false,
+            infinite: false,
+            responsive: [
+              {
+                breakpoint: 1601,
+                settings: {
+                  slidesToShow: 4
+                }
+              },
+              {
+                breakpoint: 1301,
+                settings: {
+                  slidesToShow: 3
+                }
+              }
+            ]
+          });
+        }, 200);*/
     };
     BestComponent.prototype.onRoutePlace = function (index) {
         $("#sights-slider").modal("show");
@@ -652,7 +674,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/build/build.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"build-content\">\r\n  <div class=\"container\">\r\n      <div class=\"row\">\r\n          <div class=\"col-md-12\">\r\n              <h2>Make you trip unforgettable</h2>\r\n              <h1>Build route through most interesting places</h1>\r\n              <form class=\"from-to\" (ngSubmit)=\"buildMap()\">\r\n                  <div class=\"flex-iputs\">\r\n                      <div class=\"side\" [style.width]=\"(routeType === 'bidirectional') ? '50%' : '100%'\">\r\n                          <p>{{(routeType === 'bidirectional') ? 'From' : 'Where?'}}</p>\r\n                          <input type=\"text\" autocorrect=\"off\" autocapitalize=\"off\" spellcheck=\"off\" placeholder=\"\" #searchFrom>\r\n                      </div>\r\n                      <div *ngIf=\"routeType === 'bidirectional'\" class=\"side\">\r\n                          <p>To</p>\r\n                          <input type=\"text\" autocorrect=\"off\" autocapitalize=\"off\" spellcheck=\"off\" placeholder=\"\" #searchTo>\r\n                      </div>\r\n                      <div class=\"for-padd\">\r\n                          <button class=\"butt-orange\" [disabled]=\"(latFrom==0 && lngFrom==0) || (latTo==0 && lngTo==0 && routeType=='bidirectional')\" type=\"submit\">{{((latFrom==0 && lngFrom==0) || (latTo==0 && lngTo==0 && routeType=='bidirectional'))?'Enter address!':'Build'}}</button>\r\n                      </div>    \r\n                      <br>\r\n                  </div>\r\n                  <div class=\"change-route-type\" >\r\n                    <img [src]=\"'../assets/img/icon-change.png'\">\r\n                    <button type=\"button\" class=\"btn btn-link btn-change\" style=\"color: #fff;font-size: 16px;\" (click)=\"changeRouteType()\">{{(routeType === 'bidirectional') ? 'City routes' : 'Routes between cities' }}</button>\r\n                  </div>\r\n                  <!--<div class=\"settings\">\r\n                      <img src=\"img/settings.svg\" class=\"img-responsive\" alt=\"\">\r\n                      <p class=\"set-text\">Дополнительные настройки</p>\r\n                  </div>-->\r\n              </form>\r\n          </div>\r\n      </div>\r\n  </div>  \r\n</div>\r\n<div class=\"check-boxes-wr\">\r\n  <div class=\"container\">\r\n      <div class=\"row\">\r\n          <div class=\"col-md-12\">\r\n              <div class=\"for-relative\">\r\n                  <span class=\"arr\">\r\n                      You can also choose filters\r\n                      <img src=\"../assets/img/arr.png\" class=\"img-responsive\" alt=\"Icon\" width=\"87\" height=\"100\">\r\n                  </span>\r\n              </div>\r\n              <ul class=\"for-flex-check\">\r\n                  <li *ngFor=\"let cb of categories; let i = index\" (click)=\"changeCategory(i)\" [class.active] =\"cb.checked\">\r\n                      <div class=\"image\">\r\n                          <img [src]=\"'../assets/img/icons/'+ cb.image\" class=\"img-responsive max-width-icon-new\" alt=\"\">\r\n                      </div>\r\n                      <span>{{cb.name}}</span>\r\n                  </li>\r\n              </ul>\r\n          </div>\r\n      </div>\r\n  </div>\r\n</div>"
+module.exports = "<div class=\"build-content\">\r\n  <div class=\"container\">\r\n      <div class=\"row\">\r\n          <div class=\"col-md-12\">\r\n              <h2>Make you trip unforgettable</h2>\r\n              <h1>Build route through most interesting places</h1>\r\n              <form class=\"from-to\" (ngSubmit)=\"buildMap()\">\r\n                  <div class=\"flex-iputs\">\r\n                      <div class=\"side\" [style.width]=\"(routeType === 'bidirectional') ? '50%' : '100%'\">\r\n                          <p>{{(routeType === 'bidirectional') ? 'From' : 'Where?'}}</p>\r\n                          <input type=\"text\" autocorrect=\"off\" autocapitalize=\"off\" spellcheck=\"off\" placeholder=\"\" #searchFrom>\r\n                      </div>\r\n                      <div *ngIf=\"routeType === 'bidirectional'\" class=\"side\">\r\n                          <p>To</p>\r\n                          <input type=\"text\" autocorrect=\"off\" autocapitalize=\"off\" spellcheck=\"off\" placeholder=\"\" #searchTo>\r\n                      </div>\r\n                      <div class=\"for-padd\">\r\n                          <button class=\"butt-orange\" [disabled]=\"(latFrom==0 && lngFrom==0) || (latTo==0 && lngTo==0 && routeType=='bidirectional')\" type=\"submit\">{{((latFrom==0 && lngFrom==0) || (latTo==0 && lngTo==0 && routeType=='bidirectional'))?'Enter address!':'Build'}}</button>\r\n                      </div>    \r\n                      <br>\r\n                  </div>\r\n                  <div class=\"change-route-type\" >\r\n                    <img [src]=\"'../assets/img/icon-change.png'\">\r\n                    <button type=\"button\" class=\"btn btn-link btn-change\" style=\"color: #fff;font-size: 16px;\" (click)=\"changeRouteType()\">{{(routeType === 'bidirectional') ? 'Switch to city routes' : 'Switch to routes between cities' }}</button>\r\n                  </div>\r\n                  <!--<div class=\"settings\">\r\n                      <img src=\"img/settings.svg\" class=\"img-responsive\" alt=\"\">\r\n                      <p class=\"set-text\">Дополнительные настройки</p>\r\n                  </div>-->\r\n              </form>\r\n          </div>\r\n      </div>\r\n  </div>  \r\n</div>\r\n<div class=\"check-boxes-wr\">\r\n  <div class=\"container\">\r\n      <div class=\"row\">\r\n          <div class=\"col-md-12\">\r\n              <div class=\"for-relative\">\r\n                  <span class=\"arr\">\r\n                      You can also choose filters\r\n                      <img src=\"../assets/img/arr.png\" class=\"img-responsive\" alt=\"Icon\" width=\"87\" height=\"100\">\r\n                  </span>\r\n              </div>\r\n              <ul class=\"for-flex-check\">\r\n                  <li *ngFor=\"let cb of categories; let i = index\" (click)=\"changeCategory(i)\" [class.active] =\"cb.checked\">\r\n                      <div class=\"image\">\r\n                          <img [src]=\"'../assets/img/icons/'+ cb.image\" class=\"img-responsive max-width-icon-new\" alt=\"\">\r\n                      </div>\r\n                      <span>{{cb.name}}</span>\r\n                  </li>\r\n              </ul>\r\n          </div>\r\n      </div>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -775,16 +797,16 @@ var BuildComponent = (function () {
         );*/
     };
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_9" /* ViewChild */])('searchFrom'),
-        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* ElementRef */])
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewChild */])('searchFrom'),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* ElementRef */])
     ], BuildComponent.prototype, "searchElementFrom", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_9" /* ViewChild */])('searchTo'),
-        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* ElementRef */])
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewChild */])('searchTo'),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* ElementRef */])
     ], BuildComponent.prototype, "searchElementTo", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewChildren */])('searchTo'),
-        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["U" /* QueryList */])
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_11" /* ViewChildren */])('searchTo'),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["V" /* QueryList */])
     ], BuildComponent.prototype, "ref", void 0);
     BuildComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -793,7 +815,7 @@ var BuildComponent = (function () {
             styles: [__webpack_require__("../../../../../src/app/build/build.component.css")]
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__core_services_main_service__["a" /* MainService */], __WEBPACK_IMPORTED_MODULE_3__agm_core__["b" /* MapsAPILoader */],
-            __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* NgZone */], __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */],
+            __WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* NgZone */], __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */],
             __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]])
     ], BuildComponent);
     return BuildComponent;
@@ -907,6 +929,7 @@ var HttpService = (function () {
     function HttpService(http) {
         this.http = http;
         this.GoogleMapUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=";
+        this.locUrl = "https://ipinfo.io";
         this.serverUrl = "http://104.40.181.0:3000"; //"http://localhost:3000"; // "http://213.196.32.20:3000";
         this.headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]([]);
         this.token = new __WEBPACK_IMPORTED_MODULE_6__models_token_model__["a" /* TokenModel */]('');
@@ -958,8 +981,15 @@ var HttpService = (function () {
             return json.results;
         });
     };
+    HttpService.prototype.GetLocation = function () {
+        if (!this.headers.has('Content-Type'))
+            this.headers.append('Content-Type', 'application/json');
+        return this.http.get(this.locUrl)
+            .map(function (resp) { return resp.json(); })
+            .catch(function (error) { return __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__["a" /* Observable */].throw(error); });
+    };
     HttpService = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])(),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]])
     ], HttpService);
     return HttpService;
@@ -1079,7 +1109,8 @@ var MainService = (function () {
             from_lng: lngFrom,
             to_lat: latTo,
             to_lng: lngTo,
-            categories: categories
+            categories: categories,
+            language: 'en'
         };
         return this.http.GetData('/routes/bidirectional/venues', this.urlParams(data));
     };
@@ -1087,9 +1118,20 @@ var MainService = (function () {
         var data = {
             lat: latFrom,
             lng: lngFrom,
-            categories: categories
+            categories: categories,
+            language: 'en'
         };
         return this.http.GetData('/routes/internal/venues', this.urlParams(data));
+    };
+    MainService.prototype.getPlaces = function (lat, lng, categories) {
+        var data = {
+            lat: lat,
+            lng: lng,
+            language: 'en',
+            radius: 5,
+            categories: categories
+        };
+        return this.http.GetData('/places/venues', this.urlParams(data));
     };
     MainService.prototype.getImage = function (id) {
         return this.http.GetData('/images/' + id, '');
@@ -1105,6 +1147,9 @@ var MainService = (function () {
     };
     MainService.prototype.likePlace = function (place_id) {
         return this.http.PostData('/places/' + place_id + '/likes', '');
+    };
+    MainService.prototype.getUserLocation = function () {
+        return this.http.GetLocation();
     };
     MainService.prototype.allCategories = function () {
         return [
@@ -1313,7 +1358,7 @@ var MainService = (function () {
         ];
     };
     MainService = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])(),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__http_service__["a" /* HttpService */], __WEBPACK_IMPORTED_MODULE_4__angular_router__["b" /* Router */]])
     ], MainService);
     return MainService;
@@ -1512,7 +1557,7 @@ var FooterComponent = (function () {
         });
     };
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_9" /* ViewChild */])('submitFormSubscribe'),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewChild */])('submitFormSubscribe'),
         __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1__angular_forms__["b" /* NgForm */])
     ], FooterComponent.prototype, "form", void 0);
     FooterComponent = __decorate([
@@ -1590,6 +1635,300 @@ var FunctionalityComponent = (function () {
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__core_services_main_service__["a" /* MainService */]])
     ], FunctionalityComponent);
     return FunctionalityComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/places/places.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/places/places.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<app-preloader *ngIf=\"isLoading\"></app-preloader>\r\n<div class=\"best-wr\">  \r\n  <div class=\"fixed-map page-view-after-build\">  \r\n      <div  class=\"for-position-map\">\r\n        <agm-map #gm [mapDraggable]=\"true\" [zoomControl]=\"true\" [latitude]=\"lat\" [zoom]=\"13\"  [longitude]=\"lng\" style=\"height: 100%;\" (mapClick)=\"mapClick()\" (centerChange)=\"onCenterChanged($event)\" [styles]=\"mapStyle\">   \r\n            <!--<agm-marker [iconUrl]=\"'../assets/img/marker-yellow2.png'\" [latitude]=\"StepsCoord[0]?StepsCoord[0].lat:''\" [longitude]=\"StepsCoord[0]?StepsCoord[0].lng:''\"></agm-marker>-->\r\n            <agm-marker [iconUrl]=\"'../assets/img/marker-yellow2.png'\" *ngFor=\"let place of places; let i = index\" [latitude]=\"place?place.lat:0\" [longitude]=\"place?place.lng:0\" (markerClick)=\"onMarkerClick(i)\">\r\n                <agm-info-window [isOpen]=\"placeWindows[i]\">\r\n                    <div class=\"cart-sight-wrapp\">\r\n                        <div class=\"img\" [ngStyle]=\"{'background-image':'url(' + place.image + ')'}\"></div>\r\n                        <div class=\"ava\" style=\"background-image: url(../assets/img/ava.jpg)\"></div>\r\n                        <p class=\"name-sight\">{{place.name}}</p>\r\n                    </div>\r\n                </agm-info-window>\r\n            </agm-marker>\r\n            \r\n            <!--<agm-marker [iconUrl]=\"'../assets/img/marker-yellow2.png'\" [latitude]=\"StepsCoord[0]?StepsCoord[StepsCoord.length-1].lat:''\" [longitude]=\"StepsCoord[0]?StepsCoord[StepsCoord.length-1].lng:''\"></agm-marker>-->\r\n        </agm-map>\r\n      </div>\r\n      \r\n      <div class=\"fixed-sights\" [ngClass]=\"{'visible': true}\">\r\n          \r\n          <!--<div class=\"flex-sights\">\r\n                <div *ngFor=\"let item of places; let i = index\" class=\"one-sight\" (click)=\"onRoutePlace(i)\">\r\n                    <div class=\"for-before-wr\">\r\n                        <div class=\"img\" [ngStyle]=\"{'background-image':'url(' + item.image + ')'}\"></div>\r\n                    </div>\r\n                    <p><span>{{i + 1}}</span><strong>{{item.name}}</strong></p>\r\n                </div>\r\n          </div>-->\r\n\r\n          <ngu-carousel\r\n                *ngIf=\"isFlexVisible\"\r\n                [inputs]=\"carouselOne\"\r\n                class=\"pl-carousel\">\r\n                <ngu-item NguCarouselItem *ngFor=\"let item of places; let i = index\" (click)=\"onRoutePlace(i)\"  >\r\n                    <div class=\"car-item\">\r\n                        <div class=\"bannerStyle\"  [ngStyle]=\"{'background-image':'url(' + item.image + ')'}\">\r\n                            <div style=\"height:100px;\">\r\n                            </div>                        \r\n                        </div>\r\n                        <p><span>{{i + 1}}</span><strong>{{item.name}}</strong></p>\r\n                    </div>\r\n                </ngu-item> \r\n                <button NguCarouselPrev class='left-arrow-car'>&lt;</button>\r\n                <button NguCarouselNext class='right-arrow-car'>&gt;</button>\r\n            </ngu-carousel>\r\n          \r\n          <div *ngIf=\"isShowVisible\" class=\"show-div\">\r\n            <button class=\"btn btn-default btn-show-out\" (click)=\"onShowHere()\">Show here</button>\r\n          </div>\r\n      </div>\r\n\r\n      <!--<div class=\"save-route\"></div>-->    \r\n  </div>\r\n</div>\r\n\r\n<div class=\"modal sights-slider\" id=\"sights-slider\">\r\n    <div class=\"modal-dialog\">\r\n        <div class=\"modal-contant\">\r\n            <div class=\"modal-body\">\r\n                <div class=\"slider-init\">\r\n                    <div class=\"slide\" *ngFor=\"let item of places; let i = index\">\r\n                        <div class=\"after-slide\">\r\n                            <div class=\"for-before-wr\">\r\n                                <div class=\"img\" [ngStyle]=\"{'background-image':'url(' + item.image + ')' }\"></div>\r\n                            </div>\r\n                            <div class=\"content-sights\">\r\n                                <p class=\"name\">{{item.name}}</p>\r\n                                <p>{{item.description}}</p>\r\n                                <p>{{item.address}}</p>\r\n\r\n                                <div class=\"for-flex-buttons\">\r\n                                    <div class=\"find-more\">\r\n                                        <p>Find more...</p>\r\n                                    </div>\r\n                                    <div class=\"one\" (click)=\"onPlaceLike(item)\">\r\n                                        <div class=\"bg\" [ngClass]=\"{'<act></act>ive': item.is_liked}\">\r\n                                            <img src=\"../assets/img/like.png\" class=\"img-responsive\" alt=\"\">\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n<div class=\"cats-footer\">\r\n  <div class=\"check-boxes-wr\"  style=\"height:60px;\">\r\n    <div class=\"container\"  style=\"height:60px;\">\r\n        <div class=\"row\"  style=\"height:60px;\">\r\n            <div class=\"col-md-12\">\r\n                <ul class=\"for-flex-check\"  style=\"height:60px;\">\r\n                    <li *ngFor=\"let cb of categories; let i = index\" (click)=\"changeCategory(i)\" [class.active] =\"cb.checked\">\r\n                        <div class=\"image\">\r\n                            <img [src]=\"'../assets/img/icons/'+ cb.image\" class=\"img-responsive max-width-icon-new\" width=\"30px\" alt=\"\">\r\n                        </div>\r\n                        <span>{{cb.name}}</span>\r\n                    </li>\r\n                </ul>\r\n            </div>\r\n        </div>\r\n    </div>\r\n  </div>\r\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/places/places.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PlacesComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core_services_main_service__ = __webpack_require__("../../../../../src/app/core/services/main.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__agm_core__ = __webpack_require__("../../../../@agm/core/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_geodesy__ = __webpack_require__("../../../../geodesy/npm.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_geodesy___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_geodesy__);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var PlacesComponent = (function () {
+    function PlacesComponent(zone, router, route, service, params, mapsAPILoader) {
+        this.zone = zone;
+        this.router = router;
+        this.route = route;
+        this.service = service;
+        this.params = params;
+        this.mapsAPILoader = mapsAPILoader;
+        this.isSliderOpen = true;
+        this.isFlexVisible = false;
+        this.isLoading = true;
+        this.isShowVisible = false;
+        this.categories = [];
+        this.places = [];
+        this.collectedPlaces = [];
+        this.placeWindows = [];
+        this.lat = 55.78943;
+        this.lng = 49.14663;
+        this.curLat = 55.78943;
+        this.curLng = 49.14663;
+        this.lastLat = 55.78943;
+        this.lastLng = 49.14663;
+        this.flagForDropdown = false;
+        this.InfoWindowHSize = 0;
+        this.isVisible = true;
+        this.mapStyle = this.getMapStyle();
+    }
+    PlacesComponent.prototype.ngOnInit = function () {
+        $(".content").addClass("all-pages");
+        this.service.onPageChange$.next(false);
+        this.categories = this.service.allCategories();
+        this.carouselOne = {
+            grid: { xs: 2, sm: 3, md: 3, lg: 5, all: 0 },
+            slide: 1,
+            speed: 400,
+            point: {
+                visible: false,
+                pointStyles: "\n          .ngucarouselPoint {\n            list-style-type: none;\n            text-align: center;\n            padding: 12px;\n            margin: 0;\n            white-space: nowrap;\n            overflow: auto;\n            position: absolute;\n            width: 100%;\n            bottom: 0px;\n            left: 0;\n            box-sizing: border-box;\n          }\n          .ngucarouselPoint li {\n            display: inline-block;\n            border-radius: 999px;\n            background: rgba(255, 255, 255, 0.55);\n            padding: 5px;\n            margin: 0 3px;\n            transition: .4s ease all;\n          }\n          .ngucarouselPoint li.active {\n              background: white;\n              width: 10px;\n          }\n        "
+            },
+            load: 2,
+            loop: true,
+            touch: true
+        };
+        if ($(window).scrollTop() > 35) {
+            $(".fixed-sights").addClass("transformed-small");
+        }
+        else {
+            $(".fixed-sights").removeClass("transformed-small");
+        }
+        $(window).scroll(function () {
+            if ($(window).scrollTop() > 35) {
+                $(".fixed-sights").addClass("transformed-small");
+            }
+            else {
+                $(".fixed-sights").removeClass("transformed-small");
+            }
+        });
+        $('#sights-slider').on('hidden.bs.modal', function () {
+            $('.slider-init').slick('unslick');
+        });
+        this.clearInfoWin();
+    };
+    PlacesComponent.prototype.getMapStyle = function () {
+        return this.service.mapStyle();
+    };
+    PlacesComponent.prototype.onShowHere = function () {
+        this.loadPlaces();
+    };
+    PlacesComponent.prototype.filterPlaces = function () {
+        var cats = this.categories.filter(function (cat) { return cat.checked; }).map(function (cat) { return cat.value; });
+        if (cats.length > 0) {
+            this.places = this.collectedPlaces.filter(function (place) { return cats.indexOf(place.categories[0]) != -1; });
+        }
+        else {
+            this.places = this.collectedPlaces;
+        }
+        this.isFlexVisible = this.places.length > 0;
+        this.placeWindows = [];
+        for (var i in this.places) {
+            this.placeWindows.push(false);
+        }
+    };
+    PlacesComponent.prototype.changeCategory = function (i) {
+        this.categories[i].checked = !this.categories[i].checked;
+        this.filterPlaces();
+    };
+    PlacesComponent.prototype.onCenterChanged = function (center) {
+        this.curLat = center.lat;
+        this.curLng = center.lng;
+        var dist = new __WEBPACK_IMPORTED_MODULE_4_geodesy__["LatLonSpherical"](this.curLat, this.curLng).distanceTo(new __WEBPACK_IMPORTED_MODULE_4_geodesy__["LatLonSpherical"](this.lastLat, this.lastLng));
+        this.isShowVisible = (dist > 7000);
+    };
+    PlacesComponent.prototype.loadPlaces = function () {
+        var _this = this;
+        this.isLoading = true;
+        this.service.getPlaces(this.curLat, this.curLng, []).subscribe(function (res) {
+            _this.collectedPlaces = res;
+            for (var i in res) {
+                var place = _this.collectedPlaces[i];
+                place.image = _this.service.getImageUrl(place.cover_id);
+            }
+            _this.clearInfoWin();
+            _this.filterPlaces();
+            _this.lastLat = _this.curLat;
+            _this.lastLng = _this.curLng;
+            _this.isShowVisible = false;
+            _this.zone.run(function () {
+                _this.isLoading = false;
+            });
+        }, function (err) {
+            console.log(err);
+        });
+    };
+    /*
+    updateFlex(){
+      setTimeout(() => {
+        this.isFlexVisible = true;
+  
+        $('.flex-sights').slick({
+          slidesToShow: 6,
+          slidesToScroll: 1,
+          arrows: true,
+          dots: false,
+          infinite: false,
+          responsive: [
+            {
+              breakpoint: 1601,
+              settings: {
+                slidesToShow: 6
+              }
+            },
+            {
+              breakpoint: 1301,
+              settings: {
+                slidesToShow: 3
+              }
+            }
+          ]
+        });
+      }, 200);
+    }*/
+    PlacesComponent.prototype.onPlaceLike = function (place) {
+        this.service.likePlace(place.id)
+            .subscribe(function () {
+            if (place.is_liked) {
+                place.likes_count -= 1;
+            }
+            else {
+                place.likes_count += 1;
+            }
+            place.is_liked = !place.is_liked;
+        });
+    };
+    PlacesComponent.prototype.onRoutePlace = function (index) {
+        $("#sights-slider").modal("show");
+        console.log(index);
+        $('.slider-init').slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: true,
+            dots: false,
+            infinite: false
+        });
+        $('.slider-init').slick('slickGoTo', index, true);
+    };
+    PlacesComponent.prototype.clearInfoWin = function (i) {
+        for (var i_1 in this.placeWindows) {
+            this.placeWindows[i_1] = false;
+        }
+    };
+    PlacesComponent.prototype.mapClick = function () {
+        this.clearInfoWin();
+    };
+    PlacesComponent.prototype.onMarkerClick = function (i) {
+        this.clearInfoWin();
+        this.placeWindows[i] = !this.placeWindows[i];
+        this.lat = this.places[i].lat + 0.025;
+        this.lng = this.places[i].lng;
+    };
+    PlacesComponent.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        this.service.getUserLocation().subscribe(function (res) {
+            var geo = new google.maps.Geocoder();
+            geo.geocode({ address: res.city + ' ' + res.country }, function (res, stat) {
+                if (stat == google.maps.GeocoderStatus.OK) {
+                    var loc = res[0].geometry.location;
+                    _this.lat = loc.lat();
+                    _this.lng = loc.lng();
+                    _this.curLat = loc.lat();
+                    _this.curLng = loc.lng();
+                    _this.lastLat = loc.lat();
+                    _this.lastLng = loc.lng();
+                }
+                _this.loadPlaces();
+            });
+        }, function (err) {
+            _this.loadPlaces();
+        });
+        //$('.flex-sights').slick('unslick');
+        /*setTimeout(() => {
+    
+          $('.flex-sights').slick({
+            slidesToShow: 6,
+            slidesToScroll: 1,
+            arrows: true,
+            dots: false,
+            infinite: false,
+            responsive: [
+              {
+                breakpoint: 1601,
+                settings: {
+                  slidesToShow: 6
+                }
+              },
+              {
+                breakpoint: 1301,
+                settings: {
+                  slidesToShow: 3
+                }
+              }
+            ]
+          });
+        }, 300);*/
+    };
+    PlacesComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'route',
+            template: __webpack_require__("../../../../../src/app/places/places.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/places/places.component.css")]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* NgZone */],
+            __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */],
+            __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* ActivatedRoute */],
+            __WEBPACK_IMPORTED_MODULE_1__core_services_main_service__["a" /* MainService */],
+            __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* ActivatedRoute */],
+            __WEBPACK_IMPORTED_MODULE_3__agm_core__["b" /* MapsAPILoader */]])
+    ], PlacesComponent);
+    return PlacesComponent;
 }());
 
 
@@ -1678,7 +2017,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/route/route.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"best-wr\">  \r\n  <div class=\"fixed-map page-view-after-build\">  \r\n      <div  class=\"for-position-map\">\r\n        <agm-map #gm [mapDraggable]=\"true\" [zoomControl]=\"true\" [fitBounds]=\"zoomBounds\" style=\"height: 100%;\" (mapClick)=\"mapClick()\" [styles]=\"MapStyle\">   \r\n            <!--<agm-marker [iconUrl]=\"'../assets/img/marker-yellow2.png'\" [latitude]=\"StepsCoord[0]?StepsCoord[0].lat:''\" [longitude]=\"StepsCoord[0]?StepsCoord[0].lng:''\"></agm-marker>-->\r\n            <agm-marker [iconUrl]=\"'../assets/img/marker-yellow2.png'\" *ngFor=\"let place of selectedRoute.places; let i = index\" [latitude]=\"place?place.lat:0\" [longitude]=\"place?place.lng:0\" (markerClick)=\"markerClick(i)\">\r\n                <agm-info-window [isOpen]=\"false\">\r\n                <div class=\"cart-sight-wrapp\">\r\n                    <div class=\"img\" [ngStyle]=\"{'background-image':'url(' + place.image + ')'}\"></div>\r\n                    <div class=\"ava\" style=\"background-image: url(../assets/img/ava.jpg)\"></div>\r\n                    <p class=\"name-sight\">{{place.name}}</p>\r\n                </div>\r\n                </agm-info-window>\r\n            </agm-marker>\r\n            \r\n            <!--<agm-marker [iconUrl]=\"'../assets/img/marker-yellow2.png'\" [latitude]=\"StepsCoord[0]?StepsCoord[StepsCoord.length-1].lat:''\" [longitude]=\"StepsCoord[0]?StepsCoord[StepsCoord.length-1].lng:''\"></agm-marker>-->\r\n            \r\n            <agm-polyline [strokeColor]=\"'#FFC636'\" [strokeOpacity]=\"'0.8'\">\r\n                <ng-container>\r\n                    <agm-polyline-point *ngFor=\"let point of polyline; let i = index\" [latitude]=\"point.lat?point.lat:0\" [longitude]=\"point.lng?point.lng:0\"></agm-polyline-point>\r\n                </ng-container>\r\n            </agm-polyline>\r\n        </agm-map>\r\n      </div>\r\n      \r\n      <div class=\"fixed-sights\" [ngClass]=\"{'visible': 'true'}\">\r\n          <div class=\"flex-sights\">\r\n                <div *ngFor=\"let item of selectedRoute.places; let i = index\" class=\"one-sight\" (click)=\"onRoutePlace(i)\">\r\n                    <div class=\"for-before-wr\">\r\n                        <div class=\"img\" [ngStyle]=\"{'background-image':'url(' + item.image + ')'}\"></div>\r\n                    </div>\r\n                    <p><span>{{i + 1}}</span><strong>{{item.name}}</strong></p>\r\n                </div>\r\n          </div>\r\n      </div>\r\n      <!--<div class=\"save-route\"></div>-->    \r\n  </div>\r\n</div>\r\n\r\n<!--новая карточка-->\r\n<div class=\"one-block avp\">\r\n    <div class=\"new-wrapp-for-shadow\">\r\n        <div class=\"for-before-wr\">\r\n            <div class=\"img\" [ngStyle]=\"{'background-image':'url(' + selectedRoute.image + ')'}\"></div>\r\n        </div>\r\n        <div class=\"ava\" style=\"background-image: url(../assets/img/ava.jpg)\"></div>\r\n        <div class=\"padd-descript\">\r\n            <p class=\"name\">{{selectedRoute.name}}</p>\r\n            <div class=\"button-wr\">\r\n                <div class=\"one\" (click)=\"likeRoute(selectedRoute)\">\r\n                    <div class=\"bg\" [ngClass]=\"{'active': item.is_liked}\">\r\n                        <img src=\"../assets/img/like.png\" class=\"img-responsive\" alt=\"\" >\r\n                        <span>{{selectedRoute.likes_count}}{{isILikeIt?'+':''}}</span>\r\n                    </div>\r\n                </div>\r\n                <div class=\"one\">\r\n                    <div class=\"bg\">\r\n                        <img src=\"../assets/img/share.png\" class=\"img-responsive\" alt=\"\">\r\n                        <span>{{selectedRoute.reposts_count}}</span>\r\n                    </div>\r\n                </div>\r\n                <div class=\"one\">\r\n                    <div class=\"bg\">\r\n                        <img src=\"../assets/img/save.png\" class=\"img-responsive\" alt=\"\">\r\n                        <span>3</span>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n<!--/новая карточка-->\r\n<div class=\"modal sights-slider\" id=\"sights-slider\">\r\n    <div class=\"modal-dialog\">\r\n        <div class=\"modal-contant\">\r\n            <div class=\"modal-body\">\r\n                <div class=\"slider-init\">\r\n                    <div class=\"slide\" *ngFor=\"let item of selectedRoute.places; let i = index\">\r\n                        <div class=\"after-slide\">\r\n                            <div class=\"for-before-wr\">\r\n                                <div class=\"img\" [ngStyle]=\"{'background-image':'url(' + item.image + ')' }\"></div>\r\n                            </div>\r\n                            <div class=\"content-sights\">\r\n                                <p class=\"name\">{{item.name}}</p>\r\n                                <p>{{item.description}}</p>\r\n                                <p>{{item.address}}</p>\r\n\r\n                                <div class=\"for-flex-buttons\">\r\n                                    <div class=\"find-more\">\r\n                                        <p>Find more...</p>\r\n                                    </div>\r\n                                    <div class=\"one\" (click)=\"onPlaceLike(item)\">\r\n                                        <div class=\"bg\" [ngClass]=\"{'active': item.is_liked}\">\r\n                                            <img src=\"../assets/img/like.png\" class=\"img-responsive\" alt=\"\">\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>"
+module.exports = "<app-preloader *ngIf=\"isLoading\"></app-preloader>\r\n<div class=\"best-wr\">  \r\n  <div class=\"fixed-map page-view-after-build\">  \r\n      <div  class=\"for-position-map\">\r\n        <agm-map #gm [mapDraggable]=\"true\" [latitude]=\"lat\" [longitude]=\"lng\" [zoomControl]=\"true\" [fitBounds]=\"zoomBounds\" style=\"height: 100%;\" (mapClick)=\"mapClick()\" [styles]=\"mapStyle\">   \r\n            <!--<agm-marker [iconUrl]=\"'../assets/img/marker-yellow2.png'\" [latitude]=\"StepsCoord[0]?StepsCoord[0].lat:''\" [longitude]=\"StepsCoord[0]?StepsCoord[0].lng:''\"></agm-marker>-->\r\n            <agm-marker [iconUrl]=\"'../assets/img/marker-yellow2.png'\" *ngFor=\"let place of selectedRoute.places; let i = index\" [latitude]=\"place?place.lat:0\" [longitude]=\"place?place.lng:0\" (markerClick)=\"markerClick(i)\">\r\n                <agm-info-window [isOpen]=\"placeWindows[i]\">\r\n                <div class=\"cart-sight-wrapp\">\r\n                    <div class=\"img\" [ngStyle]=\"{'background-image':'url(' + place.image + ')'}\"></div>\r\n                    <div class=\"ava\" style=\"background-image: url(../assets/img/ava.jpg)\"></div>\r\n                    <p class=\"name-sight\">{{place.name}}</p>\r\n                </div>\r\n                </agm-info-window>\r\n            </agm-marker>\r\n            \r\n            <!--<agm-marker [iconUrl]=\"'../assets/img/marker-yellow2.png'\" [latitude]=\"StepsCoord[0]?StepsCoord[StepsCoord.length-1].lat:''\" [longitude]=\"StepsCoord[0]?StepsCoord[StepsCoord.length-1].lng:''\"></agm-marker>-->\r\n            \r\n            <agm-polyline [strokeColor]=\"'#FFC636'\" [strokeOpacity]=\"'0.8'\">\r\n                <ng-container>\r\n                    <agm-polyline-point *ngFor=\"let point of polyline; let i = index\" [latitude]=\"point.lat?point.lat:0\" [longitude]=\"point.lng?point.lng:0\"></agm-polyline-point>\r\n                </ng-container>\r\n            </agm-polyline>\r\n        </agm-map>\r\n      </div>\r\n      \r\n      <div class=\"fixed-sights\" [ngClass]=\"{'visible': 'true'}\">\r\n         <!-- <div class=\"flex-sights\">\r\n                <div *ngFor=\"let item of selectedRoute.places; let i = index\" class=\"one-sight\" (click)=\"onRoutePlace(i)\">\r\n                    <div class=\"for-before-wr\">\r\n                        <div class=\"img\" [ngStyle]=\"{'background-image':'url(' + item.image + ')'}\"></div>\r\n                    </div>\r\n                    <p><span>{{i + 1}}</span><strong>{{item.name}}</strong></p>\r\n                </div>\r\n          </div>-->\r\n           <ngu-carousel\r\n                [inputs]=\"carouselOne\"\r\n                class=\"pl-carousel\">\r\n                <ngu-item NguCarouselItem *ngFor=\"let item of selectedRoute.places; let i = index\" (click)=\"onRoutePlace(i)\"  >\r\n                    <div class=\"car-item\">\r\n                        <div class=\"bannerStyle\"  [ngStyle]=\"{'background-image':'url(' + item.image + ')'}\">\r\n                            <div style=\"height:100px;\">\r\n                            </div>                        \r\n                        </div>\r\n                        <p><span>{{i + 1}}</span><strong>{{item.name}}</strong></p>\r\n                    </div>\r\n                </ngu-item> \r\n                <button NguCarouselPrev class='left-arrow-car'>&lt;</button>\r\n                <button NguCarouselNext class='right-arrow-car'>&gt;</button>\r\n            </ngu-carousel>\r\n      </div>\r\n      <!--<div class=\"save-route\"></div>-->    \r\n  </div>\r\n</div>\r\n\r\n<!--новая карточка-->\r\n<div class=\"one-block avp\">\r\n    <div class=\"new-wrapp-for-shadow\">\r\n        <div class=\"for-before-wr\">\r\n            <div class=\"img\" [ngStyle]=\"{'background-image':'url(' + selectedRoute.image + ')'}\"></div>\r\n        </div>\r\n        <div class=\"ava\" style=\"background-image: url(../assets/img/ava.jpg)\"></div>\r\n        <div class=\"padd-descript\">\r\n            <p class=\"name\">{{selectedRoute.name}}</p>\r\n            <div class=\"button-wr\">\r\n                <div class=\"one\" (click)=\"likeRoute(selectedRoute)\">\r\n                    <div class=\"bg\" [ngClass]=\"{'active': selectedRoute.is_liked}\">\r\n                        <img src=\"../assets/img/like.png\" class=\"img-responsive\" alt=\"\" >\r\n                        <span>{{selectedRoute.likes_count}}{{isILikeIt?'+':''}}</span>\r\n                    </div>\r\n                </div>\r\n                <div class=\"one\">\r\n                    <div class=\"bg\">\r\n                        <img src=\"../assets/img/share.png\" class=\"img-responsive\" alt=\"\">\r\n                        <span>{{selectedRoute.reposts_count}}</span>\r\n                    </div>\r\n                </div>\r\n                <div class=\"one\">\r\n                    <div class=\"bg\">\r\n                        <img src=\"../assets/img/save.png\" class=\"img-responsive\" alt=\"\">\r\n                        <span>3</span>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n<!--/новая карточка-->\r\n<div class=\"modal sights-slider\" id=\"sights-slider\">\r\n    <div class=\"modal-dialog\">\r\n        <div class=\"modal-contant\">\r\n            <div class=\"modal-body\">\r\n                <div class=\"slider-init\">\r\n                    <div class=\"slide\" *ngFor=\"let item of selectedRoute.places; let i = index\">\r\n                        <div class=\"after-slide\">\r\n                            <div class=\"for-before-wr\">\r\n                                <div class=\"img\" [ngStyle]=\"{'background-image':'url(' + item.image + ')' }\"></div>\r\n                            </div>\r\n                            <div class=\"content-sights\">\r\n                                <p class=\"name\">{{item.name}}</p>\r\n                                <p>{{item.description}}</p>\r\n                                <p>{{item.address}}</p>\r\n\r\n                                <div class=\"for-flex-buttons\">\r\n                                    <div class=\"find-more\">\r\n                                        <p>Find more...</p>\r\n                                    </div>\r\n                                    <div class=\"one\" (click)=\"onPlaceLike(item)\">\r\n                                        <div class=\"bg\" [ngClass]=\"{'active': item.is_liked}\">\r\n                                            <img src=\"../assets/img/like.png\" class=\"img-responsive\" alt=\"\">\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -1727,13 +2066,11 @@ var RouteComponent = (function () {
         this.lng = 40.809007;
         this.activeRoute = 0;
         this.CurrentRoute = null;
-        this.isInfoWinOpen = [];
+        this.placeWindows = [];
         this.allRoutsImages = [];
         this.RouteImage = null;
         this.StepsCoord = [];
-        this.Places = [];
-        this.variantsRoute = [];
-        this.MapStyle = this.getMapStyle();
+        this.mapStyle = this.getMapStyle();
         this.flagForDropdown = false;
         this.InfoWindowHSize = 0;
         this.isILikeIt = false;
@@ -1745,11 +2082,24 @@ var RouteComponent = (function () {
         var _this = this;
         this.service.onPageChange$.next(false);
         // this.StepsCoord.push(new CoordsModel(this.lat,this.lng));
+        this.carouselOne = {
+            grid: { xs: 2, sm: 3, md: 3, lg: 5, all: 0 },
+            slide: 1,
+            speed: 400,
+            point: {
+                visible: false,
+                pointStyles: "\n          .ngucarouselPoint {\n            list-style-type: none;\n            text-align: center;\n            padding: 12px;\n            margin: 0;\n            white-space: nowrap;\n            overflow: auto;\n            position: absolute;\n            width: 100%;\n            bottom: 0px;\n            left: 0;\n            box-sizing: border-box;\n          }\n          .ngucarouselPoint li {\n            display: inline-block;\n            border-radius: 999px;\n            background: rgba(255, 255, 255, 0.55);\n            padding: 5px;\n            margin: 0 3px;\n            transition: .4s ease all;\n          }\n          .ngucarouselPoint li.active {\n              background: white;\n              width: 10px;\n          }\n        "
+            },
+            load: 2,
+            loop: true,
+            touch: true
+        };
         this.route.params.subscribe(function (params) {
             _this.service.getRoute(params['id']).subscribe(function (res) {
                 _this.selectedRoute = res;
                 _this.selectedRoute.image = _this.service.getImageUrl(_this.selectedRoute.cover_id);
                 for (var k in _this.selectedRoute.places) {
+                    _this.placeWindows.push(false);
                     _this.selectedRoute.places[k].image = _this.service.getImageUrl(_this.selectedRoute.places[k].cover_id);
                 }
                 _this.isSliderOpen = false;
@@ -1765,6 +2115,7 @@ var RouteComponent = (function () {
                 _this.mapsAPILoader.load().then(function () {
                     _this.getRouteMiddle(_this.selectedRoute);
                 });
+                _this.isLoading = false;
             }, function (err) {
                 console.log(err);
             });
@@ -1864,14 +2215,10 @@ var RouteComponent = (function () {
         });
         $('.slider-init').slick('slickGoTo', index, true);
     };
-    RouteComponent.prototype.clearInfoWin = function (i) {
-        var count = this.isInfoWinOpen.length;
-        this.isInfoWinOpen = [];
-        for (var i_1 = 0; i_1 < count; i_1++)
-            this.isInfoWinOpen.push(false);
-        this.InfoWindowHSize = 0;
-        if (i)
-            this.isInfoWinOpen[i] = !this.isInfoWinOpen[i];
+    RouteComponent.prototype.clearInfoWin = function () {
+        for (var i in this.placeWindows) {
+            this.placeWindows[i] = false;
+        }
     };
     RouteComponent.prototype.mapClick = function () {
         this.clearInfoWin();
@@ -1879,39 +2226,35 @@ var RouteComponent = (function () {
     RouteComponent.prototype.markerClick = function (i) {
         //this.isInfoWinOpen[i]= !this.isInfoWinOpen[i];
         this.clearInfoWin();
-        this.isInfoWinOpen[i] = true;
-        if (this.isInfoWinOpen[i])
-            this.InfoWindowHSize = 1;
-        else
-            this.InfoWindowHSize = 1;
-        // console.log(this.Places[i]);
-        this.lat = this.Places[i].lat;
-        this.lng = this.Places[i].lng;
+        this.placeWindows[i] = !this.placeWindows[i];
+        this.lat = this.selectedRoute.places[i].lat + 0.025;
+        this.lng = this.selectedRoute.places[i].lng;
     };
     RouteComponent.prototype.ngAfterViewInit = function () {
-        setTimeout(function () {
-            $('.flex-sights').slick({
-                slidesToShow: 6,
-                slidesToScroll: 1,
-                arrows: true,
-                dots: false,
-                infinite: false,
-                responsive: [
-                    {
-                        breakpoint: 1601,
-                        settings: {
-                            slidesToShow: 6
-                        }
-                    },
-                    {
-                        breakpoint: 1301,
-                        settings: {
-                            slidesToShow: 3
-                        }
-                    }
-                ]
-            });
-        }, 300);
+        /*setTimeout(() => {
+    
+          $('.flex-sights').slick({
+            slidesToShow: 6,
+            slidesToScroll: 1,
+            arrows: true,
+            dots: false,
+            infinite: false,
+            responsive: [
+              {
+                breakpoint: 1601,
+                settings: {
+                  slidesToShow: 6
+                }
+              },
+              {
+                breakpoint: 1301,
+                settings: {
+                  slidesToShow: 3
+                }
+              }
+            ]
+          });
+        }, 300);*/
     };
     RouteComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -2070,7 +2413,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/view-after-build/view-after-build.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"best-wr\">  \r\n  <div class=\"fixed-map page-view-after-build\">  \r\n      <div  class=\"for-position-map\">\r\n        <agm-map #gm [mapDraggable]=\"true\" [zoomControl]=\"true\" [fitBounds]=\"zoomBounds\" style=\"height: 100%;\" (mapClick)=\"mapClick()\" [styles]=\"MapStyle\">   \r\n            <!--<agm-marker [iconUrl]=\"'../assets/img/marker-yellow2.png'\" [latitude]=\"StepsCoord[0]?StepsCoord[0].lat:''\" [longitude]=\"StepsCoord[0]?StepsCoord[0].lng:''\"></agm-marker>-->\r\n            <agm-marker [iconUrl]=\"'../assets/img/marker-yellow2.png'\" *ngFor=\"let place of selectedRoute.places; let i = index\" [latitude]=\"place?place.lat:0\" [longitude]=\"place?place.lng:0\" (markerClick)=\"markerClick(i)\">\r\n                <agm-info-window [isOpen]=\"false\">\r\n                <div class=\"cart-sight-wrapp\">\r\n                    <div class=\"img\" [ngStyle]=\"{'background-image':'url(' + place.image + ')'}\"></div>\r\n                    <div class=\"ava\" style=\"background-image: url(../assets/img/ava.jpg)\"></div>\r\n                    <p class=\"name-sight\">{{place.name}}</p>\r\n                </div>\r\n                </agm-info-window>\r\n            </agm-marker>\r\n            \r\n            <!--<agm-marker [iconUrl]=\"'../assets/img/marker-yellow2.png'\" [latitude]=\"StepsCoord[0]?StepsCoord[StepsCoord.length-1].lat:''\" [longitude]=\"StepsCoord[0]?StepsCoord[StepsCoord.length-1].lng:''\"></agm-marker>-->\r\n            \r\n            <agm-polyline [strokeColor]=\"'#FFC636'\" [strokeOpacity]=\"'0.8'\">\r\n                <ng-container>\r\n                    <agm-polyline-point *ngFor=\"let point of polyline; let i = index\" [latitude]=\"point.lat?point.lat:0\" [longitude]=\"point.lng?point.lng:0\"></agm-polyline-point>\r\n                </ng-container>\r\n            </agm-polyline>\r\n        </agm-map>\r\n      </div>\r\n      \r\n      <div class=\"fixed-sights\" [ngClass]=\"{'visible': 'true'}\">\r\n          <div class=\"flex-sights\">\r\n                <div *ngFor=\"let item of selectedRoute.places; let i = index\" class=\"one-sight\" (click)=\"onRoutePlace(i)\">\r\n                    <div class=\"for-before-wr\">\r\n                        <div class=\"img\" [ngStyle]=\"{'background-image':'url(' + item.image + ')'}\"></div>\r\n                    </div>\r\n                    <p><span>{{i + 1}}</span><strong>{{item.name}}</strong></p>\r\n                </div>\r\n          </div>\r\n      </div>\r\n      <!--<div class=\"save-route\"></div>-->    \r\n  </div>\r\n</div>\r\n\r\n<div *ngIf=\"true\" class=\"routs-count\">\r\n    <div class=\"picked-route\" (click)=\"openRoutesMenu()\">\r\n        <div class=\"click\">\r\n            <div class=\"one-route\">\r\n                <span>{{routeIndex + 1}}</span>\r\n                <p>{{selectedRoute.distance?(selectedRoute.distance - selectedRoute.distance % 1000) / 1000 +'km - ' : 'Many-many km'}}{{selectedRoute.duration?(selectedRoute.duration - (selectedRoute.duration % 3600))/3600 + 'h ':''}}{{selectedRoute.duration? (selectedRoute.duration - selectedRoute.duration % 60)/60 - ((selectedRoute.duration - (selectedRoute.duration % 3600))/3600)*60 +'m': '' }}</p>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <br>\r\n    <div class=\"outher\">\r\n        <div *ngFor=\"let route of routes; let i = index\" class=\"click\" (click)=\"changeRoute(i)\">\r\n            <div class=\"one-route\">\r\n                <span>{{i + 1}}</span>\r\n                <p> {{route.distance?(route.distance - route.distance % 1000) / 1000 + ' km - ':'Many-many km'}}{{route.travel_time?(route.travel_time - (route.travel_time % 3600))/3600 +'h ':''}}{{ route.travel_time?(route.travel_time - route.travel_time % 60)/60 - ((route.travel_time - (route.travel_time % 3600))/3600)*60 +'min':''}}</p>\r\n            </div>\r\n        </div>\r\n    </div> \r\n</div>\r\n\r\n\r\n\r\n\r\n<!--новая карточка-->\r\n<!--<div class=\"one-block avp\">\r\n    <div class=\"new-wrapp-for-shadow\">\r\n        <div class=\"for-before-wr\">\r\n            <div class=\"img\" style=\"background-image: url(../assets/img/post_326.jpg)\"></div>\r\n        </div>\r\n        <div class=\"ava\" style=\"background-image: url(../assets/img/ava.jpg)\"></div>\r\n        <div class=\"padd-descript\">\r\n            <p class=\"name\">Донецк - Москва</p>\r\n            <div class=\"button-wr\">\r\n                <div class=\"one\">\r\n                    <div class=\"bg\">\r\n                        <img src=\"../assets/img/like.png\" class=\"img-responsive\" alt=\"\">\r\n                        <span>1</span>\r\n                    </div>\r\n                </div>\r\n                <div class=\"one\">\r\n                    <div class=\"bg\">\r\n                        <img src=\"../assets/img/share.png\" class=\"img-responsive\" alt=\"\">\r\n                        <span>2</span>\r\n                    </div>\r\n                </div>\r\n                <div class=\"one\">\r\n                    <div class=\"bg\">\r\n                        <img src=\"../assets/img/save.png\" class=\"img-responsive\" alt=\"\">\r\n                        <span>3</span>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div> -->\r\n<!--/новая карточка-->\r\n\r\n\r\n<div class=\"modal sights-slider\" id=\"sights-slider\">\r\n    <div class=\"modal-dialog\">\r\n        <div class=\"modal-contant\">\r\n            <div class=\"modal-body\">\r\n                <div class=\"slider-init\">\r\n                    <div class=\"slide\" *ngFor=\"let item of selectedRoute.places; let i = index\">\r\n                        <div class=\"after-slide\">\r\n                            <div class=\"for-before-wr\">\r\n                                <div class=\"img\" [ngStyle]=\"{'background-image':'url(' + item.image + ')' }\"></div>\r\n                            </div>\r\n                            <div class=\"content-sights\">\r\n                                <p class=\"name\">{{item.name}}</p>\r\n                                <p>{{item.description}}</p>\r\n                                <p>{{item.address}}</p>\r\n\r\n                                <div class=\"for-flex-buttons\">\r\n                                    <div class=\"find-more\">\r\n                                        <p>Find more...</p>\r\n                                    </div>\r\n                                    <div class=\"one\" (click)=\"onPlaceLike(item)\">\r\n                                        <div class=\"bg\" [ngClass]=\"{'active': item.is_liked}\">\r\n                                            <img src=\"../assets/img/like.png\" class=\"img-responsive\" alt=\"\">\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>"
+module.exports = "<app-preloader *ngIf=\"isLoading\"></app-preloader>\r\n\r\n<div class=\"best-wr\">  \r\n  <div class=\"fixed-map page-view-after-build\">  \r\n      <div  class=\"for-position-map\">\r\n        <agm-map #gm [mapDraggable]=\"true\" [zoomControl]=\"true\" [latitude]=\"lat\" [longitude]=\"lng\" [fitBounds]=\"zoomBounds\" style=\"height: 100%;\" (mapClick)=\"mapClick()\" [styles]=\"mapStyle\">   \r\n            <!--<agm-marker [iconUrl]=\"'../assets/img/marker-yellow2.png'\" [latitude]=\"StepsCoord[0]?StepsCoord[0].lat:''\" [longitude]=\"StepsCoord[0]?StepsCoord[0].lng:''\"></agm-marker>-->\r\n            <agm-marker [iconUrl]=\"'../assets/img/marker-yellow2.png'\" *ngFor=\"let place of selectedRoute.places; let i = index\" [latitude]=\"place?place.lat:0\" [longitude]=\"place?place.lng:0\" (markerClick)=\"markerClick(i)\">\r\n                <agm-info-window [isOpen]=\"placeWindows[i]\">\r\n                <div class=\"cart-sight-wrapp\">\r\n                    <div class=\"img\" [ngStyle]=\"{'background-image':'url(' + place.image + ')'}\"></div>\r\n                    <div class=\"ava\" style=\"background-image: url(../assets/img/ava.jpg)\"></div>\r\n                    <p class=\"name-sight\">{{place.name}}</p>\r\n                </div>\r\n                </agm-info-window>\r\n            </agm-marker>\r\n            \r\n            <!--<agm-marker [iconUrl]=\"'../assets/img/marker-yellow2.png'\" [latitude]=\"StepsCoord[0]?StepsCoord[StepsCoord.length-1].lat:''\" [longitude]=\"StepsCoord[0]?StepsCoord[StepsCoord.length-1].lng:''\"></agm-marker>-->\r\n            \r\n            <agm-polyline [strokeColor]=\"'#FFC636'\" [strokeOpacity]=\"'0.8'\">\r\n                <ng-container>\r\n                    <agm-polyline-point *ngFor=\"let point of polyline; let i = index\" [latitude]=\"point.lat?point.lat:0\" [longitude]=\"point.lng?point.lng:0\"></agm-polyline-point>\r\n                </ng-container>\r\n            </agm-polyline>\r\n        </agm-map>\r\n      </div>\r\n      \r\n      <div class=\"fixed-sights\" [ngClass]=\"{'visible': 'true'}\">\r\n          <!--<div class=\"flex-sights\">\r\n                <div *ngFor=\"let item of selectedRoute.places; let i = index\" class=\"one-sight\" (click)=\"onRoutePlace(i)\">\r\n                    <div class=\"for-before-wr\">\r\n                        <div class=\"img\" [ngStyle]=\"{'background-image':'url(' + item.image + ')'}\"></div>\r\n                    </div>\r\n                    <p><span>{{i + 1}}</span><strong>{{item.name}}</strong></p>\r\n                </div>\r\n          </div>-->\r\n           <ngu-carousel\r\n                [inputs]=\"carouselOne\"\r\n                class=\"pl-carousel\">\r\n                <ngu-item NguCarouselItem *ngFor=\"let item of selectedRoute.places; let i = index\" (click)=\"onRoutePlace(i)\"  >\r\n                    <div class=\"car-item\">\r\n                        <div class=\"bannerStyle\"  [ngStyle]=\"{'background-image':'url(' + item.image + ')'}\">\r\n                            <div style=\"height:100px;\">\r\n                            </div>                        \r\n                        </div>\r\n                        <p><span>{{i + 1}}</span><strong>{{item.name}}</strong></p>\r\n                    </div>\r\n                </ngu-item> \r\n                <button NguCarouselPrev class='left-arrow-car'>&lt;</button>\r\n                <button NguCarouselNext class='right-arrow-car'>&gt;</button>\r\n            </ngu-carousel>\r\n      </div>\r\n      <!--<div class=\"save-route\"></div>-->    \r\n  </div>\r\n</div>\r\n\r\n<div *ngIf=\"true\" class=\"routs-count\">\r\n    <div class=\"picked-route\" (click)=\"openRoutesMenu()\">\r\n        <div class=\"click\">\r\n            <div class=\"one-route\">\r\n                <span>{{routeIndex + 1}}</span>\r\n                <p>{{selectedRoute.distance?(selectedRoute.distance - selectedRoute.distance % 1000) / 1000 +'km - ' : 'Many-many km'}}{{selectedRoute.duration?(selectedRoute.duration - (selectedRoute.duration % 3600))/3600 + 'h ':''}}{{selectedRoute.duration? (selectedRoute.duration - selectedRoute.duration % 60)/60 - ((selectedRoute.duration - (selectedRoute.duration % 3600))/3600)*60 +'m': '' }}</p>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <br>\r\n    <div class=\"outher\">\r\n        <div *ngFor=\"let route of routes; let i = index\" class=\"click\" (click)=\"changeRoute(i)\">\r\n            <div class=\"one-route\">\r\n                <span>{{i + 1}}</span>\r\n                <p> {{route.distance?(route.distance - route.distance % 1000) / 1000 + ' km - ':'Many-many km'}}{{route.travel_time?(route.travel_time - (route.travel_time % 3600))/3600 +'h ':''}}{{ route.travel_time?(route.travel_time - route.travel_time % 60)/60 - ((route.travel_time - (route.travel_time % 3600))/3600)*60 +'min':''}}</p>\r\n            </div>\r\n        </div>\r\n    </div> \r\n</div>\r\n\r\n\r\n\r\n\r\n<!--новая карточка-->\r\n<!--<div class=\"one-block avp\">\r\n    <div class=\"new-wrapp-for-shadow\">\r\n        <div class=\"for-before-wr\">\r\n            <div class=\"img\" style=\"background-image: url(../assets/img/post_326.jpg)\"></div>\r\n        </div>\r\n        <div class=\"ava\" style=\"background-image: url(../assets/img/ava.jpg)\"></div>\r\n        <div class=\"padd-descript\">\r\n            <p class=\"name\">Донецк - Москва</p>\r\n            <div class=\"button-wr\">\r\n                <div class=\"one\">\r\n                    <div class=\"bg\">\r\n                        <img src=\"../assets/img/like.png\" class=\"img-responsive\" alt=\"\">\r\n                        <span>1</span>\r\n                    </div>\r\n                </div>\r\n                <div class=\"one\">\r\n                    <div class=\"bg\">\r\n                        <img src=\"../assets/img/share.png\" class=\"img-responsive\" alt=\"\">\r\n                        <span>2</span>\r\n                    </div>\r\n                </div>\r\n                <div class=\"one\">\r\n                    <div class=\"bg\">\r\n                        <img src=\"../assets/img/save.png\" class=\"img-responsive\" alt=\"\">\r\n                        <span>3</span>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div> -->\r\n<!--/новая карточка-->\r\n\r\n\r\n<div class=\"modal sights-slider\" id=\"sights-slider\">\r\n    <div class=\"modal-dialog\">\r\n        <div class=\"modal-contant\">\r\n            <div class=\"modal-body\">\r\n                <div class=\"slider-init\">\r\n                    <div class=\"slide\" *ngFor=\"let item of selectedRoute.places; let i = index\">\r\n                        <div class=\"after-slide\">\r\n                            <div class=\"for-before-wr\">\r\n                                <div class=\"img\" [ngStyle]=\"{'background-image':'url(' + item.image + ')' }\"></div>\r\n                            </div>\r\n                            <div class=\"content-sights\">\r\n                                <p class=\"name\">{{item.name}}</p>\r\n                                <p>{{item.description}}</p>\r\n                                <p>{{item.address}}</p>\r\n\r\n                                <div class=\"for-flex-buttons\">\r\n                                    <div class=\"find-more\">\r\n                                        <p>Find more...</p>\r\n                                    </div>\r\n                                    <div class=\"one\" (click)=\"onPlaceLike(item)\">\r\n                                        <div class=\"bg\" [ngClass]=\"{'active': item.is_liked}\">\r\n                                            <img src=\"../assets/img/like.png\" class=\"img-responsive\" alt=\"\">\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -2118,11 +2461,25 @@ var ViewAfterBuildComponent = (function () {
         this.polyline = [];
         this.routeIndex = 0;
         this.selectedRoute = new __WEBPACK_IMPORTED_MODULE_5__core_models_route_model__["a" /* RouteModel */]();
+        this.placeWindows = [];
+        this.mapStyle = this.getMapStyle();
     }
     ViewAfterBuildComponent.prototype.ngOnInit = function () {
         var _this = this;
         $(".content").addClass("all-pages");
         this.service.onPageChange$.next(false);
+        this.carouselOne = {
+            grid: { xs: 2, sm: 3, md: 3, lg: 5, all: 0 },
+            slide: 1,
+            speed: 400,
+            point: {
+                visible: false,
+                pointStyles: "\n          .ngucarouselPoint {\n            list-style-type: none;\n            text-align: center;\n            padding: 12px;\n            margin: 0;\n            white-space: nowrap;\n            overflow: auto;\n            position: absolute;\n            width: 100%;\n            bottom: 0px;\n            left: 0;\n            box-sizing: border-box;\n          }\n          .ngucarouselPoint li {\n            display: inline-block;\n            border-radius: 999px;\n            background: rgba(255, 255, 255, 0.55);\n            padding: 5px;\n            margin: 0 3px;\n            transition: .4s ease all;\n          }\n          .ngucarouselPoint li.active {\n              background: white;\n              width: 10px;\n          }\n        "
+            },
+            load: 2,
+            loop: true,
+            touch: true
+        };
         var sub = this.route.params.subscribe(function (params) {
             $('#sights-slider').on('hidden.bs.modal', function () {
                 $('.slider-init').slick('unslick');
@@ -2143,6 +2500,9 @@ var ViewAfterBuildComponent = (function () {
                         }
                     }
                     _this.changeRoute(0);
+                    _this.isLoading = false;
+                }, function (err) {
+                    _this.router.navigate(['/best', params]);
                 });
             }
             else {
@@ -2156,6 +2516,9 @@ var ViewAfterBuildComponent = (function () {
                         }
                     }
                     _this.changeRoute(0);
+                    _this.isLoading = false;
+                }, function (err) {
+                    _this.router.navigate(['/best', params]);
                 });
             }
         });
@@ -2213,7 +2576,6 @@ var ViewAfterBuildComponent = (function () {
         this.zoomBounds.extend(new google.maps.LatLng(to.lat, to.lon));
     };
     ViewAfterBuildComponent.prototype.changeRoute = function (index) {
-        var _this = this;
         this.selectedRoute = this.routes[index];
         this.routeIndex = index;
         this.polyline = [];
@@ -2224,31 +2586,33 @@ var ViewAfterBuildComponent = (function () {
                 this.polyline.push(point);
             }
         }
+        this.clearInfoWin();
         this.getRouteMiddle(this.selectedRoute);
-        setTimeout(function () {
-            _this.isModalVisible = true;
+        /*  setTimeout(() => {
+            this.isModalVisible = true;
+      
             $('.flex-sights').slick({
-                slidesToShow: 6,
-                slidesToScroll: 1,
-                arrows: true,
-                dots: false,
-                infinite: false,
-                responsive: [
-                    {
-                        breakpoint: 1601,
-                        settings: {
-                            slidesToShow: 6
-                        }
-                    },
-                    {
-                        breakpoint: 1301,
-                        settings: {
-                            slidesToShow: 3
-                        }
-                    }
-                ]
+              slidesToShow: 6,
+              slidesToScroll: 1,
+              arrows: true,
+              dots: false,
+              infinite: false,
+              responsive: [
+                {
+                  breakpoint: 1601,
+                  settings: {
+                    slidesToShow: 6
+                  }
+                },
+                {
+                  breakpoint: 1301,
+                  settings: {
+                    slidesToShow: 3
+                  }
+                }
+              ]
             });
-        }, 200);
+          }, 200);*/
     };
     ViewAfterBuildComponent.prototype.onPlaceLike = function (place) {
         this.service.likePlace(place.id)
@@ -2286,26 +2650,19 @@ var ViewAfterBuildComponent = (function () {
         });
         $('.slider-init').slick('slickGoTo', index, true);
     };
-    ViewAfterBuildComponent.prototype.clearInfoWin = function (i) {
-        /*    let count = this.isInfoWinOpen.length;
-            this.isInfoWinOpen = [];
-            for(let i=0;i<count;i++)this.isInfoWinOpen.push(false);
-            this.InfoWindowHSize = 0;
-            if(i)  this.isInfoWinOpen[i] = !this.isInfoWinOpen[i];*/
+    ViewAfterBuildComponent.prototype.clearInfoWin = function () {
+        for (var i in this.placeWindows) {
+            this.placeWindows[i] = false;
+        }
     };
     ViewAfterBuildComponent.prototype.mapClick = function () {
         this.clearInfoWin();
     };
     ViewAfterBuildComponent.prototype.markerClick = function (i) {
         this.clearInfoWin();
-        /* this.isInfoWinOpen[i] = true;
-    
-          if( this.isInfoWinOpen[i]) this.InfoWindowHSize = 150/Math.pow(2,this.zoom);
-          else this.InfoWindowHSize = 0;
-    
-          this.lat = this.Places[i].lat;
-          this.lng = this.Places[i].lng;
-         */
+        this.placeWindows[i] = !this.placeWindows[i];
+        this.lat = this.selectedRoute.places[i].lat + 0.025;
+        this.lng = this.selectedRoute.places[i].lng;
     };
     ViewAfterBuildComponent.prototype.ngAfterViewInit = function () {
     };
@@ -2365,7 +2722,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 if (__WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].production) {
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_15" /* enableProdMode */])();
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_16" /* enableProdMode */])();
 }
 Object(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_2__app_app_module__["a" /* AppModule */])
     .catch(function (err) { return console.log(err); });

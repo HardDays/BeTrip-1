@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { MainService } from '../core/services/main.service';
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import { LatLonSpherical } from 'geodesy';
+import { NguCarousel } from '@ngu/carousel';
 import { MapsAPILoader, LatLng, LatLngBounds } from '@agm/core';
 import { RouteModel } from "../core/models/route.model";
 import { PlaceModel } from "../core/models/place.model";
@@ -20,8 +21,12 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
   constructor(private router: Router, private route: ActivatedRoute,
     private service: MainService, private params: ActivatedRoute, private mapsAPILoader: MapsAPILoader) { }
 
-  menuShowed: boolean = false;
+  carouselOne: NguCarousel;
 
+  menuShowed: boolean = false;
+ 
+  lat: number;
+  lng: number;
   zoomBounds: google.maps.LatLngBounds;
 
   isSliderOpen: boolean = true;
@@ -32,10 +37,53 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
   polyline: CoordsModel[] = [];
   routeIndex: number = 0;
   selectedRoute: RouteModel = new RouteModel();
+  placeWindows: boolean[] = [];
+
+  mapStyle = this.getMapStyle();
 
   ngOnInit() {
     $(".content").addClass("all-pages");
     this.service.onPageChange$.next(false);
+
+    this.carouselOne = {
+      grid: {xs: 2, sm: 3, md: 3, lg: 5, all: 0},
+      slide: 1,
+      speed: 400,      
+      point: {
+        visible: false,
+        pointStyles: `
+          .ngucarouselPoint {
+            list-style-type: none;
+            text-align: center;
+            padding: 12px;
+            margin: 0;
+            white-space: nowrap;
+            overflow: auto;
+            position: absolute;
+            width: 100%;
+            bottom: 0px;
+            left: 0;
+            box-sizing: border-box;
+          }
+          .ngucarouselPoint li {
+            display: inline-block;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.55);
+            padding: 5px;
+            margin: 0 3px;
+            transition: .4s ease all;
+          }
+          .ngucarouselPoint li.active {
+              background: white;
+              width: 10px;
+          }
+        `
+      },
+      load: 2,
+      loop: true,
+      touch: true
+    }
+
     let sub: any = this.route.params.subscribe(params => {
       $('#sights-slider').on('hidden.bs.modal', function () {
         $('.slider-init').slick('unslick');
@@ -59,6 +107,10 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
               }
             }
             this.changeRoute(0);
+            this.isLoading = false;
+          },
+          (err) =>{
+            this.router.navigate(['/best', params]);
           }
         );
       }else{
@@ -72,7 +124,11 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
                 route.places[k].image = this.service.getImageUrl(route.places[k].cover_id);
               }
             }
-             this.changeRoute(0);
+            this.changeRoute(0);
+            this.isLoading = false;
+          },
+          (err) =>{
+            this.router.navigate(['/best', params]);
           }
         );
       }
@@ -152,8 +208,9 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
         this.polyline.push(point);
       }
     }
+    this.clearInfoWin();
     this.getRouteMiddle(this.selectedRoute);
-    setTimeout(() => {
+  /*  setTimeout(() => {
       this.isModalVisible = true;
 
       $('.flex-sights').slick({
@@ -177,7 +234,7 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
           }
         ]
       });
-    }, 200);
+    }, 200);*/
   }
 
   onPlaceLike(place: PlaceModel) {
@@ -217,29 +274,22 @@ export class ViewAfterBuildComponent implements OnInit, AfterViewInit {
     $('.slider-init').slick('slickGoTo', index, true);
   }
 
-  clearInfoWin(i?: number) {
-    /*    let count = this.isInfoWinOpen.length;
-        this.isInfoWinOpen = [];
-        for(let i=0;i<count;i++)this.isInfoWinOpen.push(false);
-        this.InfoWindowHSize = 0;
-        if(i)  this.isInfoWinOpen[i] = !this.isInfoWinOpen[i];*/
+ clearInfoWin() {
+   for (let i in this.placeWindows){
+      this.placeWindows[i] = false;
+    }
   }
+
 
   mapClick() {
     this.clearInfoWin();
   }
 
   markerClick(i: number) {
-
     this.clearInfoWin();
-    /* this.isInfoWinOpen[i] = true;
-
-      if( this.isInfoWinOpen[i]) this.InfoWindowHSize = 150/Math.pow(2,this.zoom);
-      else this.InfoWindowHSize = 0;
-
-      this.lat = this.Places[i].lat;
-      this.lng = this.Places[i].lng;
-     */
+     this.placeWindows[i]= !this.placeWindows[i];
+    this.lat = this.selectedRoute.places[i].lat + 0.025;
+    this.lng = this.selectedRoute.places[i].lng; 
   }
 
 

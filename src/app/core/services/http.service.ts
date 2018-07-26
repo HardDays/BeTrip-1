@@ -11,6 +11,7 @@ import { TokenModel } from '../models/token.model';
 export class HttpService
 {
     GoogleMapUrl: string = "https://maps.googleapis.com/maps/api/geocode/json?address=";
+    locUrl: string = "https://ipinfo.io";
     serverUrl: string = "http://104.40.181.0:3000";//"http://localhost:3000"; // "http://213.196.32.20:3000";
     public headers:Headers = new Headers([]);
     public token: TokenModel = new TokenModel('');
@@ -46,7 +47,7 @@ export class HttpService
             .catch((error:any) =>{return Observable.throw(error);});
     }
 
-    GetData(method:string,params:string)
+    GetData(method:string, params:string)
     {
         if(!this.headers.has('Content-Type'))
             this.headers.append('Content-Type','application/json');
@@ -76,6 +77,15 @@ export class HttpService
             let json = res.json();
             return json.results;
           })
+    }
+
+    GetLocation()
+    {
+        if(!this.headers.has('Content-Type'))
+            this.headers.append('Content-Type','application/json');
+        return this.http.get(this.locUrl)
+            .map((resp:Response)=>resp.json())
+            .catch((error:any) =>{return Observable.throw(error);});
     }
 
 }

@@ -8,6 +8,7 @@ import { RouteModel } from "../core/models/route.model";
 import { PlaceModel } from "../core/models/place.model";
 import { PreloaderComponent } from '../preloader/preloader.component';
 import { LatLonSpherical } from 'geodesy';
+import { NguCarousel } from '@ngu/carousel';
 
 declare var jquery: any;
 declare var $: any;
@@ -20,8 +21,11 @@ declare var $: any;
 export class BestComponent implements OnInit {
 
   constructor(private service: MainService, private mapsAPILoader: MapsAPILoader) { }
+  carouselOne: NguCarousel;
 
   zoomBounds: google.maps.LatLngBounds;
+  lat: number;
+  lng: number;
 
   isSliderOpen: boolean = true;
   isModalVisible: boolean = false;
@@ -30,6 +34,8 @@ export class BestComponent implements OnInit {
   routes: RouteModel[] = [];
   polyline: CoordsModel[] = [];
   selectedRoute: RouteModel = new RouteModel();
+  
+  placeWindows: boolean[] = [];
 
   params = {
     limit: 10,
@@ -41,6 +47,45 @@ export class BestComponent implements OnInit {
   ngOnInit() {
     $(".content").addClass("all-pages");
     this.service.onPageChange$.next(false);
+
+    this.carouselOne = {
+      grid: {xs: 2, sm: 3, md: 3, lg: 3, all: 0},
+      slide: 1,
+      speed: 400,      
+      point: {
+        visible: false,
+        pointStyles: `
+          .ngucarouselPoint {
+            list-style-type: none;
+            text-align: center;
+            padding: 12px;
+            margin: 0;
+            white-space: nowrap;
+            overflow: auto;
+            position: absolute;
+            width: 100%;
+            bottom: 0px;
+            left: 0;
+            box-sizing: border-box;
+          }
+          .ngucarouselPoint li {
+            display: inline-block;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.55);
+            padding: 5px;
+            margin: 0 3px;
+            transition: .4s ease all;
+          }
+          .ngucarouselPoint li.active {
+              background: white;
+              width: 10px;
+          }
+        `
+      },
+      load: 2,
+      loop: true,
+      touch: true
+    }
 
     $('#sights-slider').on('hidden.bs.modal', function () {
       $('.slider-init').slick('unslick');
@@ -64,6 +109,7 @@ export class BestComponent implements OnInit {
             route.places[k].image = this.service.getImageUrl(route.places[k].cover_id);
           }
         }
+        this.isLoading = false;
       },
       (err) => {
         console.log(err);
@@ -87,11 +133,10 @@ export class BestComponent implements OnInit {
     this.clearInfoWin();
   }
 
-  clearInfoWin(i?: number) {
-    /* let count = this.isInfoWinOpen.length;
-     this.isInfoWinOpen = [];
-     for(let i=0;i<count;i++)this.isInfoWinOpen.push(false);
-     if(i)  this.isInfoWinOpen[i] = !this.isInfoWinOpen[i];*/
+  clearInfoWin() {
+   for (let i in this.placeWindows){
+      this.placeWindows[i] = false;
+    }
   }
 
   mapClick() {
@@ -99,10 +144,10 @@ export class BestComponent implements OnInit {
   }
 
   markerClick(i: number) {
-
     this.clearInfoWin();
-    //this.isInfoWinOpen[i] = true;
-    // this.isInfoWinOpen[i]= !this.isInfoWinOpen[i];
+    this.placeWindows[i]= !this.placeWindows[i];
+    this.lat = this.selectedRoute.places[i].lat + 0.025;
+    this.lng = this.selectedRoute.places[i].lng; 
   }
 
   getCurvedLine(place: PlaceModel, nextPlace: PlaceModel, isRight: number) {
@@ -148,16 +193,15 @@ export class BestComponent implements OnInit {
   }
 
   onRoute(index: number) {
-    this.isModalVisible = false;
+    this.isModalVisible = true;
     this.selectedRoute = this.routes[index];
 
-    if (!this.isSliderOpen) {
+    /*if (!this.isSliderOpen) {
       $('.flex-sights').slick('unslick');
-    }
+    }*/
+    this.clearInfoWin();
 
     this.getRouteMiddle(this.selectedRoute);
-   // this.centerLat = center.lat;
- //   this.centerLng = center.lng;
 
     this.isSliderOpen = false;
     this.polyline = [];
@@ -170,7 +214,7 @@ export class BestComponent implements OnInit {
       }
     }
 
-    setTimeout(() => {
+    /*setTimeout(() => {
       this.isModalVisible = true;
 
       $('.flex-sights').slick({
@@ -194,7 +238,7 @@ export class BestComponent implements OnInit {
           }
         ]
       });
-    }, 200);
+    }, 200);*/
   }
 
   onRoutePlace(index) {

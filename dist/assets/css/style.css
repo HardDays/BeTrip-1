@@ -1626,6 +1626,137 @@ footer #mc-form input:-ms-input-placeholder {
     font-size: 4rem;
     margin-bottom: 40px !important; }
 
+.cats-footer {
+  position: fixed;
+  bottom: 0px;
+  z-index: 5000;
+  margin-bottom: 0px; 
+  margin: auto;
+  left: 0;
+  right: 0;
+  background-color: #252525;
+}
+
+.show-div {
+  display: table;
+  margin: 0 auto;
+  margin-top: 10px;
+}
+
+.btn-show-out {
+  background-color: #e5e5e5;
+}
+
+.bannerStyle  {
+  background-size: cover !important;
+  height: 100%;
+  margin: 0px 5px 0px 5px;
+}
+
+.bannerStyle img {
+  width: 100%;
+  height: 100%;
+}
+
+
+.pl-carousel{
+  background-color:transparent; 
+  height: 135px; 
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.car-item{
+}
+
+.car-item p {
+  margin: 0px 5px 0px 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-size: 12px;
+  text-align: center;
+  line-height: 12px;
+  padding: 5px;
+  background: #fff;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  min-width: 0; }
+  
+.car-item p strong {
+    display: block;
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 120px;
+    white-space: nowrap; }
+
+.car-item p span {
+  color: #000 !important;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  padding-top: 2px;
+  display: block;
+  width: 20px;
+  height: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background: #FFC636;
+  border-radius: 50%;
+  margin-right: 4px; }
+
+.car-item:hover p {
+  background-color: #240A30;
+  color: #FFC636; }
+
+.left-arrow-car {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  width: 50px;
+  height: 50px;
+  font-size: 40px;
+  border-radius: 999px;
+  color: #FFC636;
+  border-width: 0px;
+  background-color: transparent;
+  left: 0;
+  text-align: left;
+}
+
+.right-arrow-car {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  width: 50px;
+  height: 80px;
+  border-radius: 999px;
+  border-width: 0px;
+  color: #FFC636;
+  font-size: 40px;
+  background-color: transparent;
+  right: 0;
+  text-align: right;
+}
+
 .one-block.avp {
   position: fixed;
   bottom: 30px;

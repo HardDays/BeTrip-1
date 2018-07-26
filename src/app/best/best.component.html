@@ -1,4 +1,4 @@
-<app-preloader *ngIf="Load"></app-preloader>
+<app-preloader *ngIf="isLoading"></app-preloader>
 
 <div class="best-wr">
   <div class="left-side">
@@ -46,11 +46,11 @@
       <!--Сюда карту-->
       
     <div class="for-position-map">
-        <agm-map #gm [mapDraggable]="true" [zoomControl]="true" [fitBounds]="zoomBounds" style="height: 100%;" (mapClick)="mapClick()" [styles]="MapStyle">
+        <agm-map #gm [mapDraggable]="true" [zoomControl]="true" [latitude]="lat" [longitude]="lng" [fitBounds]="zoomBounds" style="height: 100%;" (mapClick)="mapClick()" [styles]="mapStyle">
             
             <!--<agm-marker [iconUrl]="'../assets/img/marker-yellow2.png'" [latitude]="StepsCoord[0]?StepsCoord[0].lat:''" [longitude]="StepsCoord[0]?StepsCoord[0].lng:''"></agm-marker>-->
             <agm-marker [iconUrl]="'../assets/img/marker-yellow2.png'" *ngFor="let place of selectedRoute.places; let i = index" [latitude]="place?place.lat:0" [longitude]="place?place.lng:0" (markerClick)="markerClick(i)">
-                <agm-info-window [isOpen]="false">
+                <agm-info-window [isOpen]="placeWindows[i]">
                 <div class="cart-sight-wrapp">
                     <div class="img" [ngStyle]="{'background-image':'url(' + place.image + ')'}"></div>
                     <div class="ava" style="background-image: url(../assets/img/ava.jpg)"></div>
@@ -69,14 +69,29 @@
         </agm-map>
     </div>
     <div class="fixed-sights" [ngClass]="{'visible': !isSliderOpen && isModalVisible}">
-          <div class="flex-sights">
+       <!--   <div class="flex-sights">
                 <div *ngFor="let item of selectedRoute.places; let i = index" class="one-sight" (click)="onRoutePlace(i)">
                     <div class="for-before-wr">
                         <div class="img" [ngStyle]="{'background-image':'url(' + item.image + ')'}"></div>
                     </div>
                     <p><span>{{i + 1}}</span><strong>{{item.name}}</strong></p>
                 </div>
-          </div>
+          </div>-->
+            <ngu-carousel
+                [inputs]="carouselOne"
+                class="pl-carousel">
+                <ngu-item NguCarouselItem *ngFor="let item of selectedRoute.places; let i = index" (click)="onRoutePlace(i)"  >
+                    <div class="car-item">
+                        <div class="bannerStyle"  [ngStyle]="{'background-image':'url(' + item.image + ')'}">
+                            <div style="height:100px;">
+                            </div>                        
+                        </div>
+                        <p><span>{{i + 1}}</span><strong>{{item.name}}</strong></p>
+                    </div>
+                </ngu-item> 
+                <button NguCarouselPrev class='left-arrow-car'>&lt;</button>
+                <button NguCarouselNext class='right-arrow-car'>&gt;</button>
+            </ngu-carousel>
     </div>
   </div>
 </div>

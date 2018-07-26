@@ -3,6 +3,7 @@ import { MainService } from '../core/services/main.service';
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import { MapsAPILoader, LatLng, LatLngBounds } from '@agm/core';
 import { LatLonSpherical } from 'geodesy';
+import { NguCarousel } from '@ngu/carousel';
 
 import { RouteModel } from "../core/models/route.model";
 import { PlaceModel } from "../core/models/place.model";
@@ -24,6 +25,8 @@ export class RouteComponent implements OnInit, AfterViewInit {
     private params: ActivatedRoute, 
     private mapsAPILoader: MapsAPILoader) { }
 
+  carouselOne: NguCarousel;
+
   zoomBounds: google.maps.LatLngBounds;
 
   isSliderOpen: boolean = true;
@@ -38,13 +41,11 @@ export class RouteComponent implements OnInit, AfterViewInit {
 
   activeRoute: number = 0;
   CurrentRoute: any = null;
-  isInfoWinOpen: boolean[] = [];
+  placeWindows: boolean[] = [];
   allRoutsImages: any = [];
   RouteImage: any = null;
   StepsCoord: CoordsModel[] = [];
-  Places: any[] = [];
-  variantsRoute: any[] = [];
-  MapStyle = this.getMapStyle();
+  mapStyle = this.getMapStyle();
   flagForDropdown: boolean = false;
   InfoWindowHSize: number = 0;
   isILikeIt: boolean = false;
@@ -53,10 +54,48 @@ export class RouteComponent implements OnInit, AfterViewInit {
   flagForOpenSlider: boolean = true;
   newFlagForVisible: boolean = false;
 
-
   ngOnInit() {
     this.service.onPageChange$.next(false);
     // this.StepsCoord.push(new CoordsModel(this.lat,this.lng));
+
+    this.carouselOne = {
+      grid: {xs: 2, sm: 3, md: 3, lg: 5, all: 0},
+      slide: 1,
+      speed: 400,      
+      point: {
+        visible: false,
+        pointStyles: `
+          .ngucarouselPoint {
+            list-style-type: none;
+            text-align: center;
+            padding: 12px;
+            margin: 0;
+            white-space: nowrap;
+            overflow: auto;
+            position: absolute;
+            width: 100%;
+            bottom: 0px;
+            left: 0;
+            box-sizing: border-box;
+          }
+          .ngucarouselPoint li {
+            display: inline-block;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.55);
+            padding: 5px;
+            margin: 0 3px;
+            transition: .4s ease all;
+          }
+          .ngucarouselPoint li.active {
+              background: white;
+              width: 10px;
+          }
+        `
+      },
+      load: 2,
+      loop: true,
+      touch: true
+    }
 
     this.route.params.subscribe(params => {
 
@@ -65,6 +104,7 @@ export class RouteComponent implements OnInit, AfterViewInit {
           this.selectedRoute = res as RouteModel;
           this.selectedRoute.image = this.service.getImageUrl(this.selectedRoute.cover_id);
           for (let k in this.selectedRoute.places) {
+            this.placeWindows.push(false);
             this.selectedRoute.places[k].image = this.service.getImageUrl(this.selectedRoute.places[k].cover_id);
           }
 
@@ -84,6 +124,7 @@ export class RouteComponent implements OnInit, AfterViewInit {
           this.mapsAPILoader.load().then(() => {
             this.getRouteMiddle(this.selectedRoute);
           });
+          this.isLoading = false;
 
         },
         (err) => {
@@ -205,30 +246,26 @@ export class RouteComponent implements OnInit, AfterViewInit {
     $('.slider-init').slick('slickGoTo', index, true);
   }
 
-  clearInfoWin(i?: number) {
-    let count = this.isInfoWinOpen.length;
-    this.isInfoWinOpen = [];
-    for (let i = 0; i < count; i++)this.isInfoWinOpen.push(false);
-    this.InfoWindowHSize = 0;
-    if (i) this.isInfoWinOpen[i] = !this.isInfoWinOpen[i];
+  clearInfoWin() {
+   for (let i in this.placeWindows){
+      this.placeWindows[i] = false;
+    }
   }
+
   mapClick() {
     this.clearInfoWin();
   }
+  
   markerClick(i: number) {
     //this.isInfoWinOpen[i]= !this.isInfoWinOpen[i];
     this.clearInfoWin();
-    this.isInfoWinOpen[i] = true;
-
-    if (this.isInfoWinOpen[i]) this.InfoWindowHSize = 1;
-    else this.InfoWindowHSize = 1;
-    // console.log(this.Places[i]);
-    this.lat = this.Places[i].lat;
-    this.lng = this.Places[i].lng;
+    this.placeWindows[i]= !this.placeWindows[i];
+    this.lat = this.selectedRoute.places[i].lat + 0.025;
+    this.lng = this.selectedRoute.places[i].lng; 
   }
 
   ngAfterViewInit() {
-    setTimeout(() => {
+    /*setTimeout(() => {
 
       $('.flex-sights').slick({
         slidesToShow: 6,
@@ -251,6 +288,6 @@ export class RouteComponent implements OnInit, AfterViewInit {
           }
         ]
       });
-    }, 300);
+    }, 300);*/
   }
 }

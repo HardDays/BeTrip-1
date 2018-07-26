@@ -59,7 +59,7 @@ export class BuildComponent implements OnInit {
           () => {
              
            let autocomplete = new google.maps.places.Autocomplete(this.searchElementFrom.nativeElement, {types:[`(cities)`]});
-          
+         
             autocomplete.addListener("place_changed", () => {
              this.ngZone.run(() => {
              let place: google.maps.places.PlaceResult = autocomplete.getPlace();  

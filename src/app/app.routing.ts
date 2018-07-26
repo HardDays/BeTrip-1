@@ -9,6 +9,7 @@ import { FaqComponent } from './faq/faq.component';
 import { FunctionalityComponent } from './functionality/functionality.component';
 import { TripsComponent } from './trips/trips.component';
 import { RouteComponent } from './route/route.component';
+import { PlacesComponent } from './places/places.component';
 import { ViewAfterBuildComponent } from './view-after-build/view-after-build.component';
 
 
@@ -21,8 +22,8 @@ const routes: Routes = [
     { path: 'functionality',component: FunctionalityComponent },
     { path: 'trips',component: TripsComponent },
     { path: 'routes',component: ViewAfterBuildComponent },
-    { path: 'route/:id',component: RouteComponent }
-    
+    { path: 'route/:id',component: RouteComponent },
+    { path: 'places',component: PlacesComponent }    
 ];
 
 @NgModule({

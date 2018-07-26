@@ -105,7 +105,8 @@ export class MainService {
       from_lng: lngFrom,
       to_lat: latTo,
       to_lng: lngTo,
-      categories: categories
+      categories: categories,
+      language: 'en'
     }
     return this.http.GetData('/routes/bidirectional/venues', this.urlParams(data));
   }
@@ -114,9 +115,21 @@ export class MainService {
     let data = {
       lat: latFrom,
       lng: lngFrom,
-      categories: categories
+      categories: categories,
+      language: 'en'
     }
     return this.http.GetData('/routes/internal/venues', this.urlParams(data));
+  }
+
+  getPlaces(lat: number, lng: number, categories: string[]) {
+     let data = {
+      lat: lat,
+      lng: lng,
+      language: 'en',
+      radius: 5,
+      categories: categories
+    }
+    return this.http.GetData('/places/venues', this.urlParams(data));
   }
 
   getImage(id: string) {
@@ -137,6 +150,10 @@ export class MainService {
 
   likePlace(place_id: number) {
     return this.http.PostData('/places/' + place_id + '/likes', '');
+  }
+
+  getUserLocation(){
+    return this.http.GetLocation();
   }
 
   public allCategories() {

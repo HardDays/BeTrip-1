@@ -20,6 +20,8 @@ import { HttpService } from './core/services/http.service';
 import { FooterComponent } from './footer/footer.component';
 import { Angular2SocialLoginModule } from "angular2-social-login";
 import { PreloaderComponent } from './preloader/preloader.component';
+import { PlacesComponent } from './places/places.component';
+import { NguCarouselModule } from '@ngu/carousel';
 
 let providers = {
   "google": {
@@ -42,7 +44,8 @@ let providers = {
     ViewAfterBuildComponent,
     FooterComponent,
     RouteComponent,
-    PreloaderComponent
+    PreloaderComponent,
+    PlacesComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +59,8 @@ let providers = {
       language:'en'
     }),
     ReactiveFormsModule,
-    Angular2SocialLoginModule
+    Angular2SocialLoginModule,
+    NguCarouselModule
   ],
   providers: [MainService, HttpModule, HttpService],
   bootstrap: [AppComponent]

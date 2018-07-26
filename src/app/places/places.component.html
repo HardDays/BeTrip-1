@@ -1,0 +1,109 @@
+<app-preloader *ngIf="isLoading"></app-preloader>
+<div class="best-wr">  
+  <div class="fixed-map page-view-after-build">  
+      <div  class="for-position-map">
+        <agm-map #gm [mapDraggable]="true" [zoomControl]="true" [latitude]="lat" [zoom]="13"  [longitude]="lng" style="height: 100%;" (mapClick)="mapClick()" (centerChange)="onCenterChanged($event)" [styles]="mapStyle">   
+            <!--<agm-marker [iconUrl]="'../assets/img/marker-yellow2.png'" [latitude]="StepsCoord[0]?StepsCoord[0].lat:''" [longitude]="StepsCoord[0]?StepsCoord[0].lng:''"></agm-marker>-->
+            <agm-marker [iconUrl]="'../assets/img/marker-yellow2.png'" *ngFor="let place of places; let i = index" [latitude]="place?place.lat:0" [longitude]="place?place.lng:0" (markerClick)="onMarkerClick(i)">
+                <agm-info-window [isOpen]="placeWindows[i]">
+                    <div class="cart-sight-wrapp">
+                        <div class="img" [ngStyle]="{'background-image':'url(' + place.image + ')'}"></div>
+                        <div class="ava" style="background-image: url(../assets/img/ava.jpg)"></div>
+                        <p class="name-sight">{{place.name}}</p>
+                    </div>
+                </agm-info-window>
+            </agm-marker>
+            
+            <!--<agm-marker [iconUrl]="'../assets/img/marker-yellow2.png'" [latitude]="StepsCoord[0]?StepsCoord[StepsCoord.length-1].lat:''" [longitude]="StepsCoord[0]?StepsCoord[StepsCoord.length-1].lng:''"></agm-marker>-->
+        </agm-map>
+      </div>
+      
+      <div class="fixed-sights" [ngClass]="{'visible': true}">
+          
+          <!--<div class="flex-sights">
+                <div *ngFor="let item of places; let i = index" class="one-sight" (click)="onRoutePlace(i)">
+                    <div class="for-before-wr">
+                        <div class="img" [ngStyle]="{'background-image':'url(' + item.image + ')'}"></div>
+                    </div>
+                    <p><span>{{i + 1}}</span><strong>{{item.name}}</strong></p>
+                </div>
+          </div>-->
+
+          <ngu-carousel
+                *ngIf="isFlexVisible"
+                [inputs]="carouselOne"
+                class="pl-carousel">
+                <ngu-item NguCarouselItem *ngFor="let item of places; let i = index" (click)="onRoutePlace(i)"  >
+                    <div class="car-item">
+                        <div class="bannerStyle"  [ngStyle]="{'background-image':'url(' + item.image + ')'}">
+                            <div style="height:100px;">
+                            </div>                        
+                        </div>
+                        <p><span>{{i + 1}}</span><strong>{{item.name}}</strong></p>
+                    </div>
+                </ngu-item> 
+                <button NguCarouselPrev class='left-arrow-car'>&lt;</button>
+                <button NguCarouselNext class='right-arrow-car'>&gt;</button>
+            </ngu-carousel>
+          
+          <div *ngIf="isShowVisible" class="show-div">
+            <button class="btn btn-default btn-show-out" (click)="onShowHere()">Show here</button>
+          </div>
+      </div>
+
+      <!--<div class="save-route"></div>-->    
+  </div>
+</div>
+
+<div class="modal sights-slider" id="sights-slider">
+    <div class="modal-dialog">
+        <div class="modal-contant">
+            <div class="modal-body">
+                <div class="slider-init">
+                    <div class="slide" *ngFor="let item of places; let i = index">
+                        <div class="after-slide">
+                            <div class="for-before-wr">
+                                <div class="img" [ngStyle]="{'background-image':'url(' + item.image + ')' }"></div>
+                            </div>
+                            <div class="content-sights">
+                                <p class="name">{{item.name}}</p>
+                                <p>{{item.description}}</p>
+                                <p>{{item.address}}</p>
+
+                                <div class="for-flex-buttons">
+                                    <div class="find-more">
+                                        <p>Find more...</p>
+                                    </div>
+                                    <div class="one" (click)="onPlaceLike(item)">
+                                        <div class="bg" [ngClass]="{'<act></act>ive': item.is_liked}">
+                                            <img src="../assets/img/like.png" class="img-responsive" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="cats-footer">
+  <div class="check-boxes-wr"  style="height:60px;">
+    <div class="container"  style="height:60px;">
+        <div class="row"  style="height:60px;">
+            <div class="col-md-12">
+                <ul class="for-flex-check"  style="height:60px;">
+                    <li *ngFor="let cb of categories; let i = index" (click)="changeCategory(i)" [class.active] ="cb.checked">
+                        <div class="image">
+                            <img [src]="'../assets/img/icons/'+ cb.image" class="img-responsive max-width-icon-new" width="30px" alt="">
+                        </div>
+                        <span>{{cb.name}}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
