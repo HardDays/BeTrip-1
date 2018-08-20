@@ -930,7 +930,7 @@ var HttpService = (function () {
         this.http = http;
         this.GoogleMapUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=";
         this.locUrl = "https://ipinfo.io";
-        this.serverUrl = "http://104.40.181.0:3000"; //"http://localhost:3000"; // "http://213.196.32.20:3000";
+        this.serverUrl = "http://betrip.westeurope.cloudapp.azure.com:3000"; //"http://localhost:3000"; // "http://213.196.32.20:3000";
         this.headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]([]);
         this.token = new __WEBPACK_IMPORTED_MODULE_6__models_token_model__["a" /* TokenModel */]('');
         if (!this.headers.has('Content-Type'))

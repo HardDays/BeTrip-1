@@ -12,7 +12,7 @@ export class HttpService
 {
     GoogleMapUrl: string = "https://maps.googleapis.com/maps/api/geocode/json?address=";
     locUrl: string = "https://ipinfo.io";
-    serverUrl: string = "http://104.40.181.0:3000";//"http://localhost:3000"; // "http://213.196.32.20:3000";
+    serverUrl: string = "http://betrip.westeurope.cloudapp.azure.com:3000";//"http://localhost:3000"; // "http://213.196.32.20:3000";
     public headers:Headers = new Headers([]);
     public token: TokenModel = new TokenModel('');
     constructor(private http: Http){
