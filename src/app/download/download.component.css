@@ -1,0 +1,45 @@
+.email{
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: transparent;
+    outline: none;
+    display: block;
+    width: 100%;
+    color: #fff;
+    padding: 10px;
+    padding-right: 40px;
+    background-repeat: no-repeat;
+    background-size: 20px;
+    background-position: right 10px center;
+    max-width: 290px;
+    margin: 0 auto 20px auto;
+}
+.email::-webkit-input-placeholder {
+    color: #fff;
+}
+.email::-moz-placeholder {
+    color: #fff;
+}
+.email:-moz-placeholder {
+    color: #fff;
+}
+.email:-ms-input-placeholder {
+    color: #fff;
+}
+.send{
+    flex-shrink: 0;
+    display: block;
+    margin: 0 auto;
+    max-width: 290px;
+    width: 100%;
+    padding: 8px;
+    text-align: center;
+    border: none;
+    background: #FFC636;
+    color: #fff;
+    font-size: 18px;
+    outline: none;
+    transition: 0.3s;
+    border: 1px solid transparent;
+    color: #000;
+    margin-bottom: 20px;
+}

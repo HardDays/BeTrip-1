@@ -39,7 +39,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li class="for-drop-down">
+                            <!-- <li class="for-drop-down">
                                 <img src="../assets/img/man.svg" class="img-responsive" alt="">
                                 <ul class="sub-menu">
                                     <li class="menu-item">
@@ -48,7 +48,7 @@
                                         <a *ngIf="isLogined" (click)="Logout()" >Sign Out</a>
                                     </li>
                                 </ul>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                 </div>
@@ -125,10 +125,18 @@
 						<p class="copyrightMob">&copy; BeTrip</p>
                         <div class="creditsMob">
 
-                            <a href="#">Coming soon</a>
+                            <a href="#">Coming soon with new design</a>
                         </div>
-				</div>
+                </div>
+                <div class="col-lg-6 col-lg-offset-3">
+                    <form novalidate="true" (ngSubmit)="SubscribeEmail(submitFormSubscribe)" #submitFormSubscribe="ngForm">
+                        <p style="color:#fff">Left your email, please. We will contact you</p>
+                        <input type="text" name="email" class="email" placeholder="email" [ngModel]="" email required>
+                        <p *ngIf="sendedEmail" style="color: #fff">You email has been sent!</p>
+                        <button type="submit" class="send" name="subscribe">Send</button> 
+                    </form>
+                </div>
 			</div>		
 		</div>
 	</div>
-</div>
+</div> 

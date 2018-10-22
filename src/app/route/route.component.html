@@ -63,7 +63,7 @@
         <div class="padd-descript">
             <p class="name">{{selectedRoute.name}}</p>
             <div class="button-wr">
-                <div class="one" (click)="likeRoute(selectedRoute)">
+                <div class="one" (click)="onRouteLike(selectedRoute)">
                     <div class="bg" [ngClass]="{'active': selectedRoute.is_liked}">
                         <img src="../assets/img/like.png" class="img-responsive" alt="" >
                         <span>{{selectedRoute.likes_count}}{{isILikeIt?'+':''}}</span>

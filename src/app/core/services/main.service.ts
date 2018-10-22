@@ -59,6 +59,12 @@ export class MainService {
     };
     return this.http.PostData('/subscribe', JSON.stringify(params));
   }
+  sendEmailTwo(email: string) {
+    let params = {
+      email: email,
+    };
+    return this.http.PostData('/subscribe', JSON.stringify(params));
+  }
 
   register(email: string, password: string) {
     let params = {
