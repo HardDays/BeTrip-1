@@ -3,6 +3,12 @@
       <div class="col-twelve">
           <h1 class="h01">Get started now. Try Alpha version of BeTrip.</h1>
           <p class="lead">Download the app now. Available on the:</p>
+          <form novalidate="true" (ngSubmit)="SubscribeEmail(submitFormSubscribe)" #submitFormSubscribe="ngForm">
+            <p style="color:#fff">Left your email, please. We will contact you</p>
+            <input type="text" name="email" class="email" placeholder="email" [ngModel]="" email required>
+            <p *ngIf="sendedEmail" style="color: #fff">You email has been sent!</p>
+            <button type="submit" class="send" name="subscribe">Send</button> 
+        </form>
           <ul class="stores">
               <li class="play-store">
                   <a href="https://play.google.com/store/apps/details?id=io.betrip.android" class="button round large" title=""> <i class="icon ion-social-android"></i>Play Store</a>

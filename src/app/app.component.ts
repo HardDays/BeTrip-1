@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MainService} from './core/services/main.service';
 import {NgForm} from '@angular/forms';
 import { Router } from "@angular/router";
@@ -25,9 +25,20 @@ export class AppComponent{
   isBuildPage:boolean = true;
   isLoginErr = false;
   isLogined = false;
-
+  sendedEmail = false;
   Load:boolean = true;
+  @ViewChild('submitFormSubscribe') form: NgForm
+  SubscribeEmail(form){
+    console.log(form);
 
+    this.service.sendEmail(form.control.controls.email.value).subscribe(
+      (res)=>{
+        this.sendedEmail = true;
+        
+      }
+    );
+
+  }
   public LoginParams = {
     email:'',
     password: ''
